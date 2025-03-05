@@ -1,0 +1,32 @@
+- [ ] Scaling With Player Progression
+  - [ ] Health
+  - [ ] Damage
+  - [ ] Abilities
+- [ ] Difficulty Based on Mobs’ Levels
+  - [ ] Tied to range
+- [ ] Adjustable Mob Stats
+  - [ ] Health
+  - [ ] Damage
+  - [ ] Abilities
+  - [ ] AI
+- [ ] Conditional Difficulty Scaling for Areas or Dimensions
+  - [ ] Environmental Factors
+    - [ ] Time of Day
+    - [ ] Biome
+    - [ ] Weather
+  - [ ] Player Choices
+- [ ] Clear Difficulty Indicators
+- [ ] Visible/Audio Feedback
+- [ ] Increased Rewards for Higher Difficulty
+  - [ ] Rarer loot
+  - [ ] More EXP
+  - [ ] New items
+- [ ] Nameplates
+  - [ ]
+- [ ] Commands
+- [ ] Config
+  - [ ] Custom rules
+    - [ ] Conditions
+    - [ ] Strategies
+    - [ ] Modifiers
+    - [ ] Settings

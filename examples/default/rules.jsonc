@@ -1,0 +1,29 @@
+{
+    "presets": {
+        "preset-name": {
+            "description": "",
+            "conditions": [],
+            "strategies": [],
+            "modifiers": [],
+            "settings": [],
+        },
+    },
+    "default-rule": {
+        "use-preset": ["preset-name", "other-preset-name"],
+        "conditions": [],
+        "strategies": [],
+        "modifiers": [],
+        "settings": [],
+    },
+    "custom-rules": {
+        "my-custom-rule": {
+            "description": "",
+            "enabled": true,
+            "use-preset": ["preset-name", "other-preset-name"],
+            "conditions": [],
+            "strategies": [],
+            "modifiers": [],
+            "settings": [],
+        },
+    },
+}
