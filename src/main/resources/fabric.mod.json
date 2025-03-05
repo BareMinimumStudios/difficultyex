@@ -1,0 +1,62 @@
+{
+	"schemaVersion": 1,
+	"id": "difficultyex",
+	"version": "${version}",
+	"name": "DifficultyEX",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		{
+			"name": "Naomi Roberts",
+			"contact": {
+				"email": "mia@naomieow.xyz",
+				"homepage": "https://lesbian.skin/"
+			}
+		}
+	],
+	"contact": {
+		"homepage": "https://github.com/BareMinimumStudios/difficultyex",
+		"sources": "https://github.com/BareMinimumStudios/difficultyex",
+		"issues": "https://github.com/BareMinimumStudios/difficultyex/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/difficultyex/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "xyz.naomieow.difficultyex.DifficultyEX",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "xyz.naomieow.difficultyex.DifficultyEXClient",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"difficultyex.mixins.json",
+		{
+			"config": "difficultyex.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/pcRw79hwey",
+				"modmenu.wiki": "https://bareminimumstudios.github.io/Bare-Minimum-Docs/",
+				"modmenu.kofi": "https://ko-fi.com/naomieow",
+				"modmenu.modrinth": "https://modrinth.com/mod/difficultyex"
+			}
+		}
+	}
+}
