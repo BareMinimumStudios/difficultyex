@@ -21,6 +21,9 @@ repositories {
 	maven("https://maven.quiltmc.org/repository/release/") {
 		name = "Quilt"
 	}
+	maven("https://maven.wispforest.io/releases/") {
+		name = "WispForest"
+	}
 }
 
 loom {
@@ -46,6 +49,9 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${properties["loader_version"]}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${properties["fabric_version"]}")
 	modImplementation("net.fabricmc:fabric-language-kotlin:${properties["fabric_kotlin_version"]}")
+
+	annotationProcessor("io.wispforest:owo-lib:${properties["owo_version"]}")?.let(::modImplementation)
+	include("io.wispforest:owo-sentinel:${properties["owo_version"]}")
 }
 tasks {
 	processResources {

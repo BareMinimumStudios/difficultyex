@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 object DifficultyEX : ModInitializer {
 	const val MOD_ID: String = "difficultyex"
 	val logger: Logger = LoggerFactory.getLogger(MOD_ID)
+	const val CONFIG: DifficultyEXConfig = DifficultyEXConfig.createAndLoad()
 
 	override fun onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
