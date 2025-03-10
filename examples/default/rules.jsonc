@@ -5,15 +5,15 @@
             "conditions": [],
             "strategies": [],
             "modifiers": [],
-            "settings": [],
-        },
+            "settings": []
+        }
     },
     "default-rule": {
         "use-preset": ["preset-name", "other-preset-name"],
         "conditions": [],
         "strategies": [],
         "modifiers": [],
-        "settings": [],
+        "settings": []
     },
     "custom-rules": {
         "my-custom-rule": {
@@ -23,7 +23,7 @@
             "conditions": [],
             "strategies": [],
             "modifiers": [],
-            "settings": [],
-        },
-    },
+            "settings": []
+        }
+    }
 }

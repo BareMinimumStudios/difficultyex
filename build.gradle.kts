@@ -5,6 +5,7 @@ plugins {
 	id("fabric-loom") version "1.10-SNAPSHOT"
 	id("maven-publish")
 	id("org.jetbrains.kotlin.jvm") version "2.1.10"
+	id("com.google.devtools.ksp") version "2.1.10-1.0.31"
 }
 
 version = "${properties["mod_version"]}"
@@ -23,6 +24,12 @@ repositories {
 	}
 	maven("https://maven.wispforest.io/releases/") {
 		name = "WispForest"
+	}
+	maven("https://maven.kosmx.dev/") {
+		name = "KosmX"
+	}
+	maven("https://api.modrinth.com/maven") {
+		name = "Modrinth"
 	}
 }
 
@@ -52,6 +59,12 @@ dependencies {
 
 	annotationProcessor("io.wispforest:owo-lib:${properties["owo_version"]}")?.let(::modImplementation)
 	include("io.wispforest:owo-sentinel:${properties["owo_version"]}")
+
+	implementation("com.google.devtools.ksp:symbol-processing-api:${properties["ksp_version"]}")
+	implementation("com.squareup:kotlinpoet-ksp:${properties["kotlinpoet_version"]}")
+	ksp("dev.kosmx.kowoconfig:ksp-owo-config:${properties["ksp_owo_config_version"]}")
+
+	modImplementation("maven.modrinth:data-attributes-directors-cut:${properties["data_attributes_version"]}")
 }
 tasks {
 	processResources {
