@@ -18,7 +18,7 @@ object DifficultyEX : ModInitializer {
 		logger.info("Hello Fabric world!")
 	}
 
-	fun id(id: String): ResourceLocation? {
-		return ResourceLocation.tryBuild(MOD_ID, id);
-	}
+	fun id(id: String): ResourceLocation =
+		ResourceLocation.tryBuild(MOD_ID, id)!!
+
 }

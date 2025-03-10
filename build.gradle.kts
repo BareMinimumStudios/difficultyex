@@ -31,6 +31,9 @@ repositories {
 	maven("https://api.modrinth.com/maven") {
 		name = "Modrinth"
 	}
+	maven("https://maven.ladysnake.org/releases") {
+		name = "Ladysnake"
+	}
 }
 
 loom {
@@ -65,6 +68,14 @@ dependencies {
 	ksp("dev.kosmx.kowoconfig:ksp-owo-config:${properties["ksp_owo_config_version"]}")
 
 	modImplementation("maven.modrinth:data-attributes-directors-cut:${properties["data_attributes_version"]}")
+
+	modImplementation("io.wispforest:endec:${properties["endec_version"]}")?.let(::include)
+	modImplementation("io.wispforest.endec:gson:${properties["endec_gson_version"]}")?.let(::include)
+	modImplementation("io.wispforest.endec:netty:${properties["endec_netty_version"]}")?.let(::include)
+
+	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${properties["cca_version"]}")?.let(::include)
+	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${properties["cca_version"]}")?.let(::include)
+
 }
 tasks {
 	processResources {

@@ -33,6 +33,12 @@
 				"value": "xyz.naomieow.difficultyex.DifficultyEXClient",
 				"adapter": "kotlin"
 			}
+		],
+		"cardinal-components": [
+			{
+				"value": "xyz.naomieow.difficultyex.component.DifficultyEXComponents",
+				"adapter": "kotlin"
+			}
 		]
 	},
 	"mixins": [
@@ -50,6 +56,9 @@
 		"fabric-language-kotlin": "*"
 	},
 	"custom": {
+		"cardinal-components": [
+			"difficultyex:entity_data"
+		],
 		"modmenu": {
 			"links": {
 				"modmenu.discord": "https://discord.gg/pcRw79hwey",
