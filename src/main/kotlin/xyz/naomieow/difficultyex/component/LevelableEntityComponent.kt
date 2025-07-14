@@ -8,9 +8,7 @@ import io.wispforest.endec.impl.StructEndecBuilder
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
 
-class LevellableEntityComponent(
-    private var _level: Int = 0
-) : ILevellableEntityComponent, AutoSyncedComponent {
+class LevelableEntityComponent(private var _level: Int = 0) : ILevelableEntityComponent, AutoSyncedComponent {
     override val level: Int
         get() = this._level
 

@@ -10,12 +10,12 @@ import xyz.naomieow.difficultyex.DifficultyEX
 class DifficultyEXComponents: EntityComponentInitializer {
     companion object {
         @JvmField
-        val ENTITY_DATA: ComponentKey<ILevellableEntityComponent> =
-            ComponentRegistry.getOrCreate(DifficultyEX.id("entity_data"), ILevellableEntityComponent::class.java)
+        val ENTITY_DATA: ComponentKey<ILevelableEntityComponent> =
+            ComponentRegistry.getOrCreate(DifficultyEX.id("entity_data"), ILevelableEntityComponent::class.java)
     }
 
     override fun registerEntityComponentFactories(registry: EntityComponentFactoryRegistry) {
-        registry.registerFor(LivingEntity::class.java, ENTITY_DATA) { e -> LevellableEntityComponent() }
+        registry.registerFor(LivingEntity::class.java, ENTITY_DATA) { e -> LevelableEntityComponent() }
     }
 
 }
