@@ -5,6 +5,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import xyz.naomieow.difficultyex.DifficultyEX
 
 class DifficultyEXComponents: EntityComponentInitializer {
@@ -15,7 +16,7 @@ class DifficultyEXComponents: EntityComponentInitializer {
     }
 
     override fun registerEntityComponentFactories(registry: EntityComponentFactoryRegistry) {
-        registry.registerFor(LivingEntity::class.java, ENTITY_DATA) { e -> LevelableEntityComponent() }
+        registry.registerFor(Mob::class.java, ENTITY_DATA) { LevelableEntityComponent(it) }
     }
 
 }

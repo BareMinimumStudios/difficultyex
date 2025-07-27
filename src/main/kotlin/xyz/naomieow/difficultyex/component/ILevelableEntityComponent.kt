@@ -4,4 +4,6 @@ import dev.onyxstudios.cca.api.v3.component.Component
 
 interface ILevelableEntityComponent: Component {
     val level: Int
+
+    fun set(value: Int)
 }

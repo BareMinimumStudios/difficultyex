@@ -17,32 +17,36 @@ class DifficultyEXConfigModel {
     // dimension -> biome -> structure -> entity
     // for starting levels we just choose the highest out of the 4 to be honest.
 
+    @JvmField
     @Comment("Settings for all dimensions and their scaling.")
     @Nest @Expanded var dimensionSettings: DimensionScalingSettings = DimensionScalingSettings()
+
     data class DimensionScalingSettings(
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The starting mob level for any given dimension in this map.")
-        val startingLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var startingLevels: Map<ResourceLocation, Int> = emptyMap(),
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The maximum mob level for any given dimension in this map.")
-        val maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
     )
 
+    @JvmField
     @Comment("Settings for all biomes and their scaling.")
     @Nest @Expanded var biomeScalingSettings: BiomeScalingSettings = BiomeScalingSettings()
+
     data class BiomeScalingSettings(
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The starting mob level for any given biome in this map.")
-        val startingLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var startingLevels: Map<ResourceLocation, Int> = emptyMap(),
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The maximum mob level for any given biome in this map.")
-        val maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
 
         // // STRETCH GOAL :: STRUCTURES
         //
@@ -52,23 +56,25 @@ class DifficultyEXConfigModel {
         // var structures: Map<ResourceLocation, EntityScalerConfig> = emptyMap(),
     )
 
+    @JvmField
     @Comment("Settings for all structures and their scaling.")
     @Nest @Expanded var structureScalingSettings: StructureScalingSettings = StructureScalingSettings()
+
     data class StructureScalingSettings(
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The global setting for all structures to have a given radius which affects the spawned mobs within that dimension area.")
-        val radius: Int = 50,
+        var radius: Int = 50,
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The starting mob level for any given structure in this map.")
-        val startingLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var startingLevels: Map<ResourceLocation, Int> = emptyMap(),
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The maximum mob level for any given structure in this map.")
-        val maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
+        var maximumLevels: Map<ResourceLocation, Int> = emptyMap(),
 
         // // STRETCH GOAL :: BIOMES
         //
@@ -78,8 +84,10 @@ class DifficultyEXConfigModel {
         // var biomes: Map<ResourceLocation, EntityScalerConfig> = emptyMap(),
     )
 
+    @JvmField
     @Comment("Settings for all entities and their scaling.")
     @Nest @Expanded var scalingLevelSettings: EntityScalingSettings = EntityScalingSettings()
+
     data class EntityScalingSettings(
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
@@ -122,10 +130,14 @@ class DifficultyEXConfigModel {
         var entityMaximumLevels: Map<ResourceLocation, Int> = emptyMap(),
     )
 
+
     @SectionHeader("client_settings")
 
+
+    @JvmField
     @Comment("Visual settings for the client.")
     @Nest @Expanded var visualSettings: VisualSettings = VisualSettings()
+
     data class VisualSettings(
         @JvmField
         @Comment("Whether to enable mob nameplates.")

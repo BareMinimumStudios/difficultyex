@@ -7,14 +7,21 @@ import io.wispforest.endec.Endec
 import io.wispforest.endec.impl.StructEndecBuilder
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.world.entity.Mob
+import xyz.naomieow.difficultyex.event.EntityLevelingEvents
 
-class LevelableEntityComponent(private var _level: Int = 0) : ILevelableEntityComponent, AutoSyncedComponent {
+class LevelableEntityComponent(private var entity: Mob, private var _level: Int = 0) : ILevelableEntityComponent, AutoSyncedComponent {
     override val level: Int
         get() = this._level
 
+    override fun set(value: Int) {
+        this._level = value
+        EntityLevelingEvents.CHANGED.invoker().onEntityLevelChanged(entity, _level)
+    }
+
     override fun readFromNbt(tag: CompoundTag) {
         ENDEC.decodeFully(NbtDeserializer::of, tag.get("DATA")).also {
-            this._level = it.level
+            this.set(it.level)
         }
     }
 
