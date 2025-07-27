@@ -70,7 +70,7 @@ object DifficultyEX : ModInitializer {
 
 			// implement expression and stuff
 			val expression = ExpressionBuilder(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula).variable(SCALING_VARIABLE).build()
-			val playerComputedAverage = players.map { expression.setVariable("x", it.level).evaluate() }.average().toInt()
+			val playerComputedAverage = players.map { expression.setVariable(SCALING_VARIABLE, it.level).evaluate() }.average().toInt()
 
 			level += kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
 
