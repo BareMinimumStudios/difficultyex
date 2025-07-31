@@ -3,7 +3,8 @@
 	"package": "xyz.naomieow.difficultyex.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"LivingEntityMixin",
+		"MobMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

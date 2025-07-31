@@ -12,7 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.monster.Monster
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.level.levelgen.structure.Structure
 import net.minecraft.world.phys.AABB
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -40,16 +40,16 @@ object DifficultyEX : ModInitializer {
 		}
 
 		ServerEntityEvents.ENTITY_LOAD.register { entity, world ->
-			if (entity !is Monster) return@register
+			if (entity !is Mob) return@register
 
-			var level = CONFIG.scalingLevelSettings.startingLevel
+			var level: Int
 
 			val dimensionSettings = CONFIG.dimensionSettings
 			val biomeSettings = CONFIG.biomeScalingSettings
 			val structureSettings = CONFIG.structureScalingSettings
 			val scalingLevelSettings = CONFIG.scalingLevelSettings
 
-			val levelAverageAdjustment = (-scalingLevelSettings.levelAverageDecrement..scalingLevelSettings.levelAverageIncrement).random()
+			val levelAverageAdjustment = (-kotlin.math.abs(scalingLevelSettings.levelAverageDecrement)..kotlin.math.abs(scalingLevelSettings.levelAverageIncrement)).random()
 
 
 			// interesting way to get the structure result...
@@ -61,7 +61,6 @@ object DifficultyEX : ModInitializer {
 				world.level, structureHolders, entity.blockPosition(), structureSettings.radius, false
 			)
 
-
 			// first, let us start the calculation average.
 			val players = PlayerLookup.world(world).filter {
 				val distance = AABB(entity.blockPosition()).inflate(CONFIG.scalingLevelSettings.levelScalingMaxRadiusByBlocks.toDouble())
@@ -72,7 +71,7 @@ object DifficultyEX : ModInitializer {
 			val expression = ExpressionBuilder(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula).variable(SCALING_VARIABLE).build()
 			val playerComputedAverage = players.map { expression.setVariable(SCALING_VARIABLE, it.level).evaluate() }.average().toInt()
 
-			level += kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
+			level = kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
 
 			// clamp down the level based on dimension
 			val dimensionKey = world.dimension().location()
@@ -117,7 +116,7 @@ object DifficultyEX : ModInitializer {
 			// clamp down the level based on max level scaling
 			level = kotlin.math.max(kotlin.math.min(level, scalingLevelSettings.maximumLevel), CONFIG.scalingLevelSettings.startingLevel)
 
-			entity.difficultyExLevel = kotlin.math.max(0, level)
+			entity.difficultyExLevel = kotlin.math.max(1, level)
 
 			EntityLevelingEvents.SPAWNED.invoker().onEntitySpawned(entity, level)
 		}
