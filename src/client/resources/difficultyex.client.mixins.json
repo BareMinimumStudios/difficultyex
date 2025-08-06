@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "xyz.naomieow.difficultyex.mixin.client",
 	"compatibilityLevel": "JAVA_17",
-	"client": [],
+	"client": [
+		"EntityRendererDispatcherMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

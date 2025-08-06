@@ -26,6 +26,8 @@ import xyz.naomieow.difficultyex.ext.difficultyExLevel
 object DifficultyEX : ModInitializer {
 	const val MOD_ID: String = "difficultyex"
 	val logger: Logger = LoggerFactory.getLogger(MOD_ID)
+
+	@JvmField
 	val CONFIG: DifficultyEXConfig = DifficultyEXConfig.createAndLoad()
 
 	@JvmField
@@ -105,12 +107,19 @@ object DifficultyEX : ModInitializer {
 			}
 
 			// finally, entities
+
 			val entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entity.type)
-			scalingLevelSettings.entityMaximumLevels[entityKey]?.let {
-				level = kotlin.math.min(level, it)
+
+			for ((key, entry) in scalingLevelSettings.entityMaximumLevels) {
+				if (key.toRegex(RegexOption.IGNORE_CASE).matches(entityKey.toString())) {
+					level = kotlin.math.min(level, entry)
+				}
 			}
-			scalingLevelSettings.entityStartingLevels[entityKey]?.let {
-				level = kotlin.math.max(level, it)
+
+			for ((key, entry) in scalingLevelSettings.entityStartingLevels) {
+				if (key.toRegex(RegexOption.IGNORE_CASE).matches(entityKey.toString())) {
+					level = kotlin.math.max(level, entry)
+				}
 			}
 
 			// clamp down the level based on max level scaling

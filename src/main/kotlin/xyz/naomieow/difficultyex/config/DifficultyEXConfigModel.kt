@@ -121,13 +121,13 @@ class DifficultyEXConfigModel {
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
-        @Comment("The starting levels for any given entities.")
-        var entityStartingLevels: Map<ResourceLocation, Int> = emptyMap(),
+        @Comment("The starting levels for any given entities. Regex or identifiers (e.g, minecraft:skeleton) are supported.")
+        var entityStartingLevels: Map<String, Int> = emptyMap(),
 
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
-        @Comment("The maximum levels for any given entities.")
-        var entityMaximumLevels: Map<ResourceLocation, Int> = emptyMap(),
+        @Comment("The maximum levels for any given entities. Regex or identifiers (e.g, minecraft:skeleton) are supported.")
+        var entityMaximumLevels: Map<String, Int> = emptyMap(),
     )
 
 
@@ -142,6 +142,10 @@ class DifficultyEXConfigModel {
         @JvmField
         @Comment("Whether to enable mob nameplates.")
         var nameplateEnabled: Boolean = true,
+
+        @JvmField
+        @Comment("The offset of the nameplate on the y-axis.")
+        var nameplateOffsetY: Int = 5,
 
         @JvmField
         @Comment("The color of the visible nameplate on mobs.")
