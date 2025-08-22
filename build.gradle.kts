@@ -37,6 +37,9 @@ repositories {
 	maven("https://maven.nucleoid.xyz/") {
 		name = "Nucleoid"
 	}
+	maven("https://redempt.dev") {
+		name = "Redempt"
+	}
 }
 
 loom {
@@ -82,7 +85,7 @@ dependencies {
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${properties["cca_version"]}")?.let(::include)
 
 	modImplementation("eu.pb4:placeholder-api:${properties["placeholder_api_version"]}")?.let(::include)
-	implementation("net.objecthunter:exp4j:${properties["exp4j_version"]}")?.let(::include)
+	implementation("com.github.Redempt:Crunch:2.0.3")
 }
 tasks {
 	processResources {

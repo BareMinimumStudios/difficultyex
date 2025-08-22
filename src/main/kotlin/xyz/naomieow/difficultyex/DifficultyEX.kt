@@ -5,7 +5,6 @@ import com.bibireden.playerex.ext.level
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.minecraft.core.HolderSet
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
@@ -15,11 +14,11 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.level.levelgen.structure.Structure
 import net.minecraft.world.phys.AABB
-import net.objecthunter.exp4j.ExpressionBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import redempt.crunch.Crunch
+import redempt.crunch.functional.EvaluationEnvironment
 import xyz.naomieow.difficultyex.config.DifficultyEXConfig
-import xyz.naomieow.difficultyex.entity.player.PlayerLevelHandler
 import xyz.naomieow.difficultyex.event.EntityLevelingEvents
 import xyz.naomieow.difficultyex.ext.difficultyExLevel
 
@@ -30,17 +29,10 @@ object DifficultyEX : ModInitializer {
 	@JvmField
 	val CONFIG: DifficultyEXConfig = DifficultyEXConfig.createAndLoad()
 
-	@JvmField
-	val PLAYER_LEVEL_HANDLER = PlayerLevelHandler()
-
-	const val SCALING_VARIABLE = "x"
+	private const val SCALING_VARIABLE = "x"
 
 
 	override fun onInitialize() {
-		ServerPlayConnectionEvents.JOIN.register { listener, _, _ ->
-			PLAYER_LEVEL_HANDLER.insert(listener.player)
-		}
-
 		ServerEntityEvents.ENTITY_LOAD.register { entity, world ->
 			if (entity !is Mob) return@register
 
@@ -70,8 +62,10 @@ object DifficultyEX : ModInitializer {
 			}
 
 			// implement expression and stuff
-			val expression = ExpressionBuilder(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula).variable(SCALING_VARIABLE).build()
-			val playerComputedAverage = players.map { expression.setVariable(SCALING_VARIABLE, it.level).evaluate() }.average().toInt()
+			val expression = EvaluationEnvironment()
+			expression.setVariableNames(SCALING_VARIABLE)
+			val expr = Crunch.compileExpression(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula)
+			val playerComputedAverage = players.map { expr.evaluate(it.level) }.average().toInt()
 
 			level = kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
 
@@ -132,8 +126,8 @@ object DifficultyEX : ModInitializer {
 
 		EntityAttributeModifiedEvents.MODIFIED.register { attribute, entity, modifier, value, _ ->
 			if (entity !is ServerPlayer) return@register
-			PLAYER_LEVEL_HANDLER.insert(entity)
 		}
+
 	}
 
 	fun id(id: String): ResourceLocation = ResourceLocation.tryBuild(MOD_ID, id)!!

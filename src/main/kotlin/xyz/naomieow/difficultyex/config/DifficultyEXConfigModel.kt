@@ -13,6 +13,11 @@ import xyz.naomieow.difficultyex.DifficultyEX
 class DifficultyEXConfigModel {
     @SectionHeader("global_settings")
 
+    @JvmField
+    @Comment("Set your own personal difficulty")
+    @Sync(SyncMode.INFORM_SERVER)
+    var difficulty: Difficulty = Difficulty.Medium
+
     // todo: in order to implement the maximum levels we can clamp down the value multiple times through
     // dimension -> biome -> structure -> entity
     // for starting levels we just choose the highest out of the 4 to be honest.
@@ -128,6 +133,26 @@ class DifficultyEXConfigModel {
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The maximum levels for any given entities. Regex or identifiers (e.g, minecraft:skeleton) are supported.")
         var entityMaximumLevels: Map<String, Int> = emptyMap(),
+
+        @JvmField
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @Comment("The percentage increase of experience per mob level. Default is 10%.")
+        var entityExperiencePercentage: Double = 0.1,
+
+        @JvmField
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @Comment("The percentage increase of damage per mob level. Default is 10%.")
+        var entityBaseDamagePercentage: Double = 0.1,
+
+        @JvmField
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @Comment("The percentage increase of armor per mob level. Default is 8%.")
+        var entityBaseArmorPercentage: Double = 0.08,
+
+        @JvmField
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @Comment("The percentage increase of health per mob level. Default is 5%.")
+        var entityBaseHealthPercentage: Double = 0.05,
     )
 
 
@@ -155,6 +180,13 @@ class DifficultyEXConfigModel {
         @Comment("What mob entities to blacklist from having a nameplate.")
         var nameplateMobBlacklist: List<ResourceLocation> = emptyList(),
     )
+
+    enum class Difficulty {
+        Low,
+        Medium,
+        High,
+        Expert
+    }
 }
 
 // STRETCH GOAL :: CLIENT SYNCHRONIZATION
