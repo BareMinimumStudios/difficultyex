@@ -40,6 +40,9 @@ repositories {
 	maven("https://redempt.dev") {
 		name = "Redempt"
 	}
+	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/") {
+		name = "Geckolib3"
+	}
 }
 
 loom {
@@ -84,8 +87,13 @@ dependencies {
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${properties["cca_version"]}")?.let(::include)
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${properties["cca_version"]}")?.let(::include)
 
+	modImplementation("software.bernie.geckolib:geckolib-fabric-${properties["geckolib_version"]}")
 	modImplementation("eu.pb4:placeholder-api:${properties["placeholder_api_version"]}")?.let(::include)
 	implementation("com.github.Redempt:Crunch:2.0.3")
+
+	modCompileOnly("maven.modrinth:travelers-titles:1.19.4-Fabric-3.3.0") {
+		exclude("net.fabricmc.fabric-api")
+	}
 }
 tasks {
 	processResources {

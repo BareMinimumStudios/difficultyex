@@ -1,11 +1,18 @@
 {
-	"required": true,
-	"package": "xyz.naomieow.difficultyex.mixin.client",
-	"compatibilityLevel": "JAVA_17",
-	"client": [
-		"EntityRendererDispatcherMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+    "required": true,
+    "package": "xyz.naomieow.difficultyex.mixin.client",
+    "compatibilityLevel": "JAVA_17",
+    "client": [
+        "DrawContextAccessor",
+        "GeoEntityRendererMixin",
+        "GeoReplacedEntityRendererMixin",
+        "MobEntityRendererMixin",
+        "TitleRenderManagerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "mixins": [
+        "MobMixin"
+    ]
 }

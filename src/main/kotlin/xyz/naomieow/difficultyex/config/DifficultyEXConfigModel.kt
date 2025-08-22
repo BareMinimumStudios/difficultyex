@@ -165,18 +165,32 @@ class DifficultyEXConfigModel {
 
     data class VisualSettings(
         @JvmField
+        @Sync(SyncMode.NONE)
         @Comment("Whether to enable mob nameplates.")
         var nameplateEnabled: Boolean = true,
 
         @JvmField
+        @Sync(SyncMode.NONE)
         @Comment("The offset of the nameplate on the y-axis.")
         var nameplateOffsetY: Int = 5,
 
         @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("The scale of the nameplate.")
+        var nameplateOffsetScale: Float = 1.0F,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
         @Comment("The color of the visible nameplate on mobs.")
         var nameplateColor: Color = Color.RED,
 
         @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("The background color of the visible nameplate on mobs.")
+        var nameplateBackgroundColor: Color = Color.BLACK,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
         @Comment("What mob entities to blacklist from having a nameplate.")
         var nameplateMobBlacklist: List<ResourceLocation> = emptyList(),
     )

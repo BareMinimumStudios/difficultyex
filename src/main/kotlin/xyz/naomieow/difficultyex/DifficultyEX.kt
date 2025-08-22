@@ -21,6 +21,7 @@ import redempt.crunch.functional.EvaluationEnvironment
 import xyz.naomieow.difficultyex.config.DifficultyEXConfig
 import xyz.naomieow.difficultyex.event.EntityLevelingEvents
 import xyz.naomieow.difficultyex.ext.difficultyExLevel
+import xyz.naomieow.difficultyex.network.NameplateServerPacket
 
 object DifficultyEX : ModInitializer {
 	const val MOD_ID: String = "difficultyex"
@@ -33,6 +34,8 @@ object DifficultyEX : ModInitializer {
 
 
 	override fun onInitialize() {
+		NameplateServerPacket.init()
+
 		ServerEntityEvents.ENTITY_LOAD.register { entity, world ->
 			if (entity !is Mob) return@register
 
