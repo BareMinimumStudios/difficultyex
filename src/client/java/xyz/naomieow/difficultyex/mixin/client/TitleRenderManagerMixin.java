@@ -23,11 +23,6 @@ import xyz.naomieow.difficultyex.network.NameplateClientPacket;
 @Mixin(TitleRenderManager.class)
 public class TitleRenderManagerMixin {
 
-    @Shadow
-    @Mutable
-    @Final
-    public TitleRenderer<Biome> biomeTitleRenderer;
-
     @Inject(method = "updateBiomeTitle", at = @At(value = "INVOKE", target = "Lcom/yungnickyoung/minecraft/travelerstitles/render/TitleRenderer;addRecentEntry(Ljava/lang/Object;)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void updateBiomeTitleMixin(Level world, BlockPos playerPos, Player player, boolean isPlayerUnderground, CallbackInfo ci) {
 //        if (NameplateMain.CONFIG.levelTitle) {

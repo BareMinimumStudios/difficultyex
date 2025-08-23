@@ -7,12 +7,10 @@
         "GeoEntityRendererMixin",
         "GeoReplacedEntityRendererMixin",
         "MobEntityRendererMixin",
-        "TitleRenderManagerMixin"
+        "TitleRenderManagerMixin",
+        "MobMixin"
     ],
     "injectors": {
         "defaultRequire": 1
-    },
-    "mixins": [
-        "MobMixin"
-    ]
+    }
 }

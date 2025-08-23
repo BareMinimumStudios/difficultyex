@@ -91,6 +91,8 @@ dependencies {
 	modImplementation("eu.pb4:placeholder-api:${properties["placeholder_api_version"]}")?.let(::include)
 	implementation("com.github.Redempt:Crunch:2.0.3")
 
+	implementation("net.objecthunter:exp4j:${properties["exp4j_version"]}")?.let(::include)
+
 	modCompileOnly("maven.modrinth:travelers-titles:1.19.4-Fabric-3.3.0") {
 		exclude("net.fabricmc.fabric-api")
 	}

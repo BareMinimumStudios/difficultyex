@@ -30,7 +30,7 @@ public abstract class GeoEntityRendererMixin<T extends LivingEntity> extends Ent
     @Inject(method = "render", at = @At("HEAD"), remap = false)
     private void render(Entity entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
         if (entity instanceof Mob) {
-            NameplateRender.renderNameplate(this, (Mob) entity, poseStack, bufferSource, entityRenderDispatcher, this.getFont(), isBodyVisible((T) entity), packedLight);
+            NameplateRender.renderNameplate(this, (Mob) entity, poseStack, bufferSource, entityRenderDispatcher, this.getFont(), entity.shouldShowName(), packedLight);
         }
     }
 
@@ -47,10 +47,5 @@ public abstract class GeoEntityRendererMixin<T extends LivingEntity> extends Ent
         if (animatable instanceof Mob) {
             cir.setReturnValue(false);
         }
-    }
-
-    @Shadow(remap = false)
-    protected boolean isBodyVisible(T livingEntityIn) {
-        return false;
     }
 }

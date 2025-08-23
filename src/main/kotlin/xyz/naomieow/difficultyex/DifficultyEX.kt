@@ -3,6 +3,7 @@ package xyz.naomieow.difficultyex
 import com.bibireden.data_attributes.api.event.EntityAttributeModifiedEvents
 import com.bibireden.playerex.ext.level
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup
 import net.minecraft.core.HolderSet
@@ -12,6 +13,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.level.levelgen.structure.Structure
 import net.minecraft.world.phys.AABB
 import org.slf4j.Logger
@@ -36,6 +38,7 @@ object DifficultyEX : ModInitializer {
 	override fun onInitialize() {
 		NameplateServerPacket.init()
 
+		ServerEntityEvents
 		ServerEntityEvents.ENTITY_LOAD.register { entity, world ->
 			if (entity !is Mob) return@register
 
@@ -67,7 +70,7 @@ object DifficultyEX : ModInitializer {
 			// implement expression and stuff
 			val expression = EvaluationEnvironment()
 			expression.setVariableNames(SCALING_VARIABLE)
-			val expr = Crunch.compileExpression(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula)
+			val expr = Crunch.compileExpression(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula, expression)
 			val playerComputedAverage = players.map { expr.evaluate(it.level) }.average().toInt()
 
 			level = kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
@@ -123,14 +126,9 @@ object DifficultyEX : ModInitializer {
 			level = kotlin.math.max(kotlin.math.min(level, scalingLevelSettings.maximumLevel), CONFIG.scalingLevelSettings.startingLevel)
 
 			entity.difficultyExLevel = kotlin.math.max(1, level)
-
+			entity.health = entity.maxHealth
 			EntityLevelingEvents.SPAWNED.invoker().onEntitySpawned(entity, level)
 		}
-
-		EntityAttributeModifiedEvents.MODIFIED.register { attribute, entity, modifier, value, _ ->
-			if (entity !is ServerPlayer) return@register
-		}
-
 	}
 
 	fun id(id: String): ResourceLocation = ResourceLocation.tryBuild(MOD_ID, id)!!

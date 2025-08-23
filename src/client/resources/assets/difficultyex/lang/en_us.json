@@ -1,0 +1,6 @@
+{
+    "text.nameplate.health": "HP: %d/%d",
+    "text.nameplate.level": "§eLv.%s",
+    "text.nameplate.name": "§r%s",
+    "text.nameplate.jade.level": " §eLv.%s"
+}

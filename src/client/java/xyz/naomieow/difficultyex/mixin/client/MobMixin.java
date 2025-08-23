@@ -18,21 +18,12 @@ public class MobMixin implements MobAccess {
     private boolean showMobLabel = true;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void onInit(EntityType entityType, Level level, CallbackInfo ci) {
+    private void onInit(EntityType<?> entityType, Level level, CallbackInfo ci) {
         var mob = (Mob) (Object) this;
+        // todo: regex this i think
         if (DifficultyEX.CONFIG.getVisualSettings().getNameplateMobBlacklist().contains(mob.getType().toString().replace("entity.", "").replace(".", ":"))) {
-            this.showMobLabel = false;
+            this.setShowMobLabel(false);
         }
-    }
-
-    @Override
-    public int getMobLevel() {
-        return DifficultyEXComponents.ENTITY_DATA.get(this).getLevel();
-    }
-
-    @Override
-    public void setMobLevel(int i) {
-        DifficultyEXComponents.ENTITY_DATA.get(this).set(i);
     }
 
     @Override

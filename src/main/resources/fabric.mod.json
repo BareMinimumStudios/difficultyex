@@ -57,7 +57,8 @@
 	},
 	"custom": {
 		"cardinal-components": [
-			"difficultyex:entity_data"
+			"difficultyex:entity_data",
+			"difficultyex:player-data"
 		],
 		"modmenu": {
 			"links": {

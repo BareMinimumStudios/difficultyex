@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface DrawContextAccessor {
 
     @Invoker("<init>")
-    static GuiGraphics getGuiGraphics(Minecraft client, PoseStack matrices, MultiBufferSource vertexConsumers) {
+    static GuiGraphics getGuiGraphics(Minecraft minecraft, PoseStack pose, MultiBufferSource.BufferSource bufferSource) {
         throw new AssertionError();
     }
 

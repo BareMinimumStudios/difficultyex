@@ -37,7 +37,7 @@ public abstract class GeoReplacedEntityRendererMixin extends EntityRenderer {
 
     @Inject(method = "actuallyRender", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/entity/Mob;getLeashHolder()Lnet/minecraft/world/entity/Entity;"))
     private void render(PoseStack poseStack, GeoAnimatable animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, CallbackInfo ci) {
-        NameplateRender.renderNameplate(this, (Mob) currentEntity, poseStack, bufferSource, entityRenderDispatcher, this.getFont(), isBodyVisible((Mob) currentEntity), packedLight);
+        NameplateRender.renderNameplate(this, (Mob) currentEntity, poseStack, bufferSource, entityRenderDispatcher, this.getFont(), currentEntity.shouldShowName(), packedLight);
     }
 
     @Inject(method = "shouldShowName", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
@@ -45,10 +45,5 @@ public abstract class GeoReplacedEntityRendererMixin extends EntityRenderer {
         if (entity instanceof Mob) {
             info.setReturnValue(false);
         }
-    }
-
-    @Shadow(remap = false)
-    protected boolean isBodyVisible(LivingEntity livingEntityIn) {
-        return false;
     }
 }
