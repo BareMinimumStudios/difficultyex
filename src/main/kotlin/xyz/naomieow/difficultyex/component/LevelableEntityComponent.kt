@@ -17,6 +17,7 @@ class LevelableEntityComponent(private var entity: Mob, private var _level: Int 
     override fun set(value: Int) {
         this._level = value
         EntityLevelingEvents.CHANGED.invoker().onEntityLevelChanged(entity, _level)
+        DifficultyEXComponents.ENTITY_DATA.sync(entity)
     }
 
     override fun readFromNbt(tag: CompoundTag) {
