@@ -96,6 +96,10 @@ dependencies {
 	modCompileOnly("maven.modrinth:travelers-titles:1.19.4-Fabric-3.3.0") {
 		exclude("net.fabricmc.fabric-api")
 	}
+
+	modImplementation("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.4")
+	// Suggested, to bundle it into your mod jar. Choose a method your build system provides
+	include("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.4")
 }
 tasks {
 	processResources {

@@ -13,10 +13,10 @@ import xyz.naomieow.difficultyex.DifficultyEX
 class DifficultyEXConfigModel {
     @SectionHeader("global_settings")
 
-    @JvmField
-    @Comment("Set your own personal difficulty")
-    @Sync(SyncMode.INFORM_SERVER)
-    var difficulty: Difficulty = Difficulty.Medium
+//    @JvmField
+//    @Comment("Set your own personal difficulty")
+//    @Sync(SyncMode.INFORM_SERVER)
+//    var difficulty: Difficulty = Difficulty.Medium
 
     // todo: in order to implement the maximum levels we can clamp down the value multiple times through
     // dimension -> biome -> structure -> entity
@@ -171,28 +171,53 @@ class DifficultyEXConfigModel {
 
         @JvmField
         @Sync(SyncMode.NONE)
+        @Comment("Whether to show level.")
+        var showNameplateLevel: Boolean = true,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("Whether to show health-bar.")
+        var showNameplateHealthBar: Boolean = true,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("Whether to show health-text.")
+        var showNameplateHealthText: Boolean = true,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("The render distance of the nameplate. Higher values consume more resources.")
+        var nameplateRenderDistance: Int = 20,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("Presents hostile mobs only.")
+        var nameplateShowHostileMobsOnly: Boolean = false,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
         @Comment("The offset of the nameplate on the y-axis.")
-        var nameplateOffsetY: Int = 5,
+        var nameplateOffsetY: Int = 1,
 
         @JvmField
         @Sync(SyncMode.NONE)
         @Comment("The scale of the nameplate.")
-        var nameplateOffsetScale: Float = 1.0F,
+        var nameplateOffsetScale: Float = 0.8F,
 
         @JvmField
         @Sync(SyncMode.NONE)
         @Comment("The color of the visible nameplate on mobs.")
-        var nameplateColor: Color = Color.RED,
+        var nameplateColor: Color = Color.BLACK,
 
         @JvmField
         @Sync(SyncMode.NONE)
         @Comment("The background color of the visible nameplate on mobs.")
-        var nameplateBackgroundColor: Color = Color.BLACK,
+        var nameplateBackgroundColor: Color = Color.WHITE,
 
         @JvmField
         @Sync(SyncMode.NONE)
         @Comment("What mob entities to blacklist from having a nameplate.")
-        var nameplateMobBlacklist: List<ResourceLocation> = emptyList(),
+        var nameplateMobBlacklist: List<String> = emptyList(),
     )
 
     enum class Difficulty {

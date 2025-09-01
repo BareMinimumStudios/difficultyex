@@ -10,7 +10,7 @@ import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.Mob
 import xyz.naomieow.difficultyex.event.EntityLevelingEvents
 
-class LevelableEntityComponent(private var entity: Mob, private var _level: Int = 0) : ILevelableEntityComponent, AutoSyncedComponent {
+class LevelableEntityComponent(private var entity: Mob, private var _level: Int = 1) : ILevelableEntityComponent, AutoSyncedComponent {
     override val level: Int
         get() = this._level
 

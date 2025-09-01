@@ -10,6 +10,7 @@
         "TitleRenderManagerMixin",
         "MobMixin"
     ],
+    "plugin": "xyz.naomieow.difficultyex.mixin.client.NameplateMixinPlugin",
     "injectors": {
         "defaultRequire": 1
     }

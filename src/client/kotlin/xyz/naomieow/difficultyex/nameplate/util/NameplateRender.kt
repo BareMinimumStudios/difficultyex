@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.monster.Monster
 import xyz.naomieow.difficultyex.DifficultyEX
 import xyz.naomieow.difficultyex.ext.difficultyExLevel
 import xyz.naomieow.difficultyex.mixin.client.DrawContextAccessor
@@ -31,6 +32,16 @@ object NameplateRender {
                 return
             }
 
+            if ((Minecraft.getInstance().player?.distanceTo(mob) ?: 0f) > 20f) {
+                return
+            }
+
+            val settings = DifficultyEX.CONFIG.visualSettings
+
+            if (settings.nameplateShowHostileMobsOnly && mob !is Monster) {
+                return
+            }
+
             matrices.pushPose()
             matrices.translate(0.0, mob.bbHeight.toDouble() + DifficultyEX.CONFIG.visualSettings.nameplateOffsetY, 0.0)
             matrices.mulPose(dispatcher.cameraOrientation())
@@ -41,66 +52,71 @@ object NameplateRender {
 
             // if health-bar
 
-            val client = Minecraft.getInstance()
+            if (settings.showNameplateHealthBar) {
+                val client = Minecraft.getInstance()
 
-            val immediate = MultiBufferSource.immediate(Tesselator.getInstance().builder)
-            val context = DrawContextAccessor.getGuiGraphics(client, matrices, immediate)
+                val immediate = MultiBufferSource.immediate(Tesselator.getInstance().builder)
+                val context = DrawContextAccessor.getGuiGraphics(client, matrices, immediate)
 
-            matrices.pushPose()
-            matrices.scale(1.0F, 1.5F, 1.0F)
+                matrices.pushPose()
+                matrices.scale(1.0F, 1.5F, 1.0F)
 
-            RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
-            RenderSystem.enableBlend()
-            RenderSystem.defaultBlendFunc()
-            RenderSystem.enableDepthTest()
+                RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+                RenderSystem.enableBlend()
+                RenderSystem.defaultBlendFunc()
+                RenderSystem.enableDepthTest()
 
-            RenderSystem.enablePolygonOffset()
-            RenderSystem.polygonOffset(3.0F, 3.0F)
-
-
-            val barW = 40
-            val barH = 6
-            val x0 = -barW / 2
-            val y0 = 0
-
-            context.blit(ICONS, x0, y0, 0f, 0f, barW, barH, 256, 256)
-
-            val healthPct = (mob.health / mob.maxHealth).coerceIn(0f, 1f)
-            val fillW = kotlin.math.round(barW * healthPct).toInt().coerceIn(0, barW)
-
-            matrices.translate(0.0, 0.0, -0.01)
-            context.blit(ICONS, x0, y0, 0f, 6f, fillW, barH, 256, 256)
+                RenderSystem.enablePolygonOffset()
+                RenderSystem.polygonOffset(3.0F, 3.0F)
 
 
-            immediate.endBatch()
+                val barW = 60
+                val barH = 6
+                val x0 = -barW / 2
+                val y0 = 0
 
-            RenderSystem.polygonOffset(0.0F, 0.0F)
-            RenderSystem.disablePolygonOffset()
+                context.blit(ICONS, x0, y0, 0f, 0f, barW, barH, 256, 256)
 
-            matrices.popPose()
-            matrices.translate(0.0, -9.0, 0.8)
-            RenderSystem.disableBlend()
-            RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+                val healthPct = (mob.health / mob.maxHealth).coerceIn(0f, 1f)
+                val fillW = kotlin.math.round(barW * healthPct).toInt().coerceIn(0, barW)
 
-            // end-if health bar
+                matrices.translate(0.0, 0.0, -0.01)
+                context.blit(ICONS, x0, y0, 0f, 6f, fillW, barH, 256, 256)
+
+
+                immediate.endBatch()
+
+                RenderSystem.polygonOffset(0.0F, 0.0F)
+                RenderSystem.disablePolygonOffset()
+
+                matrices.popPose()
+                matrices.translate(0.0, -9.0, 0.8)
+                RenderSystem.disableBlend()
+                RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+            }
 
             val matrix = matrices.last().pose()
             val o = dispatcher.options.textBackgroundOpacity().get()
             val j = (o * 255.0).toInt() shl 24
-            var string = mob.customName?.string ?: mob.name.string
+            var string = ""
 
 
-            // if show-health
-            string = "$string ${Component.translatable("text.nameplate.health", kotlin.math.round(mob.health), kotlin.math.round(mob.maxHealth)).string }"
-            // end if show-health
 
-            string = "$string ${Component.translatable("text.nameplate.level", mob.difficultyExLevel).string}"
+            if (settings.showNameplateLevel) {
+                string = Component.translatable("text.nameplate.level", mob.difficultyExLevel).string
+            }
+
+            string = "$string ${Component.translatable("text.nameplate.name", mob.customName?.string ?: mob.name.string).string}"
+
+            if (settings.showNameplateHealthText) {
+                string = "$string ${Component.translatable("text.nameplate.health", kotlin.math.round(mob.health), kotlin.math.round(mob.maxHealth)).string }"
+            }
 
             val text = Component.literal(string)
 
             val h = (-textRenderer.width(text) / 2).toFloat()
-            textRenderer.drawInBatch(text.string, h, 0.0F, DifficultyEX.CONFIG.visualSettings.nameplateColor.argb(), false, matrix, vertexConsumers, Font.DisplayMode.NORMAL, j, i);
-            textRenderer.drawInBatch(text.string, h, 0.0F, DifficultyEX.CONFIG.visualSettings.nameplateBackgroundColor.argb(), false,  matrix, vertexConsumers, Font.DisplayMode.NORMAL, 0, i);
+            textRenderer.drawInBatch(text.string, h, 0.0F, DifficultyEX.CONFIG.visualSettings.nameplateColor.argb(), false, matrix, vertexConsumers, Font.DisplayMode.NORMAL, j, i)
+            textRenderer.drawInBatch(text.string, h, 0.0F, DifficultyEX.CONFIG.visualSettings.nameplateBackgroundColor.argb(), false,  matrix, vertexConsumers, Font.DisplayMode.NORMAL, 0, i)
             matrices.popPose()
         }
     }

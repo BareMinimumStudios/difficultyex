@@ -14,7 +14,6 @@ import net.minecraft.world.entity.monster.Skeleton
 import xyz.naomieow.difficultyex.ext.difficultyExLevel
 
 object NameplateServerPacket {
-    val SET_MOB_LEVEL: ResourceLocation = ResourceLocation.tryBuild("nameplate", "set_mob_level")!!
     val TITLE_CS_COMPAT: ResourceLocation = ResourceLocation.tryBuild("nameplate", "title_cs_compat")!!
     val TITLE_SC_COMPAT: ResourceLocation = ResourceLocation.tryBuild("nameplate", "title_sc_compat")!!
 
@@ -29,6 +28,7 @@ object NameplateServerPacket {
         }
     }
 
+    @JvmStatic
     fun writeS2TravelerCompatPacket(serverPlayerEntity: ServerPlayer, level: Int) {
         val buf = FriendlyByteBuf(Unpooled.buffer())
         buf.writeInt(level)

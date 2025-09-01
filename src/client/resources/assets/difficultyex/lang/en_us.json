@@ -1,6 +1,51 @@
 {
-    "text.nameplate.health": "HP: %d/%d",
+    "text.nameplate.health": "§rHP: %d/%d",
     "text.nameplate.level": "§eLv.%s",
     "text.nameplate.name": "§r%s",
-    "text.nameplate.jade.level": " §eLv.%s"
+    "text.nameplate.jade.level": " §eLv.%s",
+
+    "text.config.difficultyex-config.title": "DifficultyEX Settings",
+
+    "text.config.difficultyex-config.section.global_settings": "Global Settings",
+    "text.config.difficultyex-config.section.client_settings": "Client Settings",
+    
+    "text.config.difficultyex-config.category.dimensionSettings": "Dimension Settings",
+    "text.config.difficultyex-config.option.dimensionSettings.startingLevels": "Starting Levels",
+    "text.config.difficultyex-config.option.dimensionSettings.maximumLevels": "Maximum Levels",
+
+    "text.config.difficultyex-config.category.biomeScalingSettings": "Biome Scaling Settings",
+    "text.config.difficultyex-config.option.biomeScalingSettings.startingLevels": "Starting Levels",
+    "text.config.difficultyex-config.option.biomeScalingSettings.maximumLevels": "Maximum Levels",
+
+    "text.config.difficultyex-config.category.structureScalingSettings": "Structure Scaling Settings",
+    "text.config.difficultyex-config.option.structureScalingSettings.radius": "Radius",
+    "text.config.difficultyex-config.option.structureScalingSettings.startingLevels": "Starting Levels",
+    "text.config.difficultyex-config.option.structureScalingSettings.maximumLevels": "Maximum Levels",
+
+    "text.config.difficultyex-config.category.scalingLevelSettings": "Entity Scaling Settings",
+    "text.config.difficultyex-config.option.scalingLevelSettings.maximumLevel": "Maximum Level",
+    "text.config.difficultyex-config.option.scalingLevelSettings.startingLevel": "Starting Level",
+    "text.config.difficultyex-config.option.scalingLevelSettings.levelScalingMaxRadiusByBlocks": "Level Scaling Max Radius (Blocks)",
+    "text.config.difficultyex-config.option.scalingLevelSettings.levelScalingByPlayerFormula": "Level Scaling by Player Formula",
+    "text.config.difficultyex-config.option.scalingLevelSettings.levelAverageDecrement": "Level Average Decrement",
+    "text.config.difficultyex-config.option.scalingLevelSettings.levelAverageIncrement": "Level Average Increment",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityStartingLevels": "Entity Starting Levels",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityMaximumLevels": "Entity Maximum Levels",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityExperiencePercentage": "Entity Experience Percentage",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseDamagePercentage": "Entity Base Damage Percentage",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseArmorPercentage": "Entity Base Armor Percentage",
+    "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseHealthPercentage": "Entity Base Health Percentage",
+
+    "text.config.difficultyex-config.category.visualSettings": "Visual Settings",
+    "text.config.difficultyex-config.option.visualSettings.nameplateEnabled": "Nameplate Enabled",
+    "text.config.difficultyex-config.option.visualSettings.nameplateOffsetY": "Nameplate Offset Y",
+    "text.config.difficultyex-config.option.visualSettings.nameplateOffsetScale": "Nameplate Scale",
+    "text.config.difficultyex-config.option.visualSettings.nameplateColor": "Nameplate Background Color",
+    "text.config.difficultyex-config.option.visualSettings.nameplateBackgroundColor": "Nameplate Text Color",
+    "text.config.difficultyex-config.option.visualSettings.nameplateMobBlacklist": "Nameplate Mob Blacklist",
+    "text.config.difficultyex-config.option.visualSettings.showNameplateLevel": "Show Level",
+    "text.config.difficultyex-config.option.visualSettings.showNameplateHealthBar": "Show Health Bar",
+    "text.config.difficultyex-config.option.visualSettings.showNameplateHealthText": "Show Health Text",
+    "text.config.difficultyex-config.option.visualSettings.nameplateRenderDistance": "Nameplate Render Distance",
+    "text.config.difficultyex-config.option.visualSettings.nameplateShowHostileMobsOnly": "Show Hostile Mobs Only"
 }

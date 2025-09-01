@@ -1,6 +1,7 @@
 package xyz.naomieow.difficultyex
 
 import com.bibireden.playerex.ext.level
+import io.wispforest.owo.network.OwoNetChannel
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup
@@ -30,6 +31,9 @@ object DifficultyEX : ModInitializer {
 
 	@JvmField
 	val CONFIG: DifficultyEXConfig = DifficultyEXConfig.createAndLoad()
+
+
+//	val TRAVELLERS_SYNC_CHANNEL = OwoNetChannel.create(DifficultyEX.id("travelers_sync"))
 
 	private const val SCALING_VARIABLE = "x"
 
@@ -71,7 +75,7 @@ object DifficultyEX : ModInitializer {
 			val expr = Crunch.compileExpression(CONFIG.scalingLevelSettings.levelScalingByPlayerFormula, expression)
 			val playerComputedAverage = players.map { expr.evaluate(it.level) }.average().toInt()
 
-			level = kotlin.math.max(0, playerComputedAverage + levelAverageAdjustment)
+			level = kotlin.math.max(1, playerComputedAverage + levelAverageAdjustment)
 
 			// clamp down the level based on dimension
 			val dimensionKey = world.dimension().location()

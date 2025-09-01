@@ -9,6 +9,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket
+import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket
 
 object NameplateClientPacket {
     fun init() {
@@ -16,10 +17,7 @@ object NameplateClientPacket {
             val mobLevel = buffer.readInt()
             client.execute {
                 if (TravelersTitlesCommon.titleManager.biomeTitleRenderer.displayedTitle != null) {
-                    TravelersTitlesCommon.titleManager.biomeTitleRenderer.displayTitle(
-                        TravelersTitlesCommon.titleManager.biomeTitleRenderer.displayedTitle,
-                        Component.translatable("text.difficultyex.title", mobLevel)
-                    )
+                    TravelersTitlesCommon.titleManager.biomeTitleRenderer.displayTitle(TravelersTitlesCommon.titleManager.biomeTitleRenderer.displayedTitle, Component.translatable("text.nameplate.level", mobLevel))
                 }
             }
         }
@@ -28,7 +26,7 @@ object NameplateClientPacket {
     @JvmStatic
     fun writeC2STravelerCompatPacket() {
         val buf = FriendlyByteBuf(Unpooled.buffer())
-        val packet = ClientboundCustomPayloadPacket(NameplateServerPacket.TITLE_CS_COMPAT, buf)
+        val packet = ServerboundCustomPayloadPacket(NameplateServerPacket.TITLE_CS_COMPAT, buf)
         Minecraft.getInstance().connection?.send(packet)
     }
 }
