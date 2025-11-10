@@ -12,11 +12,13 @@ import net.minecraft.client.gui.Font
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher
 import net.minecraft.client.renderer.entity.EntityRenderer
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.monster.Monster
 import xyz.naomieow.difficultyex.DifficultyEX
+import xyz.naomieow.difficultyex.config.DifficultyEXConfigModel
 import xyz.naomieow.difficultyex.ext.difficultyExLevel
 import xyz.naomieow.difficultyex.mixin.client.DrawContextAccessor
 import xyz.naomieow.difficultyex.nameplate.access.MobAccess
@@ -40,6 +42,14 @@ object NameplateRender {
 
             if (settings.nameplateShowHostileMobsOnly && mob !is Monster) {
                 return
+            }
+
+            val entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.type)
+
+            for (key in settings.nameplateMobBlacklist) {
+                if (key.toRegex(RegexOption.IGNORE_CASE).matches(entityKey.toString())) {
+                    return
+                }
             }
 
             matrices.pushPose()
@@ -109,7 +119,7 @@ object NameplateRender {
             string = "$string ${Component.translatable("text.nameplate.name", mob.customName?.string ?: mob.name.string).string}"
 
             if (settings.showNameplateHealthText) {
-                string = "$string ${Component.translatable("text.nameplate.health", kotlin.math.round(mob.health), kotlin.math.round(mob.maxHealth)).string }"
+                string = "$string ${Component.translatable("text.nameplate.health", kotlin.math.round(mob.health).toInt(), kotlin.math.round(mob.maxHealth).toInt()).string }"
             }
 
             val text = Component.literal(string)

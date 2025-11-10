@@ -35,6 +35,7 @@
     "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseDamagePercentage": "Entity Base Damage Percentage",
     "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseArmorPercentage": "Entity Base Armor Percentage",
     "text.config.difficultyex-config.option.scalingLevelSettings.entityBaseHealthPercentage": "Entity Base Health Percentage",
+    "text.config.difficultyex-config.option.scalingLevelSettings.mobBlacklist": "Mob Blacklist",
 
     "text.config.difficultyex-config.category.visualSettings": "Visual Settings",
     "text.config.difficultyex-config.option.visualSettings.nameplateEnabled": "Nameplate Enabled",

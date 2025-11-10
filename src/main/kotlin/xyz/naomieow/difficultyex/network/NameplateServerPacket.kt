@@ -11,7 +11,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerGamePacketListenerImpl
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.monster.Skeleton
-import xyz.naomieow.difficultyex.ext.difficultyExLevel
+import xyz.naomieow.difficultyex.DifficultyEX
 
 object NameplateServerPacket {
     val TITLE_CS_COMPAT: ResourceLocation = ResourceLocation.tryBuild("nameplate", "title_cs_compat")!!
@@ -20,10 +20,10 @@ object NameplateServerPacket {
     fun init() {
         ServerPlayNetworking.registerGlobalReceiver(TITLE_CS_COMPAT) { server: MinecraftServer, player: ServerPlayer, handler: ServerGamePacketListenerImpl?, buffer: FriendlyByteBuf?, sender: PacketSender? ->
             server.execute {
-                val skeletonEntity: Skeleton = EntityType.SKELETON.create(player.level())!!
-                skeletonEntity.moveTo(player.x, player.y, player.z, 0.0f, 0.0f)
-                writeS2TravelerCompatPacket(player, skeletonEntity.difficultyExLevel)
-                skeletonEntity.discard()
+                val entity: Skeleton = EntityType.SKELETON.create(player.level())!!
+                entity.moveTo(player.x, player.y, player.z, 0.0f, 0.0f)
+                writeS2TravelerCompatPacket(player, DifficultyEX.CONFIG.biomeScalingSettings.startingLevels.getOrDefault(player.level().getBiome(entity.blockPosition()).unwrapKey().get().location(), 0))
+                entity.discard()
             }
         }
     }

@@ -44,12 +44,21 @@ object DifficultyEX : ModInitializer {
 		ServerEntityEvents.ENTITY_LOAD.register { entity, world ->
 			if (entity !is Mob) return@register
 
+			val entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entity.type)
+
+
 			var level: Int
 
 			val dimensionSettings = CONFIG.dimensionSettings
 			val biomeSettings = CONFIG.biomeScalingSettings
 			val structureSettings = CONFIG.structureScalingSettings
 			val scalingLevelSettings = CONFIG.scalingLevelSettings
+
+			for (key in CONFIG.scalingLevelSettings.mobBlacklist) {
+				if (key.toRegex(RegexOption.IGNORE_CASE).matches(entityKey.toString())) {
+					return@register
+				}
+			}
 
 			val levelAverageAdjustment = (-kotlin.math.abs(scalingLevelSettings.levelAverageDecrement)..kotlin.math.abs(scalingLevelSettings.levelAverageIncrement)).random()
 
@@ -109,8 +118,6 @@ object DifficultyEX : ModInitializer {
 			}
 
 			// finally, entities
-
-			val entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entity.type)
 
 			for ((key, entry) in scalingLevelSettings.entityMaximumLevels) {
 				if (key.toRegex(RegexOption.IGNORE_CASE).matches(entityKey.toString())) {

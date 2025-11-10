@@ -19,13 +19,13 @@ public class MobMixin {
 
         Double mobDamage = original.call(instance, attribute) * (1 + level * DifficultyEX.CONFIG.getScalingLevelSettings().getEntityBaseDamagePercentage());
 
-        return original.call(instance, attribute) * mobDamage;
+        return mobDamage;
     }
 
 
 
     @ModifyReturnValue(method = "getExperienceReward", at = @At("RETURN"))
-    public int getExperienceReward(int original) {
+    public int GetExperienceReward(int original) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
 
         var level = livingEntity.getComponent(DifficultyEXComponents.ENTITY_DATA).getLevel();

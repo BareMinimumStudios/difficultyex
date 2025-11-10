@@ -14,19 +14,19 @@ import xyz.naomieow.difficultyex.component.DifficultyEXComponents;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 	@WrapMethod(method = "getMaxHealth")
-	public float getMaxHealth(Operation<Float> original) {
+	public float GetMaxHealth(Operation<Float> original) {
 		LivingEntity entity = (LivingEntity) (Object) this;
 		if (entity instanceof Mob) {
-			return original.call() * (float) Math.pow(1 + DifficultyEX.CONFIG.getScalingLevelSettings().getEntityBaseHealthPercentage(), entity.getComponent(DifficultyEXComponents.ENTITY_DATA).getLevel());
+			return (float) (original.call() * (1 + entity.getComponent(DifficultyEXComponents.ENTITY_DATA).getLevel() * DifficultyEX.CONFIG.getScalingLevelSettings().getEntityBaseHealthPercentage()));
 		}
 		return original.call();
 	}
 
 	@WrapMethod(method = "getArmorValue")
-	public int getArmorValue(Operation<Integer> original) {
+	public int GetArmorValue(Operation<Integer> original) {
 		LivingEntity entity = (LivingEntity) (Object) this;
 		if (entity instanceof Mob) {
-			return original.call() * (int) (original.call() * (1 + entity.getComponent(DifficultyEXComponents.ENTITY_DATA).getLevel() * DifficultyEX.CONFIG.getScalingLevelSettings().getEntityBaseArmorPercentage()));
+			return (int) (original.call() * (1 + entity.getComponent(DifficultyEXComponents.ENTITY_DATA).getLevel() * DifficultyEX.CONFIG.getScalingLevelSettings().getEntityBaseArmorPercentage()));
 		}
 		return original.call();
 	}

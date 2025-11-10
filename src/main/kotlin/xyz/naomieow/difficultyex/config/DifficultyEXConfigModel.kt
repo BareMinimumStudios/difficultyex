@@ -152,7 +152,12 @@ class DifficultyEXConfigModel {
         @JvmField
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @Comment("The percentage increase of health per mob level. Default is 5%.")
-        var entityBaseHealthPercentage: Double = 0.05,
+        var entityBaseHealthPercentage: Double = 0.08,
+
+        @JvmField
+        @Sync(SyncMode.NONE)
+        @Comment("What mob entities to blacklist from scaling.")
+        var mobBlacklist: List<String> = emptyList(),
     )
 
 
@@ -197,7 +202,7 @@ class DifficultyEXConfigModel {
         @JvmField
         @Sync(SyncMode.NONE)
         @Comment("The offset of the nameplate on the y-axis.")
-        var nameplateOffsetY: Int = 1,
+        var nameplateOffsetY: Float = 1.0F,
 
         @JvmField
         @Sync(SyncMode.NONE)
