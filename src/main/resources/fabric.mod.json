@@ -18,7 +18,7 @@
 		"sources": "https://github.com/BareMinimumStudios/difficultyex",
 		"issues": "https://github.com/BareMinimumStudios/difficultyex/issues"
 	},
-	"license": "MIT",
+	"license": "BML",
 	"icon": "assets/difficultyex/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -53,7 +53,9 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*",
-		"fabric-language-kotlin": "*"
+		"fabric-language-kotlin": "*",
+		"owo-lib": ">=0.11.2+1.20",
+		"playerex": ">=4.0.0"
 	},
 	"custom": {
 		"cardinal-components": [
@@ -67,6 +69,17 @@
 				"modmenu.kofi": "https://ko-fi.com/naomieow",
 				"modmenu.modrinth": "https://modrinth.com/mod/difficultyex"
 			}
+		},
+		"mc-publish": {
+			"modrinth": "qdJ4GLvL",
+			"curseforge": 1387673,
+			"loaders": ["fabric", "quilt"],
+			"dependencies": [
+				"fabric-api@>=0.92.2+1.20.1(required){modrinth:P7dR8mSH}{curseforge:306612}#(ignore:github)",
+				"fabric-language-kotlin@>=1.9.5+kotlin.1.8.22(required){modrinth:Ha28R6CL}{curseforge:308769}#(ignore:github)",
+				"playerex@>=4.0.0+1.20.1(required){modrinth:4UKlJSdk}{curseforge:958325}#(ignore:github)",
+				"owo-lib@0.11.2(required){modrinth:ccKDOlHs}{curseforge:532610}#(ignore:github)"
+			]
 		}
 	}
 }

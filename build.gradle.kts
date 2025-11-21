@@ -76,8 +76,8 @@ dependencies {
 	implementation("com.squareup:kotlinpoet-ksp:${properties["kotlinpoet_version"]}")
 	ksp("dev.kosmx.kowoconfig:ksp-owo-config:${properties["ksp_owo_config_version"]}")
 
-	modImplementation("maven.modrinth:data-attributes-directors-cut:${properties["data_attributes_version"]}")
-	modImplementation("maven.modrinth:playerex-directors-cut:${properties["playerex_version"]}")
+	modCompileOnly("maven.modrinth:data-attributes-directors-cut:${properties["data_attributes_version"]}")
+	modCompileOnly("maven.modrinth:playerex-directors-cut:${properties["playerex_version"]}")
 
 	modImplementation("io.wispforest:endec:${properties["endec_version"]}")?.let(::include)
 	modImplementation("io.wispforest.endec:gson:${properties["endec_gson_version"]}")?.let(::include)
@@ -90,6 +90,7 @@ dependencies {
 	modImplementation("software.bernie.geckolib:geckolib-fabric-${properties["geckolib_version"]}")
 	modImplementation("eu.pb4:placeholder-api:${properties["placeholder_api_version"]}")?.let(::include)
 	implementation("com.github.Redempt:Crunch:2.0.3")
+	include("com.github.Redempt:Crunch:2.0.3")
 
 	implementation("net.objecthunter:exp4j:${properties["exp4j_version"]}")?.let(::include)
 

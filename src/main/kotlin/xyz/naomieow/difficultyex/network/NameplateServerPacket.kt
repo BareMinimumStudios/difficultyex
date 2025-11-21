@@ -22,7 +22,10 @@ object NameplateServerPacket {
             server.execute {
                 val entity: Skeleton = EntityType.SKELETON.create(player.level())!!
                 entity.moveTo(player.x, player.y, player.z, 0.0f, 0.0f)
-                writeS2TravelerCompatPacket(player, DifficultyEX.CONFIG.biomeScalingSettings.startingLevels.getOrDefault(player.level().getBiome(entity.blockPosition()).unwrapKey().get().location(), 0))
+
+                val biome = player.level().getBiome(entity.blockPosition()).unwrapKey().get().location()
+
+                writeS2TravelerCompatPacket(player, DifficultyEX.CONFIG.biomeScalingSettings.startingLevels[biome] ?: DifficultyEX.CONFIG.dimensionSettings.startingLevels.getOrDefault(player.level().dimension().location(), 0))
                 entity.discard()
             }
         }
