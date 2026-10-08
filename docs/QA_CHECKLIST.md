@@ -55,11 +55,17 @@ Test a `minecraft:zombie` entry in `entityStartingLevels`, e.g. 25, and spawn a 
 
 With a dedicated server and two clients, set different **Nameplates** options on each client. Ensure saving locally doesn't change the other client's preferences or change the server's nameplate config. Confirm a client reconnect retains its choices, while operator-edited progression rules synchronize from the server; existing mob levels should stay persisted rather than rerolling.
 
+## XP scaling (NeoForge fake-player live-tested 2026-10-08)
+
+Minecraft 1.21.1 permits animal subclasses to override `getBaseExperienceReward` without calling `Mob`. DifficultyEx intercepts the base XP argument in `LivingEntity.getExperienceReward`, **before** enchantment adjustments, for every `Mob`; non-mobs are unaffected.
+
+A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge fake player. Under the default `experiencePerLevel=0.1`, a level-1 zombie dropped 5 XP and a level-20 zombie dropped 15 XP. A level-100 cow dropped 11 XP (a random vanilla animal base roll of 1, scaled by 11); a total of 9 XP orbs carried 31 XP. Animal base XP is random, so the expected amount can vary between 11, 22 and 33 for the same level-100 cow. The probe was **deleted** and is not a public command. Ordinary player combat, Looting/enchantment interactions and XP pickup still need acceptance testing.
+
 ## Still requiring acceptance testing
 
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
 - Additional structure variants, exact influence-radius boundaries and many-mob performance with structure rules
-- Actual XP-orb drops after a player kills a leveled mob, and modified damage/armor in combat (XP arithmetic has four passing unit tests but the reward hook still needs runtime verification)
+- XP-orb collection by a **human-controlled** player and modified damage/armor in combat (NeoForge fake-player-attributed zombie/cow kills and orb totals passed the runtime probe)
 - Production-origin owo-lib configuration migration (synthetic-file unit test and NeoForge startup smoke test passed); optional mod integrations
 - Performance with many mobs and structure rules enabled

@@ -25,6 +25,15 @@ class DifficultyExperienceMathTest {
     }
 
     @Test
+    fun randomizedAnimalBaseExperienceIsScaledForEveryPossibleRoll() {
+        // Animal#getBaseExperienceReward returns 1..3 without calling Mob's
+        // implementation. The reward hook must therefore target LivingEntity.
+        for (baseXp in 1..3) {
+            assertEquals(baseXp * 11, DifficultyExperienceMath.scale(baseXp, 100, 0.1))
+        }
+    }
+
+    @Test
     fun largeRewardsSaturateAtIntMax() {
         assertEquals(Int.MAX_VALUE, DifficultyExperienceMath.scale(Int.MAX_VALUE, Int.MAX_VALUE, 100.0))
     }
