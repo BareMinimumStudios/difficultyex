@@ -3,5 +3,6 @@
   "package": "dev.pokesmells.difficultyex.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": ["MobLevelMixin", "MobExperienceMixin"],
+  "client": ["client.MobNameplateMixin", "client.EntityNameplateMixin"],
   "injectors": {"defaultRequire": 1}
 }

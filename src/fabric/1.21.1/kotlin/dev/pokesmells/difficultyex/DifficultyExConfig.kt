@@ -39,6 +39,12 @@ class DifficultyExConfig : Config(DifficultyEx.id("config")) {
     var biomeStartingLevels: Map<String, Int> = emptyMap()
     @ConfigGroup.Pop var biomeMaximumLevels: Map<String, Int> = emptyMap()
 
+    @Translatable.Name("Structure rules")
+    val structures = ConfigGroup("structures", true)
+    var structureRadius = 50
+    var structureStartingLevels: Map<String, Int> = emptyMap()
+    @ConfigGroup.Pop var structureMaximumLevels: Map<String, Int> = emptyMap()
+
     @Translatable.Name("Nameplates")
     val nameplates = ConfigGroup("nameplates", true)
     var nameplatesEnabled = true
@@ -46,15 +52,17 @@ class DifficultyExConfig : Config(DifficultyEx.id("config")) {
     var nameplateHostileOnly = false
     var nameplateBlacklist: List<String> = emptyList()
     var nameplateShowLevel = true
-    @ConfigGroup.Pop var nameplateShowHealth = true
+    var nameplateShowHealth = true
+    @ConfigGroup.Pop var nameplateShowHealthText = true
 
     fun toSnapshot() = DifficultySettings(
         startingLevel, maximumLevel, playerRadius, playerLevelFormula, averageDecrement, averageIncrement,
         mobBlacklist, entityStartingLevels, entityMaximumLevels,
         dimensionStartingLevels, dimensionMaximumLevels, biomeStartingLevels, biomeMaximumLevels,
+        structureRadius, structureStartingLevels, structureMaximumLevels,
         healthPerLevel, armorPerLevel, damagePerLevel, experiencePerLevel,
         nameplatesEnabled, nameplateDistance, nameplateHostileOnly, nameplateBlacklist,
-        nameplateShowLevel, nameplateShowHealth
+        nameplateShowLevel, nameplateShowHealth, nameplateShowHealthText
     )
 
     override fun onSyncClient() { DifficultyEx.configure(toSnapshot()) }

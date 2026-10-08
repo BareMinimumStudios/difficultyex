@@ -60,16 +60,22 @@ object DifficultyEx {
         var result = (mean.toLong() + (-lower..upper).random()).coerceIn(1, Int.MAX_VALUE.toLong()).toInt()
         val dimension = world.dimension().location().toString()
         val biome = world.getBiome(mob.blockPosition()).unwrapKey().orElse(null)?.location()?.toString()
-        fun clamp(lowerBound: Int?, upperBound: Int?) {
-            lowerBound?.let { result = result.coerceAtLeast(it) }
-            upperBound?.let { result = result.coerceAtMost(it) }
+        val matchingStructures = DifficultyStructureRules.applicableIds(world, mob, cfg)
+        val minimums = mutableListOf<Int>()
+        val maximums = mutableListOf<Int>()
+        cfg.dimensionStartingLevels[dimension]?.let(minimums::add)
+        cfg.dimensionMaximumLevels[dimension]?.let(maximums::add)
+        if (biome != null) {
+            cfg.biomeStartingLevels[biome]?.let(minimums::add)
+            cfg.biomeMaximumLevels[biome]?.let(maximums::add)
         }
-        clamp(cfg.dimensionStartingLevels[dimension], cfg.dimensionMaximumLevels[dimension])
-        if (biome != null) clamp(cfg.biomeStartingLevels[biome], cfg.biomeMaximumLevels[biome])
-        cfg.entityStartingLevels.forEach { (id, value) -> if (match(id, mobId)) result = result.coerceAtLeast(value) }
-        cfg.entityMaximumLevels.forEach { (id, value) -> if (match(id, mobId)) result = result.coerceAtMost(value) }
-        val minimum = cfg.startingLevel.coerceAtLeast(1)
-        result = result.coerceIn(minimum, cfg.maximumLevel.coerceAtLeast(minimum))
+        matchingStructures.forEach { id ->
+            cfg.structureStartingLevels[id]?.let(minimums::add)
+            cfg.structureMaximumLevels[id]?.let(maximums::add)
+        }
+        cfg.entityStartingLevels.forEach { (id, value) -> if (match(id, mobId)) minimums.add(value) }
+        cfg.entityMaximumLevels.forEach { (id, value) -> if (match(id, mobId)) maximums.add(value) }
+        result = DifficultyLevelBounds.apply(result, cfg.startingLevel, cfg.maximumLevel, minimums, maximums)
         state.difficultyExSetLevel(result)
         applyAttributes(mob, result, true)
     }

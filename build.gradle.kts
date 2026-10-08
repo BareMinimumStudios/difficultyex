@@ -139,6 +139,15 @@ tasks.withType<net.msrandom.stubs.GenerateStubApi>().configureEach {
     outputDirectory.set(layout.buildDirectory.dir("generated/$name"))
 }
 
+dependencies {
+    testImplementation(kotlin("test-junit5", "2.2.20"))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
 // Ship the studio license and inherited MIT notice in each loader's distributable JAR.
 tasks.withType<Jar>().matching { it.name == "fabric1211Jar" || it.name == "neoforge1211Jar" }.configureEach {
     from(rootProject.file("LICENSE")) {

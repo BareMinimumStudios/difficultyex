@@ -8,6 +8,11 @@ Development snapshot — October 8, 2026. Not release-ready.
 - Fabric and NeoForge project layouts; Fzzy Config, no owo-lib/KSP.
 - Public PlayerEx 5.0.1, Data Attributes 3.0.0, Remnant 3.0.0 dependencies.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
+- Client-side mob nameplate mixins compiled and packaged for both loaders: level, ten-segment textual health bar and separately togglable health numbers, hostile-only, distance, visibility and blacklist options. Visual behavior still needs in-game verification.
+- Structure-specific minimum/maximum levels and configurable horizontal radius (loaded chunks only; cap 128), with deterministic combined bounds and four passing unit tests.
+- `gradlew.bat test build` passed; JUnit XML reports 4 tests, 0 failures, 0 errors.
+- NeoForge client smoke test initialized OpenGL 4.6, loaded DifficultyEx resources/config and reached texture atlas loading without a startup mixin failure. Test client was closed; actual in-world nametag rendering remains untested.
+- New structure fields were missing in the existing development config on first load; Fzzy Config reported missing keys and wrote their defaults into `run/config/difficultyex/config.json5`.
 - MixinMCP Gradle decompile plugin 1.5.0 configured.
 - Developer metadata and all package paths use `pokesmells` (`dev.pokesmells.difficultyex`); former source namespace no longer appears in Java/Kotlin code.
 - Repository root now uses BML v1.0 from the studio license, retaining the inherited MIT notice in `docs/ORIGINAL_MIT_LICENSE.txt`. Both license texts are included in each loader JAR.
@@ -21,9 +26,9 @@ Verified again after the `dev.pokesmells` package migration: the **public Player
 
 ## Outstanding migration items
 
-- Client nameplates, level text and health bars; GeckoLib/Traveler's Titles optional integrations.
-- Structure-based level rules, configuration migration, and behavior parity with 1.20.1.
-- Test new operator commands in-game, spawn-level calculation, entity modifiers, XP rewards, saves/reloads and multiplayer sync. Compilation alone does not validate command execution.
+- In-game visual verification/polish of new client nameplates and health indicators; GeckoLib/Traveler's Titles optional integrations.
+- Behavior testing of structure-based rules, migration of legacy owo-lib configuration to Fzzy Config, and feature parity with 1.20.1.
+- Test new operator commands in-game, spawn-level calculation, structure bounds against generated structures, entity modifiers, XP rewards, saves/reloads and multiplayer sync. Automated boundary tests and startup checks do not replace functional testing.
 - Test packaged builds in isolated copies of the user's Fabric and NeoForge server setups, using the **publicly released** versions rather than the versions originally installed on the servers.
 - mc-publish project IDs verified from publicly visible release pages: Modrinth `qdJ4GLvL` and CurseForge `1387673`; still verify credentials, workflow syntax, dependency metadata and release prerequisites before manually publishing.
 

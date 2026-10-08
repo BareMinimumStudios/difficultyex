@@ -4,7 +4,7 @@
 [![License: BML](https://img.shields.io/badge/license-BML--1.0-lightgrey)](https://github.com/BareMinimumStudios/bare-minimum-license)
 [![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-62b24a)](https://minecraft.net/)
 
-**DifficultyEx** brings RPG-style enemy progression into Minecraft. Mobs inherit levels from nearby players, with configurable limits for each dimension, biome, and entity type. Higher-level enemies have tougher combat attributes and award more experience.
+**DifficultyEx** brings RPG-style enemy progression into Minecraft. Mobs inherit levels from nearby players, with configurable limits for each dimension, biome, structure, and entity type. Higher-level enemies have tougher combat attributes and award more experience.
 
 Maintained by **pokesmells** for [Bare Minimum Studios](https://github.com/BareMinimumStudios/difficultyex). Historical attribution and license notices remain available in the repository history.
 
@@ -39,13 +39,17 @@ A new mob's level is derived from nearby players' **PlayerEx progression levels*
 
 Scaling currently affects maximum health, armor, attack damage, and experience. Damage and health use attribute modifiers rather than modifying raw damage hooks. Server-side Fzzy Config settings are maintained separately for Fabric and NeoForge.
 
+**Structure rules:** Configure `structureStartingLevels` and `structureMaximumLevels` with structure IDs such as `minecraft:desert_pyramid`, and `structureRadius` (default 50 blocks). Only already-loaded surrounding chunks are inspected, and lookup radius is capped at 128 blocks to avoid loading terrain or excessive spawn costs. Per-structure restrictions combine with dimension, biome, and mob restrictions. The highest minimum and lowest maximum apply; maximums take priority if configured bounds conflict.
+
+**Mob nameplates:** Level and health displays now use client-side vanilla nametag rendering on both loaders, with a ten-segment health indicator. The Fzzy Config nameplate options independently control the bar, health text, level text, distance, hostile-only display and blacklist. This is the first implementation and still requires an in-game visual check.
+
 ## Operator commands
 
 Operators (permission level 2 or above) can inspect a mob with `/difficultyex inspect <target>` and set its level with `/difficultyex set <target> <level>`. The setter synchronizes the mob's level, reapplies scaling modifiers, and preserves its health percentage. For example, `/difficultyex inspect @e[type=minecraft:zombie,sort=nearest,limit=1]` inspects the nearest zombie. Commands are intended for testing and administration; they do not change PlayerEx player levels.
 
 ## Testing
 
-Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, damage, XP rewards, and dedicated-server startup on both loaders before shipping.
+Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary unit tests.
 
 ## License
 

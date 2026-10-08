@@ -15,6 +15,9 @@ data class DifficultySettings(
     val dimensionMaximumLevels: Map<String, Int> = emptyMap(),
     val biomeStartingLevels: Map<String, Int> = emptyMap(),
     val biomeMaximumLevels: Map<String, Int> = emptyMap(),
+    val structureRadius: Int = 50,
+    val structureStartingLevels: Map<String, Int> = emptyMap(),
+    val structureMaximumLevels: Map<String, Int> = emptyMap(),
     val healthPerLevel: Double = 0.08,
     val armorPerLevel: Double = 0.08,
     val damagePerLevel: Double = 0.1,
@@ -24,5 +27,6 @@ data class DifficultySettings(
     val nameplateHostileOnly: Boolean = false,
     val nameplateBlacklist: List<String> = emptyList(),
     val nameplateShowLevel: Boolean = true,
-    val nameplateShowHealth: Boolean = true
+    val nameplateShowHealth: Boolean = true,
+    val nameplateShowHealthText: Boolean = true
 )
