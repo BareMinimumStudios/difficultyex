@@ -47,6 +47,14 @@ team join difficultyex_hidden @e[tag=difficultyex_team_test,limit=1]
 
 The modded nameplate should remain hidden. Test the `hideForOtherTeams` and `hideForOwnTeam` values using two player teams as well. The code's team policy is unit-tested and NeoForge client startup passed, but the actual nameplate appearance still requires this in-world validation. Clean up via `/team remove difficultyex_hidden` and remove any tagged test mobs.
 
+## Fzzy Config GUI and multiplayer settings (NeoForge server smoke-tested 2026-10-08)
+
+In a disposable client, open the **DifficultyEx** Fzzy Config screen (via Mod Menu / supported config GUI entry). Check that the **Progression**, **Mob rules**, **World rules**, **Structure rules**, and **Nameplates** sections present editable sliders/text boxes, boolean toggles, list/map editors. Validate that saved `config/difficultyex/config.json5` retains its original field names and doesn't lose custom values.
+
+Test a `minecraft:zombie` entry in `entityStartingLevels`, e.g. 25, and spawn a new zombie to verify minimum level 25. This map rule already passed in a NeoForge dedicated-server smoke test with an existing JSON5 config (25/60HP/6 armor); manual GUI edits are not yet verified.
+
+With a dedicated server and two clients, set different **Nameplates** options on each client. Ensure saving locally doesn't change the other client's preferences or change the server's nameplate config. Confirm a client reconnect retains its choices, while operator-edited progression rules synchronize from the server; existing mob levels should stay persisted rather than rerolling.
+
 ## Still requiring acceptance testing
 
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor

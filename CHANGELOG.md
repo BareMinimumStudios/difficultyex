@@ -6,6 +6,7 @@
 - Removed owo-lib and the associated KSP/generated configuration layer.
 - Added safe, first-run migration of supported owo-lib JSON5 settings into Fzzy Config when no modern config exists. The original file is preserved. Validated with four tests and NeoForge dedicated-server startup.
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
+- Converted plain Fzzy Config values to validated GUI-editable entries in organized progression, mob, world, structure and nameplate groups. Kept the existing JSON5 keys; nameplate preferences are now `@NonSync` and remain client-local. Tested loading an existing JSON5 file and a zombie minimum-level map override on a NeoForge development server.
 - Reimplemented persistent, synchronized mob levels and attribute scaling in shared sources.
 - Fixed loaded scaled mobs losing saved health above vanilla maximum: preserve the original NBT health and restore it after their level modifiers are reapplied. Verified by a live NeoForge save/restart test.
 - Added cross-loader build automation and opt-in mc-publish workflow.

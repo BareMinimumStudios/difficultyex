@@ -6,6 +6,8 @@ Development snapshot — October 8, 2026. Not release-ready.
 
 - Builds on Gradle 9.8.0, Cloche 0.19.13, Java 21, and Kotlin.
 - Fabric and NeoForge project layouts; Fzzy Config, no owo-lib/KSP.
+- Fzzy fields now use validated wrappers so all configured progression, mob, world, structure, and nameplate fields are eligible for in-game edit controls (rather than raw values that never render editable controls). Nameplates use `@field:NonSync` client-only flags, confirmed in compiled NeoForge bytecode. JSON5 field names are unchanged.
+- **NeoForge live config smoke test:** an existing development JSON5 config loaded successfully with the new validated types; a temporary `entityStartingLevels` map entry forced a freshly spawned zombie to level **25**, with 60 max HP and 6 armor. Removed the zombie and force-load ticket, restored the original config byte-for-byte, and stopped the development server. Client config GUI interaction remains to be verified visually.
 - Safe one-time legacy owo-lib JSON5 import on both loaders, only when a modern config is absent. 4 conversion/file-safety unit tests pass. **NeoForge runtime migration tested:** synthetic legacy defaults (starting level 17, maximum 200, structure radius 25, disabled nameplates) were imported before Fzzy Config initialization; server reached `Done`. Original development config restored byte-for-byte and temporary test file deleted. Legacy visual offset/scale/colors and per-player difficulty enum are intentionally not migrated.
 - Public PlayerEx 5.0.1, Data Attributes 3.0.0, Remnant 3.0.0 dependencies.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
