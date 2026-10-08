@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex
+package dev.pokesmells.difficultyex
 
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi
 import net.minecraft.world.entity.Mob

@@ -37,8 +37,7 @@ cloche {
         name = "DifficultyEx"
         description = "Scales mob levels and combat stats with PlayerEx progression and world rules."
         license = "BML-1.0"
-        author("naomi")
-        contributor("pokesmells")
+        author("pokesmells")
         url = "https://github.com/BareMinimumStudios/difficultyex"
         sources = "https://github.com/BareMinimumStudios/difficultyex"
         issues = "https://github.com/BareMinimumStudios/difficultyex/issues"
@@ -87,7 +86,7 @@ cloche {
             }
             entrypoint("main") {
                 adapter.set("kotlin")
-                value.set("xyz.naomieow.difficultyex.DifficultyExFabricEntrypoint")
+                value.set("dev.pokesmells.difficultyex.DifficultyExFabricEntrypoint")
             }
         }
     }
@@ -138,4 +137,16 @@ kotlin {
 
 tasks.withType<net.msrandom.stubs.GenerateStubApi>().configureEach {
     outputDirectory.set(layout.buildDirectory.dir("generated/$name"))
+}
+
+// Ship the studio license and inherited MIT notice in each loader's distributable JAR.
+tasks.withType<Jar>().matching { it.name == "fabric1211Jar" || it.name == "neoforge1211Jar" }.configureEach {
+    from(rootProject.file("LICENSE")) {
+        into("META-INF/licenses")
+        rename { "difficultyex-LICENSE" }
+    }
+    from(rootProject.file("docs/ORIGINAL_MIT_LICENSE.txt")) {
+        into("META-INF/licenses")
+        rename { "difficultyex-ORIGINAL-MIT-LICENSE" }
+    }
 }

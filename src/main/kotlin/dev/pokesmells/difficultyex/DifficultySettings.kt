@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex
+package dev.pokesmells.difficultyex
 
 /** Immutable settings shared by both loader implementations. */
 data class DifficultySettings(

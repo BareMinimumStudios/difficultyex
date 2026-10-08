@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex
+package dev.pokesmells.difficultyex
 
 import me.fzzyhmstrs.fzzy_config.annotations.RootConfig
 import me.fzzyhmstrs.fzzy_config.annotations.Version

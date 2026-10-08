@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex
+package dev.pokesmells.difficultyex
 
 import com.bibireden.playerex.state.PlayerStateService
 import net.minecraft.core.Holder

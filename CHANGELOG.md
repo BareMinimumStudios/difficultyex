@@ -7,6 +7,8 @@
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
 - Reimplemented persistent, synchronized mob levels and attribute scaling in shared sources.
 - Added cross-loader build automation and opt-in mc-publish workflow.
+- Updated developer credit to **pokesmells** and moved Java/Kotlin packages to `dev.pokesmells.difficultyex`.
+- Adopted Bare Minimum Studios' BML v1.0; preserved the prior MIT notice and bundled both notices in the Fabric and NeoForge JARs.
 
 This is an **in-progress port**. Runtime testing, client nameplates, structure rules, and full feature parity with the 1.20.1 version are not yet complete.
 

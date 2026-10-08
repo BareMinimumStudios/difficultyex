@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex
+package dev.pokesmells.difficultyex
 
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType

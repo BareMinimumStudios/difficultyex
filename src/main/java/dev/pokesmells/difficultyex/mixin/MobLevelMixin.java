@@ -1,4 +1,4 @@
-package xyz.naomieow.difficultyex.mixin;
+package dev.pokesmells.difficultyex.mixin;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.naomieow.difficultyex.MobLevelAccess;
+import dev.pokesmells.difficultyex.MobLevelAccess;
 
 @Mixin(Mob.class)
 public abstract class MobLevelMixin implements MobLevelAccess {

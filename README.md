@@ -6,7 +6,7 @@
 
 **DifficultyEx** brings RPG-style enemy progression into Minecraft. Mobs inherit levels from nearby players, with configurable limits for each dimension, biome, and entity type. Higher-level enemies have tougher combat attributes and award more experience.
 
-Maintained by [Bare Minimum Studios](https://github.com/BareMinimumStudios/difficultyex). The original project and its authors remain credited in repository history.
+Maintained by **pokesmells** for [Bare Minimum Studios](https://github.com/BareMinimumStudios/difficultyex). Historical attribution and license notices remain available in the repository history.
 
 ## Port status
 
@@ -49,4 +49,4 @@ Use temporary test worlds and copies of the server launch environments. The supp
 
 ## License
 
-See [LICENSE](LICENSE) and [Bare Minimum License](https://github.com/BareMinimumStudios/bare-minimum-license).
+Copyright © 2025–2026 Bare Minimum Studios. **DifficultyEx is licensed under the [Bare Minimum License (BML) v1.0](LICENSE)**, matching other Bare Minimum Studios projects. The license covers code and assets under different terms; see the [official license repository](https://github.com/BareMinimumStudios/bare-minimum-license). The previous MIT notice has been retained in [docs/ORIGINAL_MIT_LICENSE.txt](docs/ORIGINAL_MIT_LICENSE.txt) for historical portions.
