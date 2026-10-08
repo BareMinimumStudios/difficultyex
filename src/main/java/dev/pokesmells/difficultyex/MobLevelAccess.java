@@ -4,4 +4,7 @@ package dev.pokesmells.difficultyex;
 public interface MobLevelAccess {
     int difficultyExGetLevel();
     void difficultyExSetLevel(int level);
+
+    /** Consume the unclamped health saved in NBT, if available. NaN means absent. */
+    float difficultyExConsumeSavedHealth();
 }

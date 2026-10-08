@@ -6,6 +6,7 @@
 - Removed owo-lib and the associated KSP/generated configuration layer.
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
 - Reimplemented persistent, synchronized mob levels and attribute scaling in shared sources.
+- Fixed loaded scaled mobs losing saved health above vanilla maximum: preserve the original NBT health and restore it after their level modifiers are reapplied. Verified by a live NeoForge save/restart test.
 - Added cross-loader build automation and opt-in mc-publish workflow.
 - Reintroduced cross-loader mob nameplates with level and ten-segment health indicators, using synced mob data and vanilla rendering.
 - Added structure-specific level bounds with a loaded-chunk-only search radius, consistent rule precedence, and four automated bounds tests.

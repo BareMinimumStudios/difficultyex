@@ -14,6 +14,7 @@ import dev.pokesmells.difficultyex.MobLevelAccess;
 
 @Mixin(Mob.class)
 public abstract class MobLevelMixin implements MobLevelAccess {
+    @Unique private float difficultyex$pendingLoadedHealth = Float.NaN;
     @Unique private static final EntityDataAccessor<Integer> DIFFICULTYEX_LEVEL =
         SynchedEntityData.defineId(Mob.class, EntityDataSerializers.INT);
 
@@ -32,6 +33,13 @@ public abstract class MobLevelMixin implements MobLevelAccess {
         ((Mob)(Object)this).getEntityData().set(DIFFICULTYEX_LEVEL, Math.max(0, level));
     }
 
+    @Override
+    public float difficultyExConsumeSavedHealth() {
+        float value = difficultyex$pendingLoadedHealth;
+        difficultyex$pendingLoadedHealth = Float.NaN;
+        return value;
+    }
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void difficultyex$save(CompoundTag tag, CallbackInfo ci) {
         if (difficultyExGetLevel() > 0) tag.putInt("difficultyex_level", difficultyExGetLevel());
@@ -40,5 +48,9 @@ public abstract class MobLevelMixin implements MobLevelAccess {
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void difficultyex$load(CompoundTag tag, CallbackInfo ci) {
         if (tag.contains("difficultyex_level", 3)) difficultyExSetLevel(tag.getInt("difficultyex_level"));
+        // Vanilla clamps LivingEntity Health to its unscaled maximum before our
+        // transient scaling attributes can be restored during EntityJoinLevelEvent.
+        // Hold the original saved value until the attributes have been reapplied.
+        difficultyex$pendingLoadedHealth = tag.contains("Health", 99) ? tag.getFloat("Health") : Float.NaN;
     }
 }

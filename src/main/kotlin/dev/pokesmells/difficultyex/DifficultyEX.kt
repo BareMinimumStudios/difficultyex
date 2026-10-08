@@ -40,6 +40,10 @@ object DifficultyEx {
         val state = mob as MobLevelAccess
         if (state.difficultyExGetLevel() > 0) {
             applyAttributes(mob, state.difficultyExGetLevel(), false)
+            val savedHealth = state.difficultyExConsumeSavedHealth()
+            if (savedHealth.isFinite()) {
+                mob.health = savedHealth.coerceIn(0f, mob.maxHealth)
+            }
             return
         }
         val cfg = settings

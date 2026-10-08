@@ -8,6 +8,8 @@ Development snapshot — October 8, 2026. Not release-ready.
 - Fabric and NeoForge project layouts; Fzzy Config, no owo-lib/KSP.
 - Public PlayerEx 5.0.1, Data Attributes 3.0.0, Remnant 3.0.0 dependencies.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
+- **Verified live on NeoForge:** `/difficultyex inspect` and `/difficultyex set` both execute; an invulnerable test zombie scaled from level 1 (21.6 maximum health) to level 10 (36) and level 20 (52). Changing level at half health preserved the ratio (18/36 → 26/52).
+- **Persistence regression fixed and retested:** the initial restart retained level 20 and maximum health 52 but incorrectly clamped saved health from 26 to 20. The fix captures raw NBT Health during load and restores it after modifiers, giving level 20, **26/52 health**, and 52 maximum health after the next save/restart. The test entity and forced chunk ticket were cleaned up.
 - Client-side mob nameplate mixins compiled and packaged for both loaders: level, ten-segment textual health bar and separately togglable health numbers, hostile-only, distance, visibility and blacklist options. Visual behavior still needs in-game verification.
 - Structure-specific minimum/maximum levels and configurable horizontal radius (loaded chunks only; cap 128), with deterministic combined bounds and four passing unit tests.
 - `gradlew.bat test build` passed; JUnit XML reports 4 tests, 0 failures, 0 errors.

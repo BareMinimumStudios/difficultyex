@@ -35,7 +35,7 @@ On Linux/macOS use `./gradlew clean build`. The wrapper uses **Gradle 9.8.0**, [
 
 ## Scaling rules
 
-A new mob's level is derived from nearby players' **PlayerEx progression levels**, not their vanilla XP levels. If no player is nearby, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels on reload.
+A new mob's level is derived from nearby players' **PlayerEx progression levels**, not their vanilla XP levels. If no player is nearby, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels and scaled health on reload, including current health above the vanilla maximum.
 
 Scaling currently affects maximum health, armor, attack damage, and experience. Damage and health use attribute modifiers rather than modifying raw damage hooks. Server-side Fzzy Config settings are maintained separately for Fabric and NeoForge.
 
