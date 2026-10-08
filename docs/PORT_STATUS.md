@@ -10,9 +10,11 @@ Development snapshot — October 8, 2026. Not release-ready.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
 - **Verified live on NeoForge:** `/difficultyex inspect` and `/difficultyex set` both execute; an invulnerable test zombie scaled from level 1 (21.6 maximum health) to level 10 (36) and level 20 (52). Changing level at half health preserved the ratio (18/36 → 26/52).
 - **Persistence regression fixed and retested:** the initial restart retained level 20 and maximum health 52 but incorrectly clamped saved health from 26 to 20. The fix captures raw NBT Health during load and restores it after modifiers, giving level 20, **26/52 health**, and 52 maximum health after the next save/restart. The test entity and forced chunk ticket were cleaned up.
+- Shared XP reward calculation now guards non-finite configured rates and saturates oversized results; four arithmetic boundary tests pass. Actual XP-orb drop behavior after player kills is not yet validated.
 - Client-side mob nameplate mixins compiled and packaged for both loaders: level, ten-segment textual health bar and separately togglable health numbers, hostile-only, distance, visibility and blacklist options. Visual behavior still needs in-game verification.
 - Structure-specific minimum/maximum levels and configurable horizontal radius (loaded chunks only; cap 128), with deterministic combined bounds and four passing unit tests.
-- `gradlew.bat test build` passed; JUnit XML reports 4 tests, 0 failures, 0 errors.
+- **Verified live on NeoForge (October 8):** located a naturally generated `minecraft:village_taiga` at X=0, Z=608. A zombie inside its structure influence gained level 30 from `structureStartingLevels`; an outside control zombie remained level 1. After reloading with a conflicting level-20 `structureMaximumLevels` entry, a newly spawned village zombie was level 20 (maximum takes precedence). Test mobs and forced chunk tickets were removed; original development config restored.
+- `gradlew.bat clean test build` passed for both loaders; JUnit XML reports **8 tests** (four level-bounds tests and four XP-math tests), 0 failures, 0 errors.
 - NeoForge client smoke test initialized OpenGL 4.6, loaded DifficultyEx resources/config and reached texture atlas loading without a startup mixin failure. Test client was closed; actual in-world nametag rendering remains untested.
 - New structure fields were missing in the existing development config on first load; Fzzy Config reported missing keys and wrote their defaults into `run/config/difficultyex/config.json5`.
 - MixinMCP Gradle decompile plugin 1.5.0 configured.
@@ -29,8 +31,8 @@ Verified again after the `dev.pokesmells` package migration: the **public Player
 ## Outstanding migration items
 
 - In-game visual verification/polish of new client nameplates and health indicators; GeckoLib/Traveler's Titles optional integrations.
-- Behavior testing of structure-based rules, migration of legacy owo-lib configuration to Fzzy Config, and feature parity with 1.20.1.
-- Test new operator commands in-game, spawn-level calculation, structure bounds against generated structures, entity modifiers, XP rewards, saves/reloads and multiplayer sync. Automated boundary tests and startup checks do not replace functional testing.
+- More structure variants, radius-boundary checks, configuration migration from legacy owo-lib to Fzzy Config, and feature parity with 1.20.1.
+- Continue runtime testing for spawn-level calculation against player progression, structure-radius boundaries, modified damage and armor, player-kill XP drops, and multiplayer synchronization. The NeoForge commands, attribute scaling, persistence and one village's structure bounds have been validated.
 - Test packaged builds in isolated copies of the user's Fabric and NeoForge server setups, using the **publicly released** versions rather than the versions originally installed on the servers.
 - mc-publish project IDs verified from publicly visible release pages: Modrinth `qdJ4GLvL` and CurseForge `1387673`; still verify credentials, workflow syntax, dependency metadata and release prerequisites before manually publishing.
 

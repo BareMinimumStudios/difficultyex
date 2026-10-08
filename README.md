@@ -49,7 +49,7 @@ Operators (permission level 2 or above) can inspect a mob with `/difficultyex in
 
 ## Testing
 
-Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary unit tests.
+Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary and XP-reward arithmetic unit tests.
 
 ## License
 

@@ -93,12 +93,12 @@ object DifficultyEx {
         mob.health = (healthFraction * mob.maxHealth).coerceAtLeast(1f)
     }
 
-    @JvmStatic fun scaledExperience(original: Int, mob: Mob): Int {
-        val level = (mob as MobLevelAccess).difficultyExGetLevel()
-        if (level < 1) return original
-        val factor = 1.0 + level * settings.experiencePerLevel.coerceIn(0.0, 100.0)
-        return (original * factor).coerceIn(0.0, Int.MAX_VALUE.toDouble()).toInt()
-    }
+    @JvmStatic fun scaledExperience(original: Int, mob: Mob): Int =
+        DifficultyExperienceMath.scale(
+            original,
+            (mob as MobLevelAccess).difficultyExGetLevel(),
+            settings.experiencePerLevel
+        )
 
     private fun applyAttributes(mob: Mob, level: Int, heal: Boolean) {
         val cfg = settings

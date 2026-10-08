@@ -9,7 +9,8 @@
 - Fixed loaded scaled mobs losing saved health above vanilla maximum: preserve the original NBT health and restore it after their level modifiers are reapplied. Verified by a live NeoForge save/restart test.
 - Added cross-loader build automation and opt-in mc-publish workflow.
 - Reintroduced cross-loader mob nameplates with level and ten-segment health indicators, using synced mob data and vanilla rendering.
-- Added structure-specific level bounds with a loaded-chunk-only search radius, consistent rule precedence, and four automated bounds tests.
+- Added structure-specific level bounds with a loaded-chunk-only search radius, consistent rule precedence, and four automated bounds tests. Verified inside and outside a generated taiga village, including conflicting minimum and maximum structure rules.
+- Extracted deterministic XP reward arithmetic into a testable shared helper, with normalization of non-finite configured rates and saturation for large rewards.
 - Updated developer credit to **pokesmells** and moved Java/Kotlin packages to `dev.pokesmells.difficultyex`.
 - Adopted Bare Minimum Studios' BML v1.0; preserved the prior MIT notice and bundled both notices in the Fabric and NeoForge JARs.
 
