@@ -9,7 +9,8 @@ Development snapshot — October 8, 2026. Not release-ready.
 - Public PlayerEx 5.0.1, Data Attributes 3.0.0, Remnant 3.0.0 dependencies.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
 - MixinMCP Gradle decompile plugin 1.5.0 configured.
-- `gradlew.bat clean build` completed for both loaders.
+- `gradlew.bat build` succeeds for both loaders after adding shared operator-only `/difficultyex inspect` and `/difficultyex set` commands, with loader-specific registrations. The setter retains the target mob's health percentage.
+- Git development work is restricted to the `1.21.1` branch; the push/publication pipeline remains manual and is now explicitly gated to that branch.
 - NeoForge 21.1.26 development server successfully initialized DifficultyEx + all dependencies, loaded Fzzy Config, generated a world and reached the `Done` state. Its test server process was stopped.
 
 ## Fabric integration blocker
@@ -20,8 +21,8 @@ The **public PlayerEx 5.0.1 Fabric JAR** crashes during `runFabric1211Server` at
 
 - Client nameplates, level text and health bars; GeckoLib/Traveler's Titles optional integrations.
 - Structure-based level rules, configuration migration, and behavior parity with 1.20.1.
-- Test spawn-level calculation, entity modifiers, XP rewards, saves/reloads and multiplayer sync.
+- Test new operator commands in-game, spawn-level calculation, entity modifiers, XP rewards, saves/reloads and multiplayer sync. Compilation alone does not validate command execution.
 - Test packaged builds in isolated copies of the user's Fabric and NeoForge server setups, using the **publicly released** versions rather than the versions originally installed on the servers.
-- Verify mc-publish project metadata and release prerequisites before manually publishing.
+- mc-publish project IDs verified from publicly visible release pages: Modrinth `qdJ4GLvL` and CurseForge `1387673`; still verify credentials, workflow syntax, dependency metadata and release prerequisites before manually publishing.
 
 The user's server copies were not changed. No GitHub push, release or commit was performed.

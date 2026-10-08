@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   publish:
+    if: github.ref == 'refs/heads/1.21.1'
     runs-on: ubuntu-latest
     name: Build and publish Minecraft 1.21.1
     steps:

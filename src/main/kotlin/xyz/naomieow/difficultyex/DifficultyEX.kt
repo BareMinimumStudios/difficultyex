@@ -74,6 +74,15 @@ object DifficultyEx {
         applyAttributes(mob, result, true)
     }
 
+    /** Operator override: update the synchronized level and keep the mob's health percentage. */
+    @JvmStatic fun setMobLevel(mob: Mob, level: Int) {
+        val currentMaximum = mob.maxHealth.coerceAtLeast(1f)
+        val healthFraction = (mob.health / currentMaximum).coerceIn(0f, 1f)
+        (mob as MobLevelAccess).difficultyExSetLevel(level.coerceAtLeast(1))
+        applyAttributes(mob, level.coerceAtLeast(1), false)
+        mob.health = (healthFraction * mob.maxHealth).coerceAtLeast(1f)
+    }
+
     @JvmStatic fun scaledExperience(original: Int, mob: Mob): Int {
         val level = (mob as MobLevelAccess).difficultyExGetLevel()
         if (level < 1) return original

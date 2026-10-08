@@ -1,6 +1,6 @@
 # DifficultyEx
 
-[![Build](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml)
+[![Build](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml/badge.svg?branch=1.21.1)](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml)
 [![License: BML](https://img.shields.io/badge/license-BML--1.0-lightgrey)](https://github.com/BareMinimumStudios/bare-minimum-license)
 [![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-62b24a)](https://minecraft.net/)
 
@@ -38,6 +38,10 @@ On Linux/macOS use `./gradlew clean build`. The wrapper uses **Gradle 9.8.0**, [
 A new mob's level is derived from nearby players' **PlayerEx progression levels**, not their vanilla XP levels. If no player is nearby, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels on reload.
 
 Scaling currently affects maximum health, armor, attack damage, and experience. Damage and health use attribute modifiers rather than modifying raw damage hooks. Server-side Fzzy Config settings are maintained separately for Fabric and NeoForge.
+
+## Operator commands
+
+Operators (permission level 2 or above) can inspect a mob with `/difficultyex inspect <target>` and set its level with `/difficultyex set <target> <level>`. The setter synchronizes the mob's level, reapplies scaling modifiers, and preserves its health percentage. For example, `/difficultyex inspect @e[type=minecraft:zombie,sort=nearest,limit=1]` inspects the nearest zombie. Commands are intended for testing and administration; they do not change PlayerEx player levels.
 
 ## Testing
 
