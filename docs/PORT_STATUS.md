@@ -6,6 +6,7 @@ Development snapshot — October 8, 2026. Not release-ready.
 
 - Builds on Gradle 9.8.0, Cloche 0.19.13, Java 21, and Kotlin.
 - Fabric and NeoForge project layouts; Fzzy Config, no owo-lib/KSP.
+- Safe one-time legacy owo-lib JSON5 import on both loaders, only when a modern config is absent. 4 conversion/file-safety unit tests pass. **NeoForge runtime migration tested:** synthetic legacy defaults (starting level 17, maximum 200, structure radius 25, disabled nameplates) were imported before Fzzy Config initialization; server reached `Done`. Original development config restored byte-for-byte and temporary test file deleted. Legacy visual offset/scale/colors and per-player difficulty enum are intentionally not migrated.
 - Public PlayerEx 5.0.1, Data Attributes 3.0.0, Remnant 3.0.0 dependencies.
 - Shared mob-level persistence, synchronization and attribute-scaling implementation.
 - **Verified live on NeoForge:** `/difficultyex inspect` and `/difficultyex set` both execute; an invulnerable test zombie scaled from level 1 (21.6 maximum health) to level 10 (36) and level 20 (52). Changing level at half health preserved the ratio (18/36 → 26/52).
@@ -31,7 +32,7 @@ Verified again after the `dev.pokesmells` package migration: the **public Player
 ## Outstanding migration items
 
 - In-game visual verification/polish of new client nameplates and health indicators; GeckoLib/Traveler's Titles optional integrations.
-- More structure variants, radius-boundary checks, configuration migration from legacy owo-lib to Fzzy Config, and feature parity with 1.20.1.
+- More structure variants, radius-boundary checks, real-world owo-lib configuration examples to validate the synthetic-file migration, and feature parity with 1.20.1.
 - Continue runtime testing for spawn-level calculation against player progression, structure-radius boundaries, modified damage and armor, player-kill XP drops, and multiplayer synchronization. The NeoForge commands, attribute scaling, persistence and one village's structure bounds have been validated.
 - Test packaged builds in isolated copies of the user's Fabric and NeoForge server setups, using the **publicly released** versions rather than the versions originally installed on the servers.
 - mc-publish project IDs verified from publicly visible release pages: Modrinth `qdJ4GLvL` and CurseForge `1387673`; still verify credentials, workflow syntax, dependency metadata and release prerequisites before manually publishing.

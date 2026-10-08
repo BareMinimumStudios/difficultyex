@@ -19,7 +19,7 @@ The Minecraft 1.21.1 rewrite is **under development**, not a published release. 
 | Fabric | 1.21.1 | Fabric Language Kotlin | Fzzy Config |
 | NeoForge | 1.21.1 | Kotlin for Forge | Fzzy Config |
 
-DifficultyEx builds against [PlayerEx](https://github.com/BareMinimumStudios/playerex) 5.0.1, [Data Attributes](https://github.com/BareMinimumStudios/data-attributes) 3.0.0, and [Remnant](https://github.com/BareMinimumStudios/remnant) 3.0.0, using the **public 1.21.1 release artifacts**, not whatever happens to be installed on development servers. Both loaders require their appropriate Kotlin language mod and Fzzy Config. Fabric also requires Fabric API. **owo-lib is no longer required.**
+DifficultyEx builds against [PlayerEx](https://github.com/BareMinimumStudios/playerex) 5.0.1, [Data Attributes](https://github.com/BareMinimumStudios/data-attributes) 3.0.0, and [Remnant](https://github.com/BareMinimumStudios/remnant) 3.0.0, using the **public 1.21.1 release artifacts**, not whatever happens to be installed on development servers. Both loaders require their appropriate Kotlin language mod and Fzzy Config. Fabric also requires Fabric API. **owo-lib is no longer required.** On first startup, if `config/difficultyex/config.json5` does not exist but the old owo-lib `config/difficultyex-config.json5` (or `.json`) is present, DifficultyEx imports supported legacy fields automatically. The old file remains untouched. An existing Fzzy Config always takes priority; see the [migration notes](docs/QA_CHECKLIST.md).
 
 The dependency versions are pinned in [libraries.toml](libraries.toml).
 

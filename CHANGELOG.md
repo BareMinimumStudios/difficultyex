@@ -4,6 +4,7 @@
 
 - Began the Fabric + NeoForge migration with Cloche, Java 21, Kotlin, and Gradle 9.8.0.
 - Removed owo-lib and the associated KSP/generated configuration layer.
+- Added safe, first-run migration of supported owo-lib JSON5 settings into Fzzy Config when no modern config exists. The original file is preserved. Validated with four tests and NeoForge dedicated-server startup.
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
 - Reimplemented persistent, synchronized mob levels and attribute scaling in shared sources.
 - Fixed loaded scaled mobs losing saved health above vanilla maximum: preserve the original NBT health and restore it after their level modifiers are reapplied. Verified by a live NeoForge save/restart test.

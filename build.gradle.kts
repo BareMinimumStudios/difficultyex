@@ -54,6 +54,8 @@ cloche {
         }
         dependencies {
             implementation(libs.crunch)
+            // Fzzy Config ships Jankson at runtime; use it to read legacy owo-lib JSON5.
+            implementation("blue.endless:jankson:1.2.3")
             compileOnly(libs.mixinextras)
         }
     }
@@ -140,6 +142,11 @@ tasks.withType<net.msrandom.stubs.GenerateStubApi>().configureEach {
 }
 
 dependencies {
+    // Gson is supplied by Minecraft at runtime; unit tests need it explicitly.
+    testImplementation("com.google.code.gson:gson:2.11.0")
+    testImplementation("blue.endless:jankson:1.2.3")
+    testImplementation("org.slf4j:slf4j-api:2.0.16")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.16")
     testImplementation(kotlin("test-junit5", "2.2.20"))
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
 }
