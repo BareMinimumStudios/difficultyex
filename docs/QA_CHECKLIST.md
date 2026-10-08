@@ -33,6 +33,20 @@ The 1.20.1 owo-lib file was named `config/difficultyex-config.json5` (the `.json
 
 The retired nameplate offset, scale, and color options are not migrated because the replacement nameplate renderer does not yet expose matching controls. The old per-player difficulty selection enum is also not carried over. Confirm the new settings visually in the Fzzy Config menu; do not delete the original config until satisfied. This migration was tested with synthetic old JSON5 in unit tests and in a real NeoForge dedicated-server startup, but still needs validation against a real 1.20.1 production configuration.
 
+## Nameplate visibility (NeoForge startup-checked 2026-10-08)
+
+In a disposable test world with a client connected, spawn an ordinary zombie and set it to level 20 using `/difficultyex set @e[type=minecraft:zombie,sort=nearest,limit=1] 20`. Confirm the level, name, ten-segment health bar, and health number render at the configured distance; check all three label/bar toggles separately and at zero, and use an occluding wall and an invisibility effect. **Restart** between config changes in this development version.
+
+To test vanilla team restrictions, tag a single test mob `difficultyex_team_test`, then run:
+
+```mcfunction
+team add difficultyex_hidden
+team modify difficultyex_hidden nametagVisibility never
+team join difficultyex_hidden @e[tag=difficultyex_team_test,limit=1]
+```
+
+The modded nameplate should remain hidden. Test the `hideForOtherTeams` and `hideForOwnTeam` values using two player teams as well. The code's team policy is unit-tested and NeoForge client startup passed, but the actual nameplate appearance still requires this in-world validation. Clean up via `/team remove difficultyex_hidden` and remove any tagged test mobs.
+
 ## Still requiring acceptance testing
 
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor

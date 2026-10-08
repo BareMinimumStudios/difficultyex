@@ -1,6 +1,7 @@
 package dev.pokesmells.difficultyex.client;
 
 import dev.pokesmells.difficultyex.DifficultyEx;
+import dev.pokesmells.difficultyex.DifficultyExNameplateVisibility;
 import dev.pokesmells.difficultyex.DifficultySettings;
 import dev.pokesmells.difficultyex.MobLevelAccess;
 import net.minecraft.ChatFormatting;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.scores.Team;
 
 /** Client-only nameplate policy, common to Fabric and NeoForge. */
 public final class DifficultyExNameplates {
@@ -21,13 +23,28 @@ public final class DifficultyExNameplates {
         DifficultySettings settings = DifficultyEx.INSTANCE.getSettings();
         if (!settings.getNameplatesEnabled() ||
             ((MobLevelAccess) mob).difficultyExGetLevel() < 1 ||
-            mob.isInvisible() ||
+            (!settings.getNameplateShowLevel() &&
+             !settings.getNameplateShowHealth() &&
+             !settings.getNameplateShowHealthText()) ||
             (settings.getNameplateHostileOnly() && !(mob instanceof Monster))) {
             return false;
         }
 
         Player viewer = Minecraft.getInstance().player;
-        if (viewer == null || viewer.isSpectator()) return false;
+        if (viewer == null || viewer.isSpectator() || !Minecraft.renderNames()) return false;
+
+        // Our level-label override must not bypass vanilla team name-tag policies
+        // (NEVER, HIDE_FOR_OTHER_TEAMS, HIDE_FOR_OWN_TEAM) or invisibility.
+        Team mobTeam = mob.getTeam();
+        Team viewerTeam = viewer.getTeam();
+        if (!DifficultyExNameplateVisibility.permits(
+                mobTeam == null ? null : mobTeam.getNameTagVisibility().name(),
+                viewerTeam != null,
+                mobTeam != null && viewerTeam != null && mobTeam.isAlliedTo(viewerTeam),
+                mob.isInvisibleTo(viewer))) {
+            return false;
+        }
+
         int distance = Math.max(0, settings.getNameplateDistance());
         if (viewer.distanceToSqr(mob) > (double) distance * distance) return false;
         if (!viewer.hasLineOfSight(mob)) return false;

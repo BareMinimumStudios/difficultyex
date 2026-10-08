@@ -41,7 +41,7 @@ Scaling currently affects maximum health, armor, attack damage, and experience. 
 
 **Structure rules:** Configure `structureStartingLevels` and `structureMaximumLevels` with structure IDs such as `minecraft:desert_pyramid`, and `structureRadius` (default 50 blocks). Only already-loaded surrounding chunks are inspected, and lookup radius is capped at 128 blocks to avoid loading terrain or excessive spawn costs. Per-structure restrictions combine with dimension, biome, and mob restrictions. The highest minimum and lowest maximum apply; maximums take priority if configured bounds conflict.
 
-**Mob nameplates:** Level and health displays now use client-side vanilla nametag rendering on both loaders, with a ten-segment health indicator. The Fzzy Config nameplate options independently control the bar, health text, level text, distance, hostile-only display and blacklist. This is the first implementation and still requires an in-game visual check.
+**Mob nameplates:** Level and health displays now use client-side vanilla nametag rendering on both loaders, with a ten-segment health indicator. The Fzzy Config nameplate options independently control the bar, health text, level text, distance, hostile-only display and blacklist. Vanilla team name-tag restrictions and player-relative invisibility are respected; enabling none of the three label/bar elements does not force a nameplate. Restart to apply changed settings in this development port. In-world appearance still needs visual verification.
 
 ## Operator commands
 
@@ -49,7 +49,7 @@ Operators (permission level 2 or above) can inspect a mob with `/difficultyex in
 
 ## Testing
 
-Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary and XP-reward arithmetic unit tests.
+Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, XP-reward arithmetic, legacy-config migration and nameplate-visibility unit tests.
 
 ## License
 
