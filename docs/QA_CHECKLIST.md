@@ -31,7 +31,15 @@ Add `minecraft:village_taiga` to the structure maximum map with a maximum of 20,
 
 The generated `minecraft:village_taiga` previously located at X=0, Z=608 had a runtime structure bounding box of **X=−87..53, Z=530..685**. With `structureRadius=16`, `structureStartingLevels={"minecraft:village_taiga":30}`, and both average level variations set to zero, zombies at X=−103 and 69 (Z=600) were level 30; at X=−104 and 70 they were level 1. Similarly, Z=514 and 701 (X=0) were level 30, while Z=513 and 702 were level 1. The corner X=−103, Z=514 gained level 30 and X=−104, Z=514 stayed level 1. This confirms an inclusive X/Z rectangle expanded by the radius, even at a corner. Coordinates depend on the development world's seed and structure; do not copy them to production.
 
-The temporary NeoForge bounding-box inspection command was removed before packaging. The test ran only on the ignored development world, used tagged invulnerable/no-gravity zombies, and cleaned up all ten mobs and force-load tickets. The original dev config was restored byte-for-byte and RCON disabled. Unloaded-neighbor-chunk behavior and other structure types remain to be checked.
+The temporary NeoForge bounding-box inspection command was removed before packaging. The test ran only on the ignored development world, used tagged invulnerable/no-gravity zombies, and cleaned up all ten mobs and force-load tickets. The original dev config was restored byte-for-byte and RCON disabled. Other structure types remain to be checked.
+
+## Unloaded structure-origin chunks (NeoForge live-tested 2026-10-08)
+
+Vanilla `StructureManager.startsForStructure` can load a structure's *origin chunk* while resolving a reference in an already loaded chunk. DifficultyEx now uses `ServerChunkCache.getChunkNow` for both the reference and the origin; it must not force-load or generate missing chunks when spawning mobs.
+
+The isolated taiga village has its origin at chunk `(0,38)`. With a radius of 16 and `minecraft:village_taiga` configured to start at level 30, two reference/boundary chunks `(-7,37)` and `(-6,37)` were loaded. A temporary diagnostic confirmed `(-6,37)` held one village reference, but `(0,38)` was **not loaded**. A zombie spawned at `(-103,150,600)` stayed at **level 1**, and the origin chunk remained absent. Once the origin `(0,38)` was explicitly loaded, another zombie at the same location spawned at **level 30**. The earlier zombie stayed level 1 (spawn-once persistence). **This is an intentional conservative tradeoff:** rules requiring an unloaded structure origin do not apply until that origin loads. Validate the behavior with actual player movement before release.
+
+The development-only diagnostic was deleted, two mobs were killed, the three force-load tickets removed, and the original dev config restored. Neither RCON nor the diagnostic is enabled in a distributable JAR.
 
 ## Legacy configuration import (NeoForge startup-tested 2026-10-08)
 
@@ -71,7 +79,7 @@ A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge f
 
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
-- Additional structure variants, unloaded-neighbor chunk behavior and many-mob performance with structure rules (exact X/Z influence boundaries and a corner passed on NeoForge)
+- Additional structure variants, many-mob performance, and real-player movement near structures whose origin chunks load late (exact boundary and unloaded-origin regression tests passed on NeoForge)
 - XP-orb collection by a **human-controlled** player and modified damage/armor in combat (NeoForge fake-player-attributed zombie/cow kills and orb totals passed the runtime probe)
 - Production-origin owo-lib configuration migration (synthetic-file unit test and NeoForge startup smoke test passed); optional mod integrations
 - Performance with many mobs and structure rules enabled
