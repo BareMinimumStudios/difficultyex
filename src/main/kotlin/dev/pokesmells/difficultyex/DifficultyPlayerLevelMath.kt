@@ -1,5 +1,7 @@
 package dev.pokesmells.difficultyex
 
+import java.math.BigDecimal
+import java.math.MathContext
 import kotlin.math.roundToInt
 
 /**
@@ -23,6 +25,11 @@ object DifficultyPlayerLevelMath {
         // A malformed user expression can produce NaN or infinity for individual
         // players; ignore only those values rather than invalidating everyone.
         val valid = levels.filter(Double::isFinite)
-        return if (valid.isEmpty()) fallbackLevel else valid.average().roundToInt()
+        if (valid.isEmpty()) return fallbackLevel
+        val average = valid.average()
+        if (average.isFinite()) return average.roundToInt()
+        val sum = valid.fold(BigDecimal.ZERO) { total, value -> total + BigDecimal.valueOf(value) }
+        return sum.divide(BigDecimal.valueOf(valid.size.toLong()), MathContext.DECIMAL128)
+            .toDouble().roundToInt()
     }
 }

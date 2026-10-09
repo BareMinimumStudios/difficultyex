@@ -49,4 +49,27 @@ class DifficultyPlayerLevelMathTest {
         assertEquals(30, DifficultyPlayerLevelMath.averageTransformedLevels(
             listOf(Double.NaN, 20.0, 40.0, Double.POSITIVE_INFINITY), 7))
     }
+    @Test
+    fun finiteFormulaResultsCanCancelAfterTheDoubleSumOverflows() {
+        assertEquals(0, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE), 7))
+        assertEquals(0, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(-Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE), 7))
+    }
+
+    @Test
+    fun overflowingSumPreservesSmallRemainingContributionsAndRounding() {
+        assertEquals(2, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE, 8.0), 7))
+        assertEquals(-2, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(-Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, -8.0), 7))
+    }
+
+    @Test
+    fun genuinelyHugeAveragesStillSaturateToIntegerLimits() {
+        assertEquals(Int.MAX_VALUE, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(Double.MAX_VALUE, Double.MAX_VALUE), 7))
+        assertEquals(Int.MIN_VALUE, DifficultyPlayerLevelMath.averageTransformedLevels(
+            listOf(-Double.MAX_VALUE, -Double.MAX_VALUE), 7))
+    }
 }

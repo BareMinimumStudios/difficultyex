@@ -111,3 +111,7 @@ A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge f
 - XP-orb collection by a **human-controlled** player and real player-combat/enchantment interactions (NeoForge fake-player XP rewards and zombie-versus-cow attack/armor damage passed the runtime tests)
 - Production-origin owo-lib configuration migration (synthetic-file unit test and NeoForge startup smoke test passed); optional mod integrations
 - Performance with many mobs and structure rules enabled
+
+## Extreme player-level formula results (automated 2026-10-09)
+
+Three regression tests cover finite values whose double sum overflows: large positive and negative values must cancel in either order, small remaining contributions must retain normal integer rounding, and truly huge averages must saturate to integer limits. Non-finite individual values are still ignored; the configured starting level remains the fallback when no valid values exist. The full IDEA test/build run passed 50 tests with zero failures, errors, or skips. This does not replace authenticated multiplayer acceptance.
