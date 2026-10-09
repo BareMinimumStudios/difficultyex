@@ -1,8 +1,8 @@
 {
-    "text.nameplate.health": "§rHP: %d/%d",
-    "text.nameplate.level": "§eLv.%s",
-    "text.nameplate.name": "§r%s",
-    "text.nameplate.jade.level": " §eLv.%s",
+    "text.nameplate.health": "HP: %s/%s",
+    "text.nameplate.level": "Lv.%s",
+    "text.nameplate.name": "%s",
+    "text.nameplate.jade.level": " Lv.%s",
 
     "text.config.difficultyex-config.title": "DifficultyEX Settings",
 

@@ -53,6 +53,10 @@ A disposable operator-only runtime probe exercised the **actual** Minecraft `Cli
 
 The temporary test command and RCON helper were removed before building, the test mob discarded, the force-load ticket removed, and RCON disabled. Verify live server-to-client health/max-health/level updates and world-reload persistence with two authenticated clients before release.
 
+## Nameplate translations (NeoForge client startup-checked 2026-10-08)
+
+The prior nameplate `en_us.json` contained incorrectly encoded legacy color codes and an unsupported Java-style `%d/%d` health format. Minecraft 1.21.1 `TranslatableContents` accepts `%s`, not `%d`; an invalid format triggers literal-text fallback instead of substituting current/max health. The updated strings use `Lv.%s` and `HP: %s/%s` with component-based yellow/gray styles. Three regression tests parse the **packaged UTF-8 language resource**, verify supported placeholders, and reject legacy formatting codes. NeoForge client startup and resource loading passed after the correction; the test client was closed normally. **Still manually inspect an actual mob** to confirm the level and numbers render, especially at low health and with each toggle independently set.
+
 ## Nameplate visibility (NeoForge startup-checked 2026-10-08)
 
 In a disposable test world with a client connected, spawn an ordinary zombie and set it to level 20 using `/difficultyex set @e[type=minecraft:zombie,sort=nearest,limit=1] 20`. Confirm the level, name, ten-segment health bar, and health number render at the configured distance; check all three label/bar toggles separately and at zero, and use an occluding wall and an invisibility effect. **Restart** between config changes in this development version.

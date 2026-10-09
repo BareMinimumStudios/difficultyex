@@ -65,7 +65,7 @@ public final class DifficultyExNameplates {
         MutableComponent label = Component.empty();
 
         if (settings.getNameplateShowLevel()) {
-            label.append(Component.translatable("text.nameplate.level", level));
+            label.append(Component.translatable("text.nameplate.level", level).withStyle(ChatFormatting.YELLOW));
             label.append(Component.literal(" "));
         }
         label.append(vanilla.copy());
@@ -84,7 +84,8 @@ public final class DifficultyExNameplates {
         if (settings.getNameplateShowHealthText()) {
             label.append(Component.literal("  "));
             label.append(Component.translatable("text.nameplate.health",
-                DifficultyNameplateHealth.displayedHealth(mob.getHealth()), Math.round(mob.getMaxHealth())));
+                DifficultyNameplateHealth.displayedHealth(mob.getHealth()), Math.round(mob.getMaxHealth()))
+                .withStyle(ChatFormatting.GRAY));
         }
         return label;
     }
