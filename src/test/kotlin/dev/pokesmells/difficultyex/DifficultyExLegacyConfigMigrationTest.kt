@@ -91,6 +91,54 @@ class DifficultyExLegacyConfigMigrationTest {
         assertTrue(Files.isRegularFile(legacyPath))
     }
 
+    @Test
+    fun malformedMapEntriesDoNotDiscardValidAreaRules() {
+        val raw = """{
+          structureScalingSettings: { startingLevels: {
+            "minecraft:village_plains": 30,
+            "minecraft:desert_pyramid": 40.0,
+            "string": "20", "fraction": 2.5, "overflow": 2147483648,
+            "negative": -5, "zero": 0, "boolean": true, "null": null,
+            "object": {value: 10}
+          } }
+        }"""
+        val parsed = JsonParser.parseString(DifficultyExLegacyConfigMigration.convert(raw)).asJsonObject
+        val rules = parsed.getAsJsonObject("structureStartingLevels")
+        assertEquals(setOf("minecraft:village_plains", "minecraft:desert_pyramid"), rules.keySet())
+        assertEquals(30, rules.get("minecraft:village_plains").asInt)
+        assertEquals(40, rules.get("minecraft:desert_pyramid").asInt)
+    }
+
+    @Test
+    fun malformedBlacklistEntriesAreSkippedWithoutCoercingThemToStrings() {
+        val raw = """{
+          scalingLevelSettings: { mobBlacklist: ["minecraft:creeper", 15, true, null, {}, []] },
+          visualSettings: { nameplateMobBlacklist: [null, "minecraft:bat", false] }
+        }"""
+        val parsed = JsonParser.parseString(DifficultyExLegacyConfigMigration.convert(raw)).asJsonObject
+        assertEquals(listOf("minecraft:creeper"), parsed.getAsJsonArray("mobBlacklist").map { it.asString })
+        assertEquals(listOf("minecraft:bat"), parsed.getAsJsonArray("nameplateBlacklist").map { it.asString })
+    }
+
+    @Test
+    fun invalidNumericFieldsKeepModernDefaults() {
+        val raw = """{
+          scalingLevelSettings: {
+            startingLevel: 1.5, maximumLevel: 2147483648,
+            levelScalingMaxRadiusByBlocks: "50", levelAverageIncrement: 4.0,
+            entityBaseHealthPercentage: 1.0e400
+          },
+          visualSettings: { nameplateEnabled: "false" }
+        }"""
+        val parsed = JsonParser.parseString(DifficultyExLegacyConfigMigration.convert(raw)).asJsonObject
+        assertEquals(1.0, parsed.get("startingLevel").asDouble)
+        assertEquals(1_000_000, parsed.get("maximumLevel").asInt)
+        assertEquals(100, parsed.get("playerRadius").asInt)
+        assertEquals(4, parsed.get("averageIncrement").asInt)
+        assertEquals(0.08, parsed.get("healthPerLevel").asDouble)
+        assertTrue(parsed.get("nameplatesEnabled").asBoolean)
+    }
+
     private inline fun inTempDirectory(block: (Path) -> Unit) {
         val root = Files.createTempDirectory("difficultyex-legacy-test-")
         try {

@@ -5,6 +5,7 @@
 - Began the Fabric + NeoForge migration with Cloche, Java 21, Kotlin, and Gradle 9.8.0.
 - Removed owo-lib and the associated KSP/generated configuration layer.
 - Added safe, first-run migration of supported owo-lib JSON5 settings into Fzzy Config when no modern config exists. The original file is preserved. Validated with four tests and NeoForge dedicated-server startup.
+- Hardened legacy migration against malformed blacklists and level maps, fractional or overflowing integer settings, and non-finite rates. Valid entries survive; invalid entries are logged and skipped. Seven migration tests and all 53 tests pass.
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
 - Converted plain Fzzy Config values to validated GUI-editable entries in organized progression, mob, world, structure and nameplate groups. Kept the existing JSON5 keys; nameplate preferences are now `@NonSync` and remain client-local. Tested loading an existing JSON5 file and a zombie minimum-level map override on a NeoForge development server.
 - Prevented large finite player-level formula results from overflowing the averaging step. An exact decimal fallback preserves cancellation and small remaining contributions before normal integer rounding and area limits. Added three regression tests; all 50 tests pass.

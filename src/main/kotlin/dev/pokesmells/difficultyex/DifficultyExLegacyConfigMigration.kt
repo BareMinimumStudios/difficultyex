@@ -3,8 +3,11 @@ package dev.pokesmells.difficultyex
 import blue.endless.jankson.Jankson
 import blue.endless.jankson.JsonGrammar
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.google.gson.JsonPrimitive
 import org.slf4j.LoggerFactory
 import java.io.StringWriter
 import java.nio.file.Files
@@ -17,6 +20,10 @@ import java.nio.file.Path
 object DifficultyExLegacyConfigMigration {
     private val log = LoggerFactory.getLogger("difficultyex/legacy-config")
     private val gson = GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create()
+    private val integerSettings = DifficultySettings::class.java.declaredFields
+        .filter { it.type == Int::class.javaPrimitiveType }
+        .map { it.name }
+        .toSet()
 
     @JvmStatic
     fun migrateIfNeeded(configDir: Path): Boolean {
@@ -72,7 +79,42 @@ object DifficultyExLegacyConfigMigration {
                     (expected.asJsonPrimitive.isString == value.asJsonPrimitive.isString)
                 else -> false
             }
-            if (compatible) result.add(newName, value.deepCopy())
+            if (!compatible) {
+                log.warn("Skipped incompatible legacy setting {}.{}; keeping modern default", section, oldName)
+                return
+            }
+            val converted: JsonElement = when {
+                expected.isJsonObject -> JsonObject().apply {
+                    var skipped = 0
+                    for ((key, entry) in value.asJsonObject.entrySet()) {
+                        val level = exactInt(entry)?.takeIf { it >= 1 }
+                        if (level == null) skipped++ else addProperty(key, level)
+                    }
+                    if (skipped > 0) log.warn("Skipped {} invalid level rules in legacy {}.{}", skipped, section, oldName)
+                }
+                expected.isJsonArray -> JsonArray().apply {
+                    var skipped = 0
+                    for (entry in value.asJsonArray) {
+                        if (entry.isJsonPrimitive && entry.asJsonPrimitive.isString) add(entry.deepCopy())
+                        else skipped++
+                    }
+                    if (skipped > 0) log.warn("Skipped {} invalid blacklist entries in legacy {}.{}", skipped, section, oldName)
+                }
+                newName in integerSettings -> {
+                    val integer = exactInt(value)
+                    if (integer == null) {
+                        log.warn("Skipped non-integer or overflowing legacy setting {}.{}; keeping modern default", section, oldName)
+                        return
+                    }
+                    JsonPrimitive(integer)
+                }
+                expected.asJsonPrimitive.isNumber && !value.asDouble.isFinite() -> {
+                    log.warn("Skipped non-finite legacy setting {}.{}; keeping modern default", section, oldName)
+                    return
+                }
+                else -> value.deepCopy()
+            }
+            result.add(newName, converted)
         }
 
         val scaling = "scalingLevelSettings"
@@ -110,5 +152,10 @@ object DifficultyExLegacyConfigMigration {
         copy(visual, "showNameplateHealthText", "nameplateShowHealthText")
 
         return gson.toJson(result)
+    }
+
+    private fun exactInt(value: JsonElement): Int? {
+        if (!value.isJsonPrimitive || !value.asJsonPrimitive.isNumber) return null
+        return runCatching { value.asBigDecimal.intValueExact() }.getOrNull()
     }
 }
