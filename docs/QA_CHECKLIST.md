@@ -41,6 +41,10 @@ The isolated taiga village has its origin at chunk `(0,38)`. With a radius of 16
 
 The development-only diagnostic was deleted, two mobs were killed, the three force-load tickets removed, and the original dev config restored. Neither RCON nor the diagnostic is enabled in a distributable JAR.
 
+## Low-health operator level changes (runtime acceptance pending)
+
+The setter preserves current health as a fraction of the old maximum. Three unit tests cover 0.5/40 becoming 0.25/20, zero remaining zero, and finite/clamped results for invalid or extreme inputs. In a disposable world, reduce a test mob below 1 HP and lower its level; verify its health follows the same percentage instead of rising to 1 HP. The previous 18/36 to 26/52 runtime scenario remains covered by the shared helper test. The complete suite now passes 56 tests; these additional low-health command cases have not been exercised in a game.
+
 ## Level-map value validation (runtime acceptance pending)
 
 Both loaders configure positive integer validation for entity, dimension, biome, and structure minimum/maximum maps. In a disposable config, verify that valid levels survive load/save and that zero or negative values report validation errors and cannot persist as valid entries. Remove an entry to disable its rule. Verify the optional editor explains key formats and conflicting maximum priority. A map value above the global maximum remains limited by that global maximum when a new mob spawns. The current check is compilation plus the existing 53-test suite, not GUI acceptance of these new bounds.
