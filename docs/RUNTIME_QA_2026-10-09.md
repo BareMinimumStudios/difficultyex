@@ -32,14 +32,14 @@ This uses actual config objects and serialization flags in a running server. It 
 
 The final IDEA clean/test/build passed 57 tests with zero failures, errors, or skips. Both JARs contain the studio license and inherited MIT notice. Neither includes the disposable runtime probe or QA artifacts. Both explicitly require Minecraft 1.21.1; Fabric also declares Java 21, and NeoForge declares loader 21.1.26 or newer. Existing required mod dependencies and bundled Crunch remain present.
 
-These checks inspect the distributable metadata and contents. They do not replace startup testing of packaged JARs in standalone server copies.
+These checks inspected metadata and contents only. The subsequent [standalone packaged pass](PACKAGED_SERVER_QA_2026-10-09.md) caught and fixed an invalid Maven Minecraft range, then verified both loader launches, commands, and persistence. The current suite passes 58 tests.
 
-## Fabric blocker reproduced
+## Fabric development failure reproduced
 
-An isolated Fabric development server failed in public PlayerEx 5.0.1 at `playerex.mixins.json:ItemStackGameplayMixin`. The `playerex$preserveBrokenEntity` injector uses `LivingEntity` where the Minecraft target requires `ServerPlayer`. The public Modrinth version list still reports 5.0.1 as the latest 1.21.1 release. No dependency was replaced or patched locally to conceal this blocker.
+An isolated Fabric development server failed in public PlayerEx 5.0.1 at `playerex.mixins.json:ItemStackGameplayMixin`. The `playerex$preserveBrokenEntity` injector uses `LivingEntity` where the Minecraft target requires `ServerPlayer`. The public Modrinth version list still reports 5.0.1 as the latest 1.21.1 release. No dependency was replaced or patched locally. Later standalone packaged testing passed with the same public PlayerEx artifact on Fabric Loader 0.19.5, so an upstream release defect is not established; the development environment discrepancy remains to be isolated.
 
 ## Cleanup and remaining acceptance
 
 The probe source and temporary entry-point registration were removed before the clean build. Disposable server directories and local QA run configurations were removed. The original development config remained byte-for-byte unchanged; RCON stayed disabled, no development game process remained, and test listeners were closed. No user server copy was changed. No commit or push was performed.
 
-Remaining: two authenticated clients and reconnect behavior; player combat/equipment/enchantments and XP pickup; client visual and title-screen permission checks; additional structure variants and real movement; production-origin legacy files; standalone packaged-server acceptance; optional integrations and feature parity.
+Remaining: two authenticated clients and reconnect behavior; player combat/equipment/enchantments and XP pickup; client visual and title-screen permission checks; additional structure variants and real movement; production-origin legacy files; broader packaged gameplay; optional integrations and feature parity.

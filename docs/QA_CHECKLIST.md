@@ -111,9 +111,13 @@ Minecraft 1.21.1 permits animal subclasses to override `getBaseExperienceReward`
 
 A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge fake player. Under the default `experiencePerLevel=0.1`, a level-1 zombie dropped 5 XP and a level-20 zombie dropped 15 XP. A level-100 cow dropped 11 XP (a random vanilla animal base roll of 1, scaled by 11); a total of 9 XP orbs carried 31 XP. Animal base XP is random, so the expected amount can vary between 11, 22 and 33 for the same level-100 cow. The probe was **deleted** and is not a public command. Ordinary player combat, Looting/enchantment interactions and XP pickup still need acceptance testing.
 
+## Standalone packaged servers (both loaders tested 2026-10-09)
+
+Isolated copies of the reference launch libraries loaded the actual distributable JARs with pinned public dependencies, without dev class directories or QA code. NeoForge 21.1.256 and Fabric Loader 0.19.5 both reached Done. Operator commands scaled a protected zombie, preserved 18/36 to 26/52 health, and restored level 20 with 26/52 health after a full restart. Both final runs stopped gracefully. See [the packaged acceptance report](PACKAGED_SERVER_QA_2026-10-09.md). Multiplayer, player combat/XP, and rendering remain pending.
+
 ## Still requiring acceptance testing
 
-- Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor
+- Fabric client visual acceptance and resolving the Cloche development-launch discrepancy. Packaged Fabric server startup, commands, and persistence already pass with public PlayerEx 5.0.1.
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
 - Additional structure variants, many-mob performance, and real-player movement near structures whose origin chunks load late (exact boundary and unloaded-origin regression tests passed on NeoForge)
 - XP-orb collection by a **human-controlled** player and real player-combat/enchantment interactions (NeoForge fake-player XP rewards and zombie-versus-cow attack/armor damage passed the runtime tests)

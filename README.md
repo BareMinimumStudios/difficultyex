@@ -39,6 +39,8 @@ The build applies Mixin MCP's decompile plugin 1.5.0. Install the MixinMCP IDE p
 
 Cloche 0.19.13's common-client import requests a `server` capability; the build adds that alias to the common variants so IDEA can resolve the project.
 
+Standalone packaged server startup, operator level commands, and protected-mob save/reload passed on both loaders with the public dependencies. This does not establish multiplayer or visual acceptance; see [packaged QA](docs/PACKAGED_SERVER_QA_2026-10-09.md).
+
 ## Scaling rules
 
 A new mob's level is derived from nearby non-spectator players' **PlayerEx progression levels**, not their vanilla XP levels. The radius is a true three-dimensional distance and includes players exactly on its edge. The configured formula is applied to each eligible player's level before averaging; if none qualifies, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels and scaled health on reload, including current health above the vanilla maximum.
