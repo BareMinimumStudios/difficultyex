@@ -71,6 +71,12 @@ team join difficultyex_hidden @e[tag=difficultyex_team_test,limit=1]
 
 The modded nameplate should remain hidden. Test the `hideForOtherTeams` and `hideForOwnTeam` values using two player teams as well. A unit-tested nameplate formatting change prevents very low-health living mobs showing zero segments, and shows at most nine segments when health is below maximum. Check the label at full, 50%, and nearly zero health. Blacklist regex matching is cached and safe for malformed expressions; test changing the blacklist via the config GUI. The code's team policy is unit-tested and NeoForge client startup passed, but the actual nameplate appearance still requires this in-world validation. Clean up via `/team remove difficultyex_hidden` and remove any tagged test mobs.
 
+## Fzzy Config client-local sync contract (bytecode-tested on both loaders 2026-10-09)
+
+Three automated tests now inspect actual `DifficultyExConfig.class` files for Fabric and NeoForge after compiling both loaders. They require all **seven** nameplate preferences (`nameplatesEnabled`, `nameplateDistance`, `nameplateHostileOnly`, `nameplateBlacklist`, `nameplateShowLevel`, `nameplateShowHealth`, `nameplateShowHealthText`) to have Fzzy Config's runtime-visible `@NonSync` field annotation, verify progression/world/entity/structure/combat fields are not annotated, and ensure both loader classes expose the same config field names and JVM types. `gradlew test` now compiles both loader configs before executing these checks. Both variants passed.
+
+This guards the declared sync contract, but **does not simulate a server pushing settings to two different client accounts**. The NeoForge client reached its normal resource-loading/rendering startup and closed without errors; a menu screenshot and in-world nameplates were not captured. The separate-player preference test below remains mandatory before release.
+
 ## Fzzy Config GUI and multiplayer settings (NeoForge server smoke-tested 2026-10-08)
 
 In a disposable client, open the **DifficultyEx** Fzzy Config screen (via Mod Menu / supported config GUI entry). Check that the **Progression**, **Mob rules**, **World rules**, **Structure rules**, and **Nameplates** sections present editable sliders/text boxes, boolean toggles, list/map editors. Validate that saved `config/difficultyex/config.json5` retains its original field names and doesn't lose custom values.

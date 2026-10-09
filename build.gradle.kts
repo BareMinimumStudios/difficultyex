@@ -145,6 +145,8 @@ dependencies {
     // Gson is supplied by Minecraft at runtime; unit tests need it explicitly.
     testImplementation("com.google.code.gson:gson:2.11.0")
     testImplementation("blue.endless:jankson:1.2.3")
+    // Inspect compiled loader bytecode for the Fzzy Config field sync contract.
+    testImplementation("org.ow2.asm:asm:9.7.1")
     testImplementation("org.slf4j:slf4j-api:2.0.16")
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.16")
     testImplementation(kotlin("test-junit5", "2.2.20"))
@@ -152,6 +154,8 @@ dependencies {
 }
 
 tasks.withType<Test>().configureEach {
+    // The sync metadata tests inspect real compiled Fabric and NeoForge fields.
+    dependsOn("compileFabric1211Kotlin", "compileNeoforge1211Kotlin")
     useJUnitPlatform()
 }
 

@@ -49,7 +49,7 @@ Operators (permission level 2 or above) can inspect a mob with `/difficultyex in
 
 ## Testing
 
-Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, structure-geometry, PlayerEx-radius/averaging, XP-reward arithmetic, legacy-config migration, nameplate-visibility and nameplate-language unit tests.
+Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, structure-geometry, PlayerEx-radius/averaging, XP-reward arithmetic, legacy-config migration, nameplate-visibility, nameplate-language, and cross-loader Fzzy Config sync-metadata tests. The latter inspect the compiled Fabric and NeoForge classes to ensure all seven client-local nameplate fields retain `@NonSync` while server progression fields do not.
 
 ## License
 
