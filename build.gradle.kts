@@ -123,6 +123,11 @@ cloche {
     }
 }
 
+// Cloche 0.19.13 requests the server feature when importing common client sources in IDEA.
+configurations.matching { it.name == "apiElements" || it.name == "runtimeElements" }.configureEach {
+    outgoing.capability("$group:${project.name}-server:$version")
+}
+
 // Cloche's Fabric mapping archive must be generated before access widening under Gradle 9.8.
 tasks.matching { it.name.startsWith("accessWidenFabric1211") }.configureEach {
     dependsOn("generateFabric1211MappingsArtifact")
