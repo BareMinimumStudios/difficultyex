@@ -16,7 +16,7 @@ object DifficultyStructureRules {
         if (configured.isEmpty()) return emptySet()
 
         // Bound work per spawned mob, even with a malformed config.
-        val radius = config.structureRadius.coerceIn(0, 128)
+        val radius = DifficultyStructureGeometry.effectiveRadius(config.structureRadius)
         val pos = mob.blockPosition()
         val types = configured.toHashSet()
         val registry = world.registryAccess().registryOrThrow(Registries.STRUCTURE)
@@ -24,8 +24,8 @@ object DifficultyStructureRules {
         val found = mutableSetOf<String>()
         val visited = mutableSetOf<String>()
 
-        for (chunkX in (pos.x - radius shr 4)..(pos.x + radius shr 4)) {
-            for (chunkZ in (pos.z - radius shr 4)..(pos.z + radius shr 4)) {
+        for (chunkX in DifficultyStructureGeometry.chunkRange(pos.x, radius)) {
+            for (chunkZ in DifficultyStructureGeometry.chunkRange(pos.z, radius)) {
                 if (!world.hasChunk(chunkX, chunkZ)) continue
 
                 // Starts here include structure references that overlap the current chunk.
@@ -40,8 +40,9 @@ object DifficultyStructureRules {
                     val box = start.boundingBox
                     // Structure influence is horizontal: spawning above/below a structure
                     // can still be affected when inside its configured surroundings.
-                    if (pos.x >= box.minX() - radius && pos.x <= box.maxX() + radius &&
-                        pos.z >= box.minZ() - radius && pos.z <= box.maxZ() + radius) {
+                    if (DifficultyStructureGeometry.contains(
+                            pos.x, pos.z, box.minX(), box.maxX(), box.minZ(), box.maxZ(), radius
+                        )) {
                         found.add(id)
                         if (found.size == types.size) return found
                     }

@@ -13,6 +13,7 @@
 - Reintroduced cross-loader mob nameplates with level and ten-segment health indicators, using synced mob data and vanilla rendering.
 - Fixed forced mob level-nameplates bypassing vanilla team name-tag rules and viewer-relative invisibility. All display options disabled now leaves vanilla nameplates unchanged. Added four name-tag visibility tests and passed the NeoForge client startup check.
 - Added structure-specific level bounds with a loaded-chunk-only search radius, consistent rule precedence, and four automated bounds tests. Verified inside and outside a generated taiga village, including conflicting minimum and maximum structure rules.
+- Centralized horizontal structure bounds/chunk-range geometry with overflow-safe arithmetic and five edge-case tests. Live-tested exact inclusive X/Z edges, one-block-outside positions, and a bounding-box corner at radius 16 in a generated taiga village.
 - Extracted deterministic XP reward arithmetic into a testable shared helper, with normalization of non-finite configured rates and saturation for large rewards.
 - Fixed XP scaling for mob subclasses that override `getBaseExperienceReward` without calling `Mob` (notably passive animals). Scaling now intercepts the base reward in `LivingEntity.getExperienceReward` before enchantment adjustments, while leaving non-mob entities unchanged. Validated on NeoForge with actual orbs from fake-player-attributed zombie and cow kills.
 - Updated developer credit to **pokesmells** and moved Java/Kotlin packages to `dev.pokesmells.difficultyex`.

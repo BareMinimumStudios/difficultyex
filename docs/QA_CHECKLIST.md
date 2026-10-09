@@ -27,6 +27,12 @@ In an isolated development world, configure a known village's structure ID in Fz
 
 Add `minecraft:village_taiga` to the structure maximum map with a maximum of 20, **restart**, and summon a new village zombie. When minimum 30 conflicts with maximum 20, the new mob should be level 20. The test world used X=0, Z=608, but coordinates are seed-dependent. Remove tagged mobs and `/forceload remove <x> <z>` for any temporarily forced chunks, then restore development config.
 
+## Exact structure-radius edges (NeoForge live-tested 2026-10-08)
+
+The generated `minecraft:village_taiga` previously located at X=0, Z=608 had a runtime structure bounding box of **X=−87..53, Z=530..685**. With `structureRadius=16`, `structureStartingLevels={"minecraft:village_taiga":30}`, and both average level variations set to zero, zombies at X=−103 and 69 (Z=600) were level 30; at X=−104 and 70 they were level 1. Similarly, Z=514 and 701 (X=0) were level 30, while Z=513 and 702 were level 1. The corner X=−103, Z=514 gained level 30 and X=−104, Z=514 stayed level 1. This confirms an inclusive X/Z rectangle expanded by the radius, even at a corner. Coordinates depend on the development world's seed and structure; do not copy them to production.
+
+The temporary NeoForge bounding-box inspection command was removed before packaging. The test ran only on the ignored development world, used tagged invulnerable/no-gravity zombies, and cleaned up all ten mobs and force-load tickets. The original dev config was restored byte-for-byte and RCON disabled. Unloaded-neighbor-chunk behavior and other structure types remain to be checked.
+
 ## Legacy configuration import (NeoForge startup-tested 2026-10-08)
 
 The 1.20.1 owo-lib file was named `config/difficultyex-config.json5` (the `.json` variant is also supported). At startup, if `config/difficultyex/config.json5` is absent, DifficultyEx creates it by mapping recognized legacy options from `dimensionSettings`, `biomeScalingSettings`, `structureScalingSettings`, `scalingLevelSettings`, and `visualSettings` into modern Fzzy Config fields. **Neither an existing modern config nor the original legacy file is overwritten.** All unrelated files are unaffected. An unreadable old config is reported in the log and is left in place.
@@ -65,7 +71,7 @@ A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge f
 
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
-- Additional structure variants, exact influence-radius boundaries and many-mob performance with structure rules
+- Additional structure variants, unloaded-neighbor chunk behavior and many-mob performance with structure rules (exact X/Z influence boundaries and a corner passed on NeoForge)
 - XP-orb collection by a **human-controlled** player and modified damage/armor in combat (NeoForge fake-player-attributed zombie/cow kills and orb totals passed the runtime probe)
 - Production-origin owo-lib configuration migration (synthetic-file unit test and NeoForge startup smoke test passed); optional mod integrations
 - Performance with many mobs and structure rules enabled
