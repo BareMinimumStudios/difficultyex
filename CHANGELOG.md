@@ -40,3 +40,8 @@ This is an **in-progress port**. Runtime testing, client nameplates, structure r
 ## Earlier changes
 
 - Fixed an issue where Crunch was not packaged into the mod.
+
+### Additional background QA (2026-10-09)
+
+- Verified a copied production legacy config, automatic correction of all eight level-rule maps, three additional generated structure variants, and nine spawn initialization workloads on NeoForge.
+- Documented the Fabric development injector mismatch and rejected launch-setting experiments. No runtime workaround is shipped.

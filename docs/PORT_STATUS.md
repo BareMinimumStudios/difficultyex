@@ -48,12 +48,16 @@ Development snapshot: October 9, 2026. Not release-ready.
 
 ## Fabric development-launch discrepancy
 
-The Cloche/Fabric development server still fails at public PlayerEx 5.0.1 `ItemStackGameplayMixin`, reporting a LivingEntity/ServerPlayer descriptor mismatch. However, the packaged DifficultyEx and the same public PlayerEx 5.0.1 artifact successfully start on standalone Fabric Loader 0.19.5, execute commands, and preserve level 20 with 26/52 health across restart. The development setup uses Loader 0.19.3; the environment/mapping/loader cause is not yet isolated. This is not a confirmed upstream release blocker. See [packaged acceptance](PACKAGED_SERVER_QA_2026-10-09.md).
+The Cloche/Fabric development server still fails at public PlayerEx 5.0.1 `ItemStackGameplayMixin`, reporting a LivingEntity/ServerPlayer descriptor mismatch. However, the packaged DifficultyEx and the same public PlayerEx 5.0.1 artifact successfully start on standalone Fabric Loader 0.19.5, execute commands, and preserve level 20 with 26/52 health across restart. The development setup uses Loader 0.19.3; source inspection and isolated launch experiments now point to permissive descriptor matching in the named development environment; a supported fix remains unvalidated. This is not a confirmed upstream release blocker. See [packaged acceptance](PACKAGED_SERVER_QA_2026-10-09.md).
+
+## Further background acceptance
+
+Production configuration import preserved 12 dimension rules, 130 biome rules and 234 nameplate blacklist entries. All eight rule maps passed automatic file correction. Nine spawn initialization workloads and nine level assertions across mineshaft, ruined portal and plains village passed on NeoForge. The Fabric development mismatch was narrowed to permissive injector matching; experimental launch settings were rejected and removed. See [background acceptance](BACKGROUND_QA_2026-10-09.md).
 
 ## Outstanding migration items
 
 - Further client-nameplate acceptance (independent health/level toggles, occlusion/team/invisibility, other mob types, multiplayer layout), plus two-client live metadata updates (NeoForge singleplayer nameplate and server codec round trip passed); GeckoLib/Traveler's Titles optional integrations.
-- More structure variants, stress/performance testing and partial-loading/late-origin behavior under real player movement, real-world owo-lib configuration examples to validate the synthetic-file migration, and feature parity with 1.20.1.
+- More structure variants, stress/performance testing and partial-loading/late-origin behavior under real player movement, additional production configuration coverage beyond the verified ALBOE import, and feature parity with 1.20.1.
 - Continue runtime testing with **authenticated online PlayerEx players** (fake-player level/radius/formula scenarios passed), player-versus-mob combat and equipment/enchantment interactions (mob-versus-mob attack/armor tests passed), human-player XP collection, multiplayer synchronization, and real-world structure behavior when the origin chunk loads later. The non-loading reference path and missing-origin behavior were verified on NeoForge. The NeoForge commands, attribute scaling, persistence and one village's structure bounds have been validated.
 - Packaged startup, commands, and protected-mob persistence passed on isolated copies of both server launch environments with the pinned public dependencies. Broader packaged gameplay and authenticated multiplayer remain pending.
 - mc-publish project IDs verified from publicly visible release pages: Modrinth `qdJ4GLvL` and CurseForge `1387673`; still verify credentials, workflow syntax, dependency metadata and release prerequisites before manually publishing.
