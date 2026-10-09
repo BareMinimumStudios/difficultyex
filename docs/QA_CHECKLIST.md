@@ -131,3 +131,7 @@ Three regression tests cover finite values whose double sum overflows: large pos
 ## Active-config diagnostics and prior mob saves
 
 The operator validator, fractional inspection and supported prior CCA mob-level format passed real NeoForge checks. Packaged Fabric preserved an imported level-25 zombie at 30/60 HP across a full restart. See [results and limitations](COMMAND_AND_LEGACY_QA_2026-10-09.md). The clean suite now passes 63 tests. Optional parity features and earlier scaffolding are distinguished in the [parity audit](PARITY_AUDIT_1.20.1.md).
+
+## Manual release workflow
+
+Workflow syntax, explicit dependency project identities and isolated pre-upload checks passed. See [the release audit](RELEASE_WORKFLOW_AUDIT_2026-10-09.md). No token permissions or real uploads were tested; release approval and gameplay acceptance remain pending.

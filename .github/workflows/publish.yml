@@ -4,6 +4,10 @@ name: publish
 on:
   workflow_dispatch:
 
+concurrency:
+  group: difficultyex-publish-1.21.1
+  cancel-in-progress: false
+
 permissions:
   contents: read
 
@@ -21,10 +25,29 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: gradle
+      - name: Check publishing credentials
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$MODRINTH_TOKEN" || { echo '::error::MODRINTH_TOKEN is missing'; exit 1; }
+          test -n "$CURSEFORGE_TOKEN" || { echo '::error::CURSEFORGE_TOKEN is missing'; exit 1; }
       - name: Build
         run: |
           chmod +x ./gradlew
           ./gradlew clean build --stacktrace
+      - name: Check release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for loader in fabric neoforge; do
+            files=(build/libs/*-"$loader"-1.21.1.jar)
+            test "${#files[@]}" -eq 1 || { echo "::error::Expected one $loader release JAR"; exit 1; }
+            test -s "${files[0]}"
+          done
       - name: Extract release version
         id: version
         shell: bash
@@ -49,12 +72,12 @@ jobs:
           game-versions: 1.21.1
           java: 21
           dependencies: |
-            fabric-api(required){modrinth:P7dR8mSH}
-            fabric-language-kotlin(required){modrinth:Ha28R6CL}
-            fzzy-config(required){modrinth:VSNURh3q}
-            playerex(required){modrinth:4UKlJSdk}
-            data-attributes(required){modrinth:KCGxOJsE}
-            remnant(required){modrinth:oLPaySSb}
+            fabric-api(required){modrinth:P7dR8mSH}{curseforge:306612}
+            fabric-language-kotlin(required){modrinth:Ha28R6CL}{curseforge:308769}
+            fzzy-config(required){modrinth:VSNURh3q}{curseforge:1005914}
+            playerex(required){modrinth:4UKlJSdk}{curseforge:958325}
+            data-attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
+            remnant(required){modrinth:oLPaySSb}{curseforge:1019391}
           retry-attempts: 3
           fail-mode: fail
       - name: Publish NeoForge
@@ -73,10 +96,10 @@ jobs:
           game-versions: 1.21.1
           java: 21
           dependencies: |
-            kotlin-for-forge(required){modrinth:kotlin-for-forge}
-            fzzy-config(required){modrinth:VSNURh3q}
-            playerex(required){modrinth:4UKlJSdk}
-            data-attributes(required){modrinth:KCGxOJsE}
-            remnant(required){modrinth:oLPaySSb}
+            kotlin-for-forge(required){modrinth:kotlin-for-forge}{curseforge:351264}
+            fzzy-config(required){modrinth:VSNURh3q}{curseforge:1005914}
+            playerex(required){modrinth:4UKlJSdk}{curseforge:958325}
+            data-attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
+            remnant(required){modrinth:oLPaySSb}{curseforge:1019391}
           retry-attempts: 3
           fail-mode: fail

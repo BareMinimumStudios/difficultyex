@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Fixed publishing dependencies to select the current CurseForge PlayerEx, Data Attributes and Remnant ports using explicit project IDs. Added credential and release-JAR checks before uploads and serialized manual publication runs.
+
 - Began the Fabric + NeoForge migration with Cloche, Java 21, Kotlin, and Gradle 9.8.0.
 - Removed owo-lib and the associated KSP/generated configuration layer.
 - Added safe, first-run migration of supported owo-lib JSON5 settings into Fzzy Config when no modern config exists. The original file is preserved. Validated with four tests and NeoForge dedicated-server startup.
