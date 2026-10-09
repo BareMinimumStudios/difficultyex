@@ -8,6 +8,7 @@
 - Adopted Fzzy Config and the published PlayerEx, Data Attributes, and Remnant dependency artifacts.
 - Converted plain Fzzy Config values to validated GUI-editable entries in organized progression, mob, world, structure and nameplate groups. Kept the existing JSON5 keys; nameplate preferences are now `@NonSync` and remain client-local. Tested loading an existing JSON5 file and a zombie minimum-level map override on a NeoForge development server.
 - Reimplemented persistent, synchronized mob levels and attribute scaling in shared sources.
+- Verified PlayerEx-driven spawn levels in eight NeoForge runtime scenarios using transient fake players with genuine PlayerEx states: fallback, one/two players, distance exclusion, exact radius, 3D distance, and per-player `x*2` formula. Extracted the deterministic distance/averaging policy for regression tests; spectator-mode players no longer affect mob difficulty.
 - Fixed loaded scaled mobs losing saved health above vanilla maximum: preserve the original NBT health and restore it after their level modifiers are reapplied. Verified by a live NeoForge save/restart test.
 - Added cross-loader build automation and opt-in mc-publish workflow.
 - Reintroduced cross-loader mob nameplates with level and ten-segment health indicators, using synced mob data and vanilla rendering.

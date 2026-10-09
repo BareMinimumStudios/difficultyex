@@ -69,6 +69,12 @@ Test a `minecraft:zombie` entry in `entityStartingLevels`, e.g. 25, and spawn a 
 
 With a dedicated server and two clients, set different **Nameplates** options on each client. Ensure saving locally doesn't change the other client's preferences or change the server's nameplate config. Confirm a client reconnect retains its choices, while operator-edited progression rules synchronize from the server; existing mob levels should stay persisted rather than rerolling.
 
+## PlayerEx-driven mob levels (NeoForge fake-player integration-tested 2026-10-08)
+
+The controlled NeoForge test used eight transient fake-player scenarios via the **real** PlayerEx 5.0.1 `PlayerStateService` and normal zombie spawn initialization. With random variation zero, the test confirmed starting-level fallback 7; one nearby PlayerEx level-23 player yielding 23; two nearby PlayerEx levels 10/30 yielding 20; faraway level-100 player excluded; `playerLevelFormula = "x*2"` yielding 40 for levels 10/30; radius-10 inclusivity (player exactly 10 blocks away yielded 19, at 10.0001 blocks yielded fallback 7); and a player 11 blocks vertically away yielding fallback 7. The staged code additionally excludes spectators from level calculations (unit-tested). The probe, its fake-player list entries, and test zombies were removed.
+
+**Still perform a real multiplayer acceptance check** before release: use two authenticated test accounts with distinct PlayerEx progression levels, disable random level deviation temporarily, set a small `playerRadius`, and summon separately tagged mobs within range of one, both, and neither player. Check `/difficultyex inspect @e[tag=<unique_test_tag>,limit=1]` after each spawn. Confirm expected per-player formula/average, spectator exclusion, 3D distance and health/attribute scaling; verify saved mobs don't reroll after a player moves or logs out. Restore the original config and remove test mobs afterward. These in-world multiplayer checks have **not** been run.
+
 ## XP scaling (NeoForge fake-player live-tested 2026-10-08)
 
 Minecraft 1.21.1 permits animal subclasses to override `getBaseExperienceReward` without calling `Mob`. DifficultyEx intercepts the base XP argument in `LivingEntity.getExperienceReward`, **before** enchantment adjustments, for every `Mob`; non-mobs are unaffected.

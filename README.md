@@ -35,7 +35,7 @@ On Linux/macOS use `./gradlew clean build`. The wrapper uses **Gradle 9.8.0**, [
 
 ## Scaling rules
 
-A new mob's level is derived from nearby players' **PlayerEx progression levels**, not their vanilla XP levels. If no player is nearby, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels and scaled health on reload, including current health above the vanilla maximum.
+A new mob's level is derived from nearby non-spectator players' **PlayerEx progression levels**, not their vanilla XP levels. The radius is a true three-dimensional distance and includes players exactly on its edge. The configured formula is applied to each eligible player's level before averaging; if none qualifies, the configured starting level is used. Random level variation and minimum/maximum restrictions can be configured independently. Existing mobs keep their saved levels and scaled health on reload, including current health above the vanilla maximum.
 
 Scaling currently affects maximum health, armor, attack damage, and experience. Experience multipliers apply to **all mob subclasses**, including animals that compute their own randomized base XP; vanilla player-kill eligibility and enchantment adjustments still apply. Damage and health use attribute modifiers rather than modifying raw damage hooks. The Fzzy Config screen groups editable options into **Progression**, **Mob rules**, **World rules**, **Structure rules**, and **Nameplates**. Combat and level-scaling settings are server-authoritative; nameplate settings are local to each client and do not override other players' preferences. The Fabric and NeoForge configurations use the same JSON5 field names.
 
@@ -49,7 +49,7 @@ Operators (permission level 2 or above) can inspect a mob with `/difficultyex in
 
 ## Testing
 
-Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, structure-geometry, XP-reward arithmetic, legacy-config migration and nameplate-visibility unit tests.
+Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, structure-geometry, PlayerEx-radius/averaging, XP-reward arithmetic, legacy-config migration and nameplate-visibility unit tests.
 
 ## License
 

@@ -14,7 +14,6 @@ import redempt.crunch.Crunch
 import redempt.crunch.CompiledExpression
 import redempt.crunch.functional.ExpressionEnv
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.math.roundToInt
 
 object DifficultyEx {
     const val MOD_ID = "difficultyex"
@@ -49,16 +48,16 @@ object DifficultyEx {
         val cfg = settings
         val mobId = BuiltInRegistries.ENTITY_TYPE.getKey(mob.type).toString()
         if (cfg.mobBlacklist.any { match(it, mobId) }) return
-        val radius = cfg.playerRadius.coerceIn(0, 4096).toDouble()
-        val nearby = world.players().filter { it.distanceToSqr(mob) <= radius * radius }
+        val nearby = world.players().filter {
+            DifficultyPlayerLevelMath.eligible(it.isSpectator, it.distanceToSqr(mob), cfg.playerRadius)
+        }
         val expr = expressions.computeIfAbsent(cfg.playerLevelFormula) {
             runCatching { Crunch.compileExpression(it, ExpressionEnv().setVariableNames("x")) }
                 .onFailure { error -> logger.warn("Invalid difficulty formula: {}", it, error) }
                 .getOrElse { Crunch.compileExpression("x", ExpressionEnv().setVariableNames("x")) }
         }
-        val players = nearby.map { expr.evaluate(PlayerStateService.get(it).level.toDouble()) }
-            .filter { it.isFinite() }
-        val mean = if (players.isEmpty()) cfg.startingLevel else players.average().roundToInt()
+        val transformedLevels = nearby.map { expr.evaluate(PlayerStateService.get(it).level.toDouble()) }
+        val mean = DifficultyPlayerLevelMath.averageTransformedLevels(transformedLevels, cfg.startingLevel)
         val lower = cfg.averageDecrement.coerceIn(0, 1000000)
         val upper = cfg.averageIncrement.coerceIn(0, 1000000)
         var result = (mean.toLong() + (-lower..upper).random()).coerceIn(1, Int.MAX_VALUE.toLong()).toInt()
