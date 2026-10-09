@@ -47,6 +47,12 @@ The 1.20.1 owo-lib file was named `config/difficultyex-config.json5` (the `.json
 
 The retired nameplate offset, scale, and color options are not migrated because the replacement nameplate renderer does not yet expose matching controls. The old per-player difficulty selection enum is also not carried over. Confirm the new settings visually in the Fzzy Config menu; do not delete the original config until satisfied. This migration was tested with synthetic old JSON5 in unit tests and in a real NeoForge dedicated-server startup, but still needs validation against a real 1.20.1 production configuration.
 
+## Synced entity-data metadata (NeoForge codec-tested 2026-10-08)
+
+A disposable operator-only runtime probe exercised the **actual** Minecraft `ClientboundSetEntityDataPacket.STREAM_CODEC` rather than merely inspecting the server's stored level. A newly spawned zombie's level was set to **12**; its non-default metadata was encoded into a `RegistryFriendlyByteBuf`, decoded, and applied with `SynchedEntityData.assignValues` to a separate entity instance. That entity reported **level 12**. A subsequent dirty update changed the original zombie to **level 27**, and the receiver updated to **27** after the same packet round trip. The probe did not involve a connected client; real multiplayer synchronization remains a separate acceptance check.
+
+The temporary test command and RCON helper were removed before building, the test mob discarded, the force-load ticket removed, and RCON disabled. Verify live server-to-client health/max-health/level updates and world-reload persistence with two authenticated clients before release.
+
 ## Nameplate visibility (NeoForge startup-checked 2026-10-08)
 
 In a disposable test world with a client connected, spawn an ordinary zombie and set it to level 20 using `/difficultyex set @e[type=minecraft:zombie,sort=nearest,limit=1] 20`. Confirm the level, name, ten-segment health bar, and health number render at the configured distance; check all three label/bar toggles separately and at zero, and use an occluding wall and an invisibility effect. **Restart** between config changes in this development version.
@@ -59,7 +65,7 @@ team modify difficultyex_hidden nametagVisibility never
 team join difficultyex_hidden @e[tag=difficultyex_team_test,limit=1]
 ```
 
-The modded nameplate should remain hidden. Test the `hideForOtherTeams` and `hideForOwnTeam` values using two player teams as well. The code's team policy is unit-tested and NeoForge client startup passed, but the actual nameplate appearance still requires this in-world validation. Clean up via `/team remove difficultyex_hidden` and remove any tagged test mobs.
+The modded nameplate should remain hidden. Test the `hideForOtherTeams` and `hideForOwnTeam` values using two player teams as well. A unit-tested nameplate formatting change prevents very low-health living mobs showing zero segments, and shows at most nine segments when health is below maximum. Check the label at full, 50%, and nearly zero health. Blacklist regex matching is cached and safe for malformed expressions; test changing the blacklist via the config GUI. The code's team policy is unit-tested and NeoForge client startup passed, but the actual nameplate appearance still requires this in-world validation. Clean up via `/team remove difficultyex_hidden` and remove any tagged test mobs.
 
 ## Fzzy Config GUI and multiplayer settings (NeoForge server smoke-tested 2026-10-08)
 

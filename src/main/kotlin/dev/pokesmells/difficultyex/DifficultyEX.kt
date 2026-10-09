@@ -22,6 +22,7 @@ object DifficultyEx {
         private set
 
     private val expressions = ConcurrentHashMap<String, CompiledExpression>()
+    private val blacklistMatcher = DifficultyPatternMatcher()
     private val maxHealthModifier = id("level_health")
     private val armorModifier = id("level_armor")
     private val attackModifier = id("level_attack")
@@ -31,6 +32,7 @@ object DifficultyEx {
     @JvmStatic fun configure(snapshot: DifficultySettings) {
         settings = snapshot
         expressions.clear()
+        blacklistMatcher.clear()
     }
 
     /** Spawn once, reload without re-rolling the mob's persisted level. */
@@ -116,6 +118,5 @@ object DifficultyEx {
     }
 
     @JvmStatic fun match(pattern: String, value: String): Boolean =
-        pattern.equals(value, ignoreCase = true) ||
-            runCatching { Regex(pattern, RegexOption.IGNORE_CASE).matches(value) }.getOrDefault(false)
+        blacklistMatcher.matches(pattern, value)
 }

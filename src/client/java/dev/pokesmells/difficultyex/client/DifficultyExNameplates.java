@@ -2,6 +2,7 @@ package dev.pokesmells.difficultyex.client;
 
 import dev.pokesmells.difficultyex.DifficultyEx;
 import dev.pokesmells.difficultyex.DifficultyExNameplateVisibility;
+import dev.pokesmells.difficultyex.DifficultyNameplateHealth;
 import dev.pokesmells.difficultyex.DifficultySettings;
 import dev.pokesmells.difficultyex.MobLevelAccess;
 import net.minecraft.ChatFormatting;
@@ -72,7 +73,7 @@ public final class DifficultyExNameplates {
         if (settings.getNameplateShowHealth()) {
             float max = Math.max(1f, mob.getMaxHealth());
             float ratio = Math.max(0f, Math.min(1f, mob.getHealth() / max));
-            int filled = Math.max(0, Math.min(10, Math.round(ratio * 10f)));
+            int filled = DifficultyNameplateHealth.filledSegments(mob.getHealth(), mob.getMaxHealth());
             ChatFormatting color = ratio > 0.5f ? ChatFormatting.GREEN :
                 ratio > 0.25f ? ChatFormatting.YELLOW : ChatFormatting.RED;
             label.append(Component.literal("  [").withStyle(ChatFormatting.DARK_GRAY));
@@ -83,7 +84,7 @@ public final class DifficultyExNameplates {
         if (settings.getNameplateShowHealthText()) {
             label.append(Component.literal("  "));
             label.append(Component.translatable("text.nameplate.health",
-                Math.round(mob.getHealth()), Math.round(mob.getMaxHealth())));
+                DifficultyNameplateHealth.displayedHealth(mob.getHealth()), Math.round(mob.getMaxHealth())));
         }
         return label;
     }
