@@ -104,7 +104,7 @@ object DifficultyEx {
         fun modify(attribute: Holder<Attribute>, key: ResourceLocation, rate: Double) {
             val instance = mob.attributes.getInstance(attribute) ?: return
             instance.removeModifier(key)
-            val multiplier = (level * rate.coerceIn(0.0, 100.0)).coerceIn(0.0, 1000.0)
+            val multiplier = DifficultyAttributeMath.multiplier(level, rate)
             if (multiplier > 0) instance.addTransientModifier(
                 AttributeModifier(key, multiplier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
             )

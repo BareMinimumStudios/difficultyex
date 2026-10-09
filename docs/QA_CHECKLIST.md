@@ -75,6 +75,12 @@ The controlled NeoForge test used eight transient fake-player scenarios via the 
 
 **Still perform a real multiplayer acceptance check** before release: use two authenticated test accounts with distinct PlayerEx progression levels, disable random level deviation temporarily, set a small `playerRadius`, and summon separately tagged mobs within range of one, both, and neither player. Check `/difficultyex inspect @e[tag=<unique_test_tag>,limit=1]` after each spawn. Confirm expected per-player formula/average, spectator exclusion, 3D distance and health/attribute scaling; verify saved mobs don't reroll after a player moves or logs out. Restore the original config and remove test mobs afterward. These in-world multiplayer checks have **not** been run.
 
+## Combat damage and armor (NeoForge live-tested 2026-10-08)
+
+A temporary QA probe ran the real Minecraft combat pipeline in the isolated NeoForge development world. With the standard rates `damagePerLevel=0.1` and `armorPerLevel=0.08`, a level-1 zombie had **3.3 attack** and dealt **3.3 actual damage** to a cow; a level-20 zombie had **9 attack** and dealt **9 actual damage**. Against the same incoming normal mob attack of **5 points**, a level-1 zombie had **2.16 armor** and received **4.92** damage; a level-20 zombie had **5.2 armor** and received **4.50** damage. The command used `Zombie.doHurtTarget` / `LivingEntity.hurt` rather than calling the helper directly. All temporary test entities were discarded, two force-loaded chunks released, server stopped, and RCON reset. The disposable probe is not included in shipped source/JARs.
+
+Five `DifficultyAttributeMath` tests cover normal health/armor/damage multipliers, zero/negative rates, rejection of non-finite rates, and saturation on large multipliers. Vanilla's final armor attributes and damage rules still apply. **Acceptance remaining:** combat involving an authenticated player with equipment/armor, enchantments, difficulty settings, and other modded damage or defense effects.
+
 ## XP scaling (NeoForge fake-player live-tested 2026-10-08)
 
 Minecraft 1.21.1 permits animal subclasses to override `getBaseExperienceReward` without calling `Mob`. DifficultyEx intercepts the base XP argument in `LivingEntity.getExperienceReward`, **before** enchantment adjustments, for every `Mob`; non-mobs are unaffected.
@@ -86,6 +92,6 @@ A disposable NeoForge runtime probe attributed actual mob deaths to a NeoForge f
 - Fabric server/client startup after a compatible public PlayerEx release fixes its 1.21.1 mixin descriptor
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
 - Additional structure variants, many-mob performance, and real-player movement near structures whose origin chunks load late (exact boundary and unloaded-origin regression tests passed on NeoForge)
-- XP-orb collection by a **human-controlled** player and modified damage/armor in combat (NeoForge fake-player-attributed zombie/cow kills and orb totals passed the runtime probe)
+- XP-orb collection by a **human-controlled** player and real player-combat/enchantment interactions (NeoForge fake-player XP rewards and zombie-versus-cow attack/armor damage passed the runtime tests)
 - Production-origin owo-lib configuration migration (synthetic-file unit test and NeoForge startup smoke test passed); optional mod integrations
 - Performance with many mobs and structure rules enabled
