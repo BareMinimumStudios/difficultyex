@@ -57,6 +57,10 @@ Scaling currently affects maximum health, armor, attack damage, and experience. 
 
 Operators (permission level 2 or above) can inspect a mob with `/difficultyex inspect <target>` and set its level with `/difficultyex set <target> <level>`. The setter synchronizes the mob's level, reapplies scaling modifiers, and preserves its health percentage. For example, `/difficultyex inspect @e[type=minecraft:zombie,sort=nearest,limit=1]` inspects the nearest zombie. Commands are intended for testing and administration; they do not change PlayerEx player levels.
 
+Use /difficultyex validate to check active server rules against installed registry IDs, entity patterns and formula syntax. It reports inactive or invalid rules without changing settings; all findings are logged, with at most 20 shown in chat. The command requires permission level 2. It checks the server copy of nameplate settings, not other clients' local preferences.
+
+Saved 1.20.1 mob levels in the supported CCA compound format are read automatically and written back using the modern level tag. Modern data takes priority. This is not whole-modpack world-upgrade acceptance; see [command and legacy QA](docs/COMMAND_AND_LEGACY_QA_2026-10-09.md) and [the parity audit](docs/PARITY_AUDIT_1.20.1.md).
+
 ## Testing
 
 Use temporary test worlds and copies of the server launch environments. The supplied Fabric and NeoForge development servers are reference environments only; installed mod versions are **not** the dependency source of truth. Validate spawning, NBT persistence, entity synchronization, progression changes, structure rules, damage, XP rewards, client nameplates, and dedicated-server startup on both loaders before shipping. Run `./gradlew test` for the included level-boundary, structure-geometry, PlayerEx-radius/averaging, XP-reward arithmetic, legacy-config migration, nameplate-visibility, nameplate-language, and cross-loader Fzzy Config sync-metadata tests. The latter inspect the compiled Fabric and NeoForge classes to ensure all seven client-local nameplate fields retain `@NonSync` while server progression fields do not.

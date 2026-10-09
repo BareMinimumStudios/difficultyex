@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import dev.pokesmells.difficultyex.MobLevelAccess;
+import dev.pokesmells.difficultyex.DifficultySavedMobLevel;
 
 @Mixin(Mob.class)
 public abstract class MobLevelMixin implements MobLevelAccess {
@@ -47,7 +48,7 @@ public abstract class MobLevelMixin implements MobLevelAccess {
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void difficultyex$load(CompoundTag tag, CallbackInfo ci) {
-        if (tag.contains("difficultyex_level", 3)) difficultyExSetLevel(tag.getInt("difficultyex_level"));
+        difficultyExSetLevel(DifficultySavedMobLevel.read(tag));
         // Vanilla clamps LivingEntity Health to its unscaled maximum before our
         // transient scaling attributes can be restored during EntityJoinLevelEvent.
         // Hold the original saved value until the attributes have been reapplied.

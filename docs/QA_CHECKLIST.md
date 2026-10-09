@@ -127,3 +127,7 @@ Isolated copies of the reference launch libraries loaded the actual distributabl
 ## Extreme player-level formula results (automated 2026-10-09)
 
 Three regression tests cover finite values whose double sum overflows: large positive and negative values must cancel in either order, small remaining contributions must retain normal integer rounding, and truly huge averages must saturate to integer limits. Non-finite individual values are still ignored; the configured starting level remains the fallback when no valid values exist. The full IDEA test/build run passed 50 tests with zero failures, errors, or skips. This does not replace authenticated multiplayer acceptance.
+
+## Active-config diagnostics and prior mob saves
+
+The operator validator, fractional inspection and supported prior CCA mob-level format passed real NeoForge checks. Packaged Fabric preserved an imported level-25 zombie at 30/60 HP across a full restart. See [results and limitations](COMMAND_AND_LEGACY_QA_2026-10-09.md). The clean suite now passes 63 tests. Optional parity features and earlier scaffolding are distinguished in the [parity audit](PARITY_AUDIT_1.20.1.md).

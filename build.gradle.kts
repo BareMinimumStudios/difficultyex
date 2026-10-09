@@ -157,6 +157,7 @@ tasks.withType<net.msrandom.stubs.GenerateStubApi>().configureEach {
 dependencies {
     // Gson is supplied by Minecraft at runtime; unit tests need it explicitly.
     testImplementation("com.google.code.gson:gson:2.11.0")
+    testImplementation(libs.crunch)
     testImplementation("blue.endless:jankson:1.2.3")
     // Inspect compiled loader bytecode for the Fzzy Config field sync contract.
     testImplementation("org.ow2.asm:asm:9.7.1")

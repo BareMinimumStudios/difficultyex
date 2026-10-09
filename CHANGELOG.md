@@ -45,3 +45,10 @@ This is an **in-progress port**. Runtime testing, client nameplates, structure r
 
 - Verified a copied production legacy config, automatic correction of all eight level-rule maps, three additional generated structure variants, and nine spawn initialization workloads on NeoForge.
 - Documented the Fabric development injector mismatch and rejected launch-setting experiments. No runtime workaround is shipped.
+
+### Config diagnostics and saved mob levels (2026-10-09)
+
+- Add operator-only active-config validation for inactive registry IDs, entity regexes, formula errors and invalid rates.
+- Preserve fractional health in mob inspection and include precise armor and attack attributes.
+- Read saved mob levels from the supported legacy CCA compound format, preferring modern data and writing modern tags on save.
+- Verify six real NeoForge command scenarios, legacy load/save cases and packaged Fabric restart persistence. The clean suite passes 63 tests.

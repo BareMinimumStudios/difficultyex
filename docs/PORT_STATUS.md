@@ -54,6 +54,10 @@ The Cloche/Fabric development server still fails at public PlayerEx 5.0.1 `ItemS
 
 Production configuration import preserved 12 dimension rules, 130 biome rules and 234 nameplate blacklist entries. All eight rule maps passed automatic file correction. Nine spawn initialization workloads and nine level assertions across mineshaft, ruined portal and plains village passed on NeoForge. The Fabric development mismatch was narrowed to permissive injector matching; experimental launch settings were rejected and removed. See [background acceptance](BACKGROUND_QA_2026-10-09.md).
 
+## Config tools and saved-level compatibility
+
+The operator-only active-config validator reports inactive registry rules, entity-pattern mistakes and formula fallbacks. Inspection now preserves fractional HP and exposes combat attributes. Prior CCA mob-level compounds import without the old dependency, with modern data taking priority. NeoForge runtime checks and packaged Fabric save/restart passed; the clean build passes 63 tests. See [command and legacy QA](COMMAND_AND_LEGACY_QA_2026-10-09.md) and [the parity audit](PARITY_AUDIT_1.20.1.md). MCDev common-stub inspections remain a documented tooling limitation, not an injection change.
+
 ## Outstanding migration items
 
 - Further client-nameplate acceptance (independent health/level toggles, occlusion/team/invisibility, other mob types, multiplayer layout), plus two-client live metadata updates (NeoForge singleplayer nameplate and server codec round trip passed); GeckoLib/Traveler's Titles optional integrations.
