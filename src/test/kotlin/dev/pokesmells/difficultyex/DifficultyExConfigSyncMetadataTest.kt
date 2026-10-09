@@ -4,17 +4,13 @@ import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.FieldVisitor
 import org.objectweb.asm.Opcodes
+import org.objectweb.asm.MethodVisitor
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-/**
- * Guards the bytecode packaged for BOTH loader configurations. Fzzy Config
- * inspects runtime field annotations rather than Kotlin property annotations,
- * so checking the actual class files catches a misplaced @NonSync target.
- */
 class DifficultyExConfigSyncMetadataTest {
     private val nonSyncDescriptor = "Lme/fzzyhmstrs/fzzy_config/annotations/NonSync;"
     private val clientFields = setOf(
@@ -64,6 +60,30 @@ class DifficultyExConfigSyncMetadataTest {
         }, ClassReader.SKIP_CODE or ClassReader.SKIP_DEBUG or ClassReader.SKIP_FRAMES)
         return descriptors.mapValues { (name, desc) ->
             FieldMetadata(desc, annotations[name].orEmpty())
+        }
+    }
+
+    @Test
+    fun nameplatePreferencesHaveKotlinPropertyAnnotationsForFzzyReflection() {
+        for (loader in listOf("fabric1211", "neoforge1211")) {
+            val file = Path.of("build", "classes", "kotlin", loader,
+                "dev", "pokesmells", "difficultyex", "DifficultyExConfig.class")
+            val properties = mutableSetOf<String>()
+            ClassReader(Files.readAllBytes(file)).accept(object : ClassVisitor(Opcodes.ASM9) {
+                override fun visitMethod(access: Int, name: String, descriptor: String,
+                    signature: String?, exceptions: Array<out String>?): MethodVisitor? {
+                    if (!name.startsWith("get") || !name.endsWith("\$annotations")) return null
+                    val property = name.removePrefix("get").removeSuffix("\$annotations")
+                        .replaceFirstChar { it.lowercase() }
+                    return object : MethodVisitor(Opcodes.ASM9) {
+                        override fun visitAnnotation(descriptor: String, visible: Boolean): org.objectweb.asm.AnnotationVisitor? {
+                            if (visible && descriptor == nonSyncDescriptor) properties.add(property)
+                            return null
+                        }
+                    }
+                }
+            }, ClassReader.SKIP_CODE or ClassReader.SKIP_DEBUG or ClassReader.SKIP_FRAMES)
+            assertEquals(clientFields, properties, "$loader must expose @NonSync through Kotlin property reflection")
         }
     }
 

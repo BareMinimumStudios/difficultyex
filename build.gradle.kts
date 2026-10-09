@@ -42,6 +42,12 @@ cloche {
         sources = "https://github.com/BareMinimumStudios/difficultyex"
         issues = "https://github.com/BareMinimumStudios/difficultyex/issues"
         icon = "assets/difficultyex/icon.png"
+        dependencies {
+            dependency {
+                modId = "minecraft"
+                version { start = "1.21.1"; end = "1.21.1"; endExclusive = false }
+            }
+        }
     }
 
     common {
@@ -79,6 +85,7 @@ cloche {
         }
         metadata {
             dependencies {
+                dependency { modId = "java"; version("21") }
                 dependency { modId = "fabric-api"; version(libs.versions.fabric.api.get()) }
                 dependency { modId = "fabric-language-kotlin"; version(libs.versions.fabric.language.kotlin.get()) }
                 dependency { modId = "fzzy_config"; version(libs.versions.fzzy.fabric.get()) }
@@ -113,6 +120,7 @@ cloche {
             loaderVersion { start = libs.versions.neoforge.language.kotlin.get() }
             blurLogo = false
             dependencies {
+                dependency { modId = "neoforge"; version(libs.versions.neoforge.loader.get()) }
                 dependency { modId = "kotlinforforge"; version(libs.versions.neoforge.language.kotlin.get()) }
                 dependency { modId = "fzzy_config"; version(libs.versions.fzzy.neoforge.get()) }
                 dependency { modId = "remnant"; version(libs.versions.remnant.get()) }

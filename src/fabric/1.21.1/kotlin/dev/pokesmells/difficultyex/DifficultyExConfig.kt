@@ -67,13 +67,13 @@ class DifficultyExConfig : Config(DifficultyEx.id("config")) {
 
     @Translatable.Name("Nameplates (client only)")
     val nameplates = ConfigGroup("nameplates", true)
-    @field:NonSync var nameplatesEnabled = ValidatedBoolean(true)
-    @field:NonSync var nameplateDistance = ValidatedInt(20, 64, 0)
-    @field:NonSync var nameplateHostileOnly = ValidatedBoolean(false)
-    @field:NonSync var nameplateBlacklist = ValidatedString().toList()
-    @field:NonSync var nameplateShowLevel = ValidatedBoolean(true)
-    @field:NonSync var nameplateShowHealth = ValidatedBoolean(true)
-    @field:NonSync @ConfigGroup.Pop var nameplateShowHealthText = ValidatedBoolean(true)
+    @property:NonSync @field:NonSync var nameplatesEnabled = ValidatedBoolean(true)
+    @property:NonSync @field:NonSync var nameplateDistance = ValidatedInt(20, 64, 0)
+    @property:NonSync @field:NonSync var nameplateHostileOnly = ValidatedBoolean(false)
+    @property:NonSync @field:NonSync var nameplateBlacklist = ValidatedString().toList()
+    @property:NonSync @field:NonSync var nameplateShowLevel = ValidatedBoolean(true)
+    @property:NonSync @field:NonSync var nameplateShowHealth = ValidatedBoolean(true)
+    @property:NonSync @field:NonSync @ConfigGroup.Pop var nameplateShowHealthText = ValidatedBoolean(true)
 
     fun toSnapshot() = DifficultySettings(
         startingLevel.get(), maximumLevel.get(), playerRadius.get(), playerLevelFormula.get(),
