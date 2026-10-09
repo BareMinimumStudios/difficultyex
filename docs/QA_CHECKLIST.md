@@ -41,6 +41,10 @@ The isolated taiga village has its origin at chunk `(0,38)`. With a radius of 16
 
 The development-only diagnostic was deleted, two mobs were killed, the three force-load tickets removed, and the original dev config restored. Neither RCON nor the diagnostic is enabled in a distributable JAR.
 
+## Level-map value validation (runtime acceptance pending)
+
+Both loaders configure positive integer validation for entity, dimension, biome, and structure minimum/maximum maps. In a disposable config, verify that valid levels survive load/save and that zero or negative values report validation errors and cannot persist as valid entries. Remove an entry to disable its rule. Verify the optional editor explains key formats and conflicting maximum priority. A map value above the global maximum remains limited by that global maximum when a new mob spawns. The current check is compilation plus the existing 53-test suite, not GUI acceptance of these new bounds.
+
 ## Legacy configuration import (NeoForge startup-tested 2026-10-08)
 
 The 1.20.1 owo-lib file was named `config/difficultyex-config.json5` (the `.json` variant is also supported). At startup, if `config/difficultyex/config.json5` is absent, DifficultyEx creates it by mapping recognized legacy options from `dimensionSettings`, `biomeScalingSettings`, `structureScalingSettings`, `scalingLevelSettings`, and `visualSettings` into modern Fzzy Config fields. **Neither an existing modern config nor the original legacy file is overwritten.** All unrelated files are unaffected. An unreadable old config is reported in the log and is left in place. Seven migration tests also verify filtering malformed blacklist and level-map entries while preserving valid rules, and keeping modern defaults for invalid numeric settings. Fractional or overflowing integers and non-finite rates are skipped with a warning. These malformed-input cases were tested with synthetic JSON5, not a production file.
