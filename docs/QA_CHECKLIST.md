@@ -135,3 +135,7 @@ The operator validator, fractional inspection and supported prior CCA mob-level 
 ## Manual release workflow
 
 Workflow syntax, explicit dependency project identities and isolated pre-upload checks passed. See [the release audit](RELEASE_WORKFLOW_AUDIT_2026-10-09.md). No token permissions or real uploads were tested; release approval and gameplay acceptance remain pending.
+
+## Extended Fabric runtime acceptance
+
+Fabric metadata full/dirty packet round trips, ten NBT cycles, ordinary entity selectors and 500 active mobs over 600 ticks passed. The final clean build remains 63 passing tests. These checks do not replace authenticated multiplayer or rendering acceptance. See [extended results](FABRIC_EXTENDED_QA_2026-10-26.md).

@@ -67,3 +67,7 @@ The operator-only active-config validator reports inactive registry rules, entit
 - mc-publish target project IDs and dependency identities verified from public project pages. Explicit CurseForge aliases select the current ports. Workflow syntax and local pre-upload checks passed; authenticated credentials, release review and actual upload acceptance remain pending. See [release workflow audit](RELEASE_WORKFLOW_AUDIT_2026-10-09.md).
 
 The user's server copies were not changed. This update is local to the `1.21.1` working tree; no release or push was performed as part of this pass.
+
+## Extended Fabric runtime acceptance
+
+Fabric metadata full/dirty packet round trips, ten NBT cycles, ordinary entity selectors and 500 active mobs over 600 ticks passed. The final clean build remains 63 passing tests. These checks do not replace authenticated multiplayer or rendering acceptance. See [extended results](FABRIC_EXTENDED_QA_2026-10-26.md).
