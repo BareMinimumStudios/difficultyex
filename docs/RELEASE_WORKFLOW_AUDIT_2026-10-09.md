@@ -18,7 +18,7 @@ Every dependency now has an explicit CurseForge alias alongside its Modrinth ide
 
 The old `playerex` CurseForge slug belongs to project 409221, whose latest listed release targets Minecraft 1.19.2. DifficultyEx needs the current DC project instead. Alias syntax was checked against the [pinned mc-publish action documentation](https://github.com/Kira-NT/mc-publish/blob/52307b03863581dec6b652b83e597aec02ebb075/README.md#dependencies).
 
-The pinned public PlayerEx Fabric artifact contains nested Remnant and Crunch JARs, confirmed through MixinMCP. DifficultyEx still declares Remnant as required, matching its own loader metadata and existing acceptance installation.
+The pinned public PlayerEx Fabric artifact contains nested Remnant and Crunch JARs, confirmed from the packaged metadata. DifficultyEx still declares Remnant as required, matching its own loader metadata and existing acceptance installation.
 
 ## Pre-upload checks
 

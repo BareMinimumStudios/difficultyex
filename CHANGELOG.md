@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Refreshed the DX logo, Difficulty EX banner and packaged icon. Reorganized the README into linked installation, configuration, command, migration and compatibility guides, with ready-to-copy CurseForge and Modrinth page Markdown.
+
 - Fixed publishing dependencies to select the current CurseForge PlayerEx, Data Attributes and Remnant ports using explicit project IDs. Added credential and release-JAR checks before uploads and serialized manual publication runs.
 
 - Began the Fabric + NeoForge migration with Cloche, Java 21, Kotlin, and Gradle 9.8.0.
