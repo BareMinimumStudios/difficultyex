@@ -18,7 +18,7 @@ GeckoLib-specific nameplate renderers and Traveler's Titles zone labels from the
 | Config migration | Synthetic and tested production fields passed; original files preserved |
 | NeoForge nameplates | Singleplayer level, HP, bar and live enabled toggle passed |
 | Config preferences | Serialization checks passed; authenticated two-client independence pending |
-| Combat and XP | Mob combat and fake-player-attributed rewards passed; human equipment/enchantments and pickup pending |
+| Combat and XP | Scripted-player equipment/enchantment attacks, difficulty, XP pickup and Mending passed; authenticated human gameplay remains pending |
 | Structures | Loaded-origin, geometry and several generated variants passed; real movement and populated-world performance pending |
 | Fabric development launch | Resolved with Loader 0.20.1; normal named server startup and expanded runtime checks passed |
 
@@ -27,3 +27,7 @@ The clean suite passes 63 tests. [Fabric runtime acceptance](FABRIC_DEV_QA_2026-
 ## Report a problem
 
 Include Minecraft version, loader/version, DifficultyEx version, dependency versions, reproduction steps and the relevant log in a [GitHub issue](https://github.com/BareMinimumStudios/difficultyex/issues). Remove account tokens, addresses and other private information before attaching logs.
+
+## PlayerEx XP reduction
+
+DifficultyEx scales the mob reward before normal downstream handling. PlayerEx can discard orbs in an exhausted chunk; Mending can use surviving XP for repairs. A lower collected amount does not by itself indicate a scaling error. Both interactions passed [scripted runtime checks](EQUIPMENT_XP_QA_2026-10-26.md).

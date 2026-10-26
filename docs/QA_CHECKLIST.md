@@ -139,3 +139,7 @@ Workflow syntax, explicit dependency project identities and isolated pre-upload 
 ## Extended Fabric runtime acceptance
 
 Fabric metadata full/dirty packet round trips, ten NBT cycles, ordinary entity selectors and 500 active mobs over 600 ticks passed. The final clean build remains 63 passing tests. These checks do not replace authenticated multiplayer or rendering acceptance. See [extended results](FABRIC_EXTENDED_QA_2026-10-26.md).
+
+## Scripted equipment and XP acceptance
+
+NeoForge scripted-player attacks passed difficulty, Sharpness, armor and Protection checks. Actual orb pickup, Mending, XP-rate controls, Looting and non-player eligibility passed. PlayerEx chunk XP suppression remains active and can reduce collectible rewards. These checks do not replace authenticated human gameplay. See [equipment and XP results](EQUIPMENT_XP_QA_2026-10-26.md).

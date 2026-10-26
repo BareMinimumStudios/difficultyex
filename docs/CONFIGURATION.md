@@ -33,7 +33,7 @@ PlayerEx progression levels are separate from vanilla XP levels. Spectators do n
 | `experiencePerLevel` | `0.1` | Base XP reward increase per level |
 | `mobBlacklist` | `[]` | Entity IDs or patterns excluded from initial level assignment |
 
-Positive rates scale from the base attribute using the mob level: level 20 with health rate 0.08 has a nominal health multiplier of `1 + 20 × 0.08 = 2.6`. Vanilla and other mods' attribute limits still apply. Non-positive health, armor and damage rates disable that boost. Non-finite rates are guarded. XP still follows vanilla kill eligibility and enchantment adjustments.
+Positive rates scale from the base attribute using the mob level: level 20 with health rate 0.08 has a nominal health multiplier of `1 + 20 × 0.08 = 2.6`. Vanilla and other mods' attribute limits still apply. Non-positive health, armor and damage rates disable that boost. Non-finite rates are guarded. XP still follows vanilla kill eligibility and enchantment adjustments. PlayerEx can additionally discard orbs through its chunk XP reduction; collectible XP may therefore be lower than DifficultyEx's computed base reward. Mending can consume surviving XP for repairs before leftover XP reaches the player. See [runtime checks](EQUIPMENT_XP_QA_2026-10-26.md).
 
 ## Area and entity rules
 
