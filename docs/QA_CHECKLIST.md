@@ -117,7 +117,7 @@ Isolated copies of the reference launch libraries loaded the actual distributabl
 
 ## Still requiring acceptance testing
 
-- Fabric client visual acceptance and resolving the Cloche development-launch discrepancy. Packaged Fabric server startup, commands, and persistence already pass with public PlayerEx 5.0.1.
+- Fabric client visual acceptance remains pending. The named development-server discrepancy is resolved with Loader 0.20.1; see [new runtime results](FABRIC_DEV_QA_2026-10-25.md).
 - Actual multiplayer mob-level synchronization and client nameplate rendering, including health display toggles
 - Additional structure variants, many-mob performance, and real-player movement near structures whose origin chunks load late (exact boundary and unloaded-origin regression tests passed on NeoForge)
 - XP-orb collection by a **human-controlled** player and real player-combat/enchantment interactions (NeoForge fake-player XP rewards and zombie-versus-cow attack/armor damage passed the runtime tests)

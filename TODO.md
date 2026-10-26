@@ -12,7 +12,7 @@
 
 ## Development and release
 
-- [ ] Resolve the Fabric named development-launch dependency injector mismatch.
+- [x] Resolve the Fabric named development-launch dependency injector mismatch using Loader 0.20.1.
 - [ ] Resolve IntelliJ common-stub injection inspection false positives.
 - [ ] Review release version, changelog, credentials and platform upload acceptance.
 

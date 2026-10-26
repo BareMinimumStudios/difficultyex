@@ -34,7 +34,7 @@ Mobs keep their assigned level when saved and reloaded. Server gameplay settings
 
 ## Install
 
-Use **Minecraft 1.21.1 and Java 21**. Install the matching DifficultyEx build and dependencies on the server and clients.
+Use **Minecraft 1.21.1 and Java 21**, with **Fabric Loader 0.20+** for Fabric. Install the matching DifficultyEx build and dependencies on the server and clients.
 
 | Both loaders | Fabric also needs | NeoForge also needs |
 | --- | --- | --- |

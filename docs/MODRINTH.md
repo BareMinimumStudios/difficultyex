@@ -23,7 +23,7 @@ Structure rules inspect loaded chunks and loaded origins only. They do not force
 
 ## Installation
 
-Install matching builds on the server and clients. Both loaders need PlayerEx 5.0.1, Data Attributes 3.0.0 and Fzzy Config 0.7.7 for the loader. The pinned PlayerEx supplies Remnant 3.0.0. Fabric also needs Fabric API and Fabric Language Kotlin; NeoForge needs the complete Kotlin for Forge distribution. Java 21 is required.
+Install matching builds on the server and clients. Fabric requires Loader 0.20 or newer; this branch is tested with 0.20.1. Both loaders need PlayerEx 5.0.1, Data Attributes 3.0.0 and Fzzy Config 0.7.7 for the loader. The pinned PlayerEx supplies Remnant 3.0.0. Fabric also needs Fabric API and Fabric Language Kotlin; NeoForge needs the complete Kotlin for Forge distribution. Java 21 is required.
 
 [Installation guide and tested versions](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/INSTALLATION.md)
 

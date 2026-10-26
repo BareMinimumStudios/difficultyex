@@ -20,9 +20,9 @@ GeckoLib-specific nameplate renderers and Traveler's Titles zone labels from the
 | Config preferences | Serialization checks passed; authenticated two-client independence pending |
 | Combat and XP | Mob combat and fake-player-attributed rewards passed; human equipment/enchantments and pickup pending |
 | Structures | Loaded-origin, geometry and several generated variants passed; real movement and populated-world performance pending |
-| Fabric development launch | Named development environment still fails in a PlayerEx injector; packaged Fabric acceptance passes |
+| Fabric development launch | Resolved with Loader 0.20.1; normal named server startup and expanded runtime checks passed |
 
-The suite last passed 63 tests. This document records existing evidence; a documentation/artwork update does not rerun gameplay checks. Full [QA results](QA_CHECKLIST.md) and [port status](PORT_STATUS.md) track the remaining work.
+The clean suite passes 63 tests. [Fabric runtime acceptance](FABRIC_DEV_QA_2026-10-25.md) also covers real combat, commands, legacy saves and a short 300-mob active-world sample. Full [QA results](QA_CHECKLIST.md) and [port status](PORT_STATUS.md) track the remaining work.
 
 ## Report a problem
 

@@ -16,6 +16,7 @@
 
 - [Build and develop](../DEVELOPMENT.md)
 - [Port status and remaining work](PORT_STATUS.md) · [QA checklist](QA_CHECKLIST.md) · [Feature parity audit](PARITY_AUDIT_1.20.1.md)
+- [Fabric development launch and runtime](FABRIC_DEV_QA_2026-10-25.md)
 - [Runtime scenarios](RUNTIME_QA_2026-10-09.md) · [Packaged servers](PACKAGED_SERVER_QA_2026-10-09.md)
 - [Production config and structures](BACKGROUND_QA_2026-10-09.md) · [Commands and legacy saves](COMMAND_AND_LEGACY_QA_2026-10-09.md)
 - [Release workflow audit](RELEASE_WORKFLOW_AUDIT_2026-10-09.md) · [Changelog](../CHANGELOG.md)

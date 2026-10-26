@@ -22,7 +22,7 @@ The common variants include a server capability alias needed by Cloche 0.19.13's
 
 Use disposable worlds and copies of launch environments. The last clean build passed 63 tests, including arithmetic, migration, nameplate policies, config synchronization metadata and generated dependency bounds. Packaged server startup, commands and persistence passed on both loaders. See the [QA checklist](docs/QA_CHECKLIST.md) for evidence and pending acceptance.
 
-The Fabric named development launch still has a dependency injector mismatch. Public packaged Fabric startup passed; this is not a confirmed release-wide PlayerEx failure. Do not disable mixins globally to bypass development errors.
+Fabric development uses Loader 0.20.1, resolving the former named-environment PlayerEx injector mismatch through the official loader update. A normal server launch, config validation and graceful shutdown passed. See [Fabric runtime checks](docs/FABRIC_DEV_QA_2026-10-25.md). Client rendering still needs acceptance.
 
 ## Publishing
 

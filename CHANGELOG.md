@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Fixed the Fabric named development-server launch by updating Fabric Loader to 0.20.1; generated metadata now requires Loader 0.20+. Unchanged PlayerEx 5.0.1 loads normally. Fabric runtime command, health, combat, legacy-save and 300-mob active-world checks passed, followed by the clean 63-test both-loader build.
+
 - Refreshed the DX logo, Difficulty EX banner and packaged icon. Reorganized the README into linked installation, configuration, command, migration and compatibility guides, with ready-to-copy CurseForge and Modrinth page Markdown.
 
 - Fixed publishing dependencies to select the current CurseForge PlayerEx, Data Attributes and Remnant ports using explicit project IDs. Added credential and release-JAR checks before uploads and serialized manual publication runs.

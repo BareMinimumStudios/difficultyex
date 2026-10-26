@@ -1,6 +1,6 @@
 # DifficultyEx 1.21.1 Port Status
 
-Development snapshot: October 9, 2026. Not release-ready.
+Development snapshot: October 25, 2026. Not release-ready.
 
 ## Working foundation
 
@@ -46,13 +46,13 @@ Development snapshot: October 9, 2026. Not release-ready.
 
 - **Standalone packaged acceptance (October 9):** Fabric Loader 0.19.5 and NeoForge 21.1.256 both reached Done with the shipped JARs and pinned public dependencies. Both executed level commands and restored a protected zombie at level 20 with 26/52 health after restart. Fixed an invalid NeoForge Minecraft dependency range discovered during loading; added a real Maven parser regression. Disposable copies were removed and reference servers were untouched.
 
-## Fabric development-launch discrepancy
+## Fabric development launch resolved
 
-The Cloche/Fabric development server still fails at public PlayerEx 5.0.1 `ItemStackGameplayMixin`, reporting a LivingEntity/ServerPlayer descriptor mismatch. However, the packaged DifficultyEx and the same public PlayerEx 5.0.1 artifact successfully start on standalone Fabric Loader 0.19.5, execute commands, and preserve level 20 with 26/52 health across restart. The development setup uses Loader 0.19.3; source inspection and isolated launch experiments now point to permissive descriptor matching in the named development environment; a supported fix remains unvalidated. This is not a confirmed upstream release blocker. See [packaged acceptance](PACKAGED_SERVER_QA_2026-10-09.md).
+Updated the pinned Fabric Loader to 0.20.1. Its official Mixin 0.17.5 implementation removes the root-selector permissive descriptor fallback that caused the optional PlayerEx alias to bind the wrong overload. The unchanged public PlayerEx 5.0.1 now loads in the normal named development environment with mapping remapping enabled. Normal startup, active-config validation and graceful shutdown passed without QA hooks. Generated metadata requires Loader >=0.20. See [Fabric runtime acceptance](FABRIC_DEV_QA_2026-10-25.md).
 
 ## Further background acceptance
 
-Production configuration import preserved 12 dimension rules, 130 biome rules and 234 nameplate blacklist entries. All eight rule maps passed automatic file correction. Nine spawn initialization workloads and nine level assertions across mineshaft, ruined portal and plains village passed on NeoForge. The Fabric development mismatch was narrowed to permissive injector matching; experimental launch settings were rejected and removed. See [background acceptance](BACKGROUND_QA_2026-10-09.md).
+Production configuration import preserved 12 dimension rules, 130 biome rules and 234 nameplate blacklist entries. All eight rule maps passed automatic file correction. Nine spawn initialization workloads and nine level assertions across mineshaft, ruined portal and plains village passed on NeoForge. The earlier Fabric diagnosis narrowed the mismatch to permissive injector matching; it is now resolved by the official loader update described above. See [background acceptance](BACKGROUND_QA_2026-10-09.md).
 
 ## Config tools and saved-level compatibility
 
