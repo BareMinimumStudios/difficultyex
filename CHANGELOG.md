@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Verified real structure-origin load/unload behavior on both loaders and real server team/invisibility, wall line-of-sight and distance inputs on NeoForge. Existing mob levels remain stable and lookups do not load missing origins. Client visuals and connected-player streaming remain pending.
+
 - Verified scripted-player difficulty, equipment/enchantment combat, XP pickup and Mending on NeoForge. Documented PlayerEx chunk XP suppression, which can reduce collectible rewards after scaling. Human and multiplayer acceptance remain pending.
 
 - Fixed the Fabric named development-server launch by updating Fabric Loader to 0.20.1; generated metadata now requires Loader 0.20+. Unchanged PlayerEx 5.0.1 loads normally. Fabric runtime command, health, combat, legacy-save and 300-mob active-world checks passed, followed by the clean 63-test both-loader build.

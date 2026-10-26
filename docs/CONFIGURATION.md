@@ -77,3 +77,7 @@ Only loaded reference chunks and loaded structure-origin chunks are checked. Dif
 | `nameplateShowHealthText` | `true` | Current and maximum HP text |
 
 Disabling every label element does not force a nameplate. Vanilla team visibility, viewer-relative invisibility and the global render-names setting are respected. Singleplayer rendering and live master-toggle behavior passed on NeoForge; other visual edge cases and actual two-client independence remain in the [QA checklist](QA_CHECKLIST.md).
+
+## Additional runtime evidence
+
+The missing-origin, later-load and subsequent-unload sequence passed on both loaders without implicit origin loading. Real server team, invisibility, line-of-sight and distance inputs also passed. These checks supplement, rather than complete, client visual and connected-player movement acceptance. See [structure and visibility results](STRUCTURE_VISIBILITY_QA_2026-10-26.md).

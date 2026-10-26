@@ -19,7 +19,7 @@ GeckoLib-specific nameplate renderers and Traveler's Titles zone labels from the
 | NeoForge nameplates | Singleplayer level, HP, bar and live enabled toggle passed |
 | Config preferences | Serialization checks passed; authenticated two-client independence pending |
 | Combat and XP | Scripted-player equipment/enchantment attacks, difficulty, XP pickup and Mending passed; authenticated human gameplay remains pending |
-| Structures | Loaded-origin, geometry and several generated variants passed; real movement and populated-world performance pending |
+| Structures | Both-loader origin load/unload lifecycle, no implicit origin loading, geometry and generated variants passed; connected-player streaming and broader performance remain pending |
 | Fabric development launch | Resolved with Loader 0.20.1; normal named server startup and expanded runtime checks passed |
 
 The clean suite passes 63 tests. [Fabric runtime acceptance](FABRIC_DEV_QA_2026-10-25.md) also covers real combat, commands, legacy saves and a short 300-mob active-world sample. Full [QA results](QA_CHECKLIST.md) and [port status](PORT_STATUS.md) track the remaining work.
@@ -31,3 +31,7 @@ Include Minecraft version, loader/version, DifficultyEx version, dependency vers
 ## PlayerEx XP reduction
 
 DifficultyEx scales the mob reward before normal downstream handling. PlayerEx can discard orbs in an exhausted chunk; Mending can use surviving XP for repairs. A lower collected amount does not by itself indicate a scaling error. Both interactions passed [scripted runtime checks](EQUIPMENT_XP_QA_2026-10-26.md).
+
+## Visibility inputs
+
+Real server scoreboard/invisibility inputs, wall line of sight and exact distance boundaries passed with the shared visibility policy. Client visuals, global render-name behavior and multiplayer synchronization are not established by those checks. See [runtime evidence](STRUCTURE_VISIBILITY_QA_2026-10-26.md).

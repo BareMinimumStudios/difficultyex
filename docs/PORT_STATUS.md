@@ -75,3 +75,7 @@ Fabric metadata full/dirty packet round trips, ten NBT cycles, ordinary entity s
 ## Scripted equipment and XP acceptance
 
 NeoForge scripted-player attacks passed difficulty, Sharpness, armor and Protection checks. Actual orb pickup, Mending, XP-rate controls, Looting and non-player eligibility passed. PlayerEx chunk XP suppression remains active and can reduce collectible rewards. These checks do not replace authenticated human gameplay. See [equipment and XP results](EQUIPMENT_XP_QA_2026-10-26.md).
+
+## Structure lifecycle and visibility inputs
+
+Both loaders passed real origin unload/load/unload checks with a loaded reference, no implicit origin load, maximum priority and stable existing mob levels. NeoForge passed 12 real team combinations, viewer-relative invisibility, wall line of sight and distance inputs. Client rendering and connected-player chunk streaming remain pending. See [results and limits](STRUCTURE_VISIBILITY_QA_2026-10-26.md).
