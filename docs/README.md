@@ -15,6 +15,7 @@
 ## Development and verification
 
 - [Build and develop](../DEVELOPMENT.md)
+- [IDE inspection fix and release tooling](IDE_RELEASE_PREP_2026-10-29.md)
 - [Port status and remaining work](PORT_STATUS.md) · [QA checklist](QA_CHECKLIST.md) · [Feature parity audit](PARITY_AUDIT_1.20.1.md)
 - [Fabric development launch and runtime](FABRIC_DEV_QA_2026-10-25.md)
 - [Extended Fabric packets, persistence and ticking](FABRIC_EXTENDED_QA_2026-10-26.md)
@@ -30,6 +31,7 @@
 
 ## Publishing and artwork
 
+- [Release preparation](RELEASING.md) · [Focused release notes](../RELEASE_NOTES.md)
 - [CurseForge Markdown](CURSEFORGE.md) · [Modrinth Markdown](MODRINTH.md)
 - [Short descriptions](SUMMARIES.md) · [Logo, banner and usage](BRANDING.md)
 

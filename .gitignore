@@ -25,3 +25,5 @@ gradle-app.setting
 .gradletasknamecache
 .project
 .classpath
+
+__pycache__/

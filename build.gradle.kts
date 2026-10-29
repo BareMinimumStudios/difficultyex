@@ -67,6 +67,7 @@ cloche {
     }
 
     fabric("fabric:1.21.1") {
+        sourceSet.java.srcDir("src/loaderShared/java")
         minecraftVersion = "1.21.1"
         loaderVersion = libs.versions.fabric.loader
         includedClient()
@@ -101,6 +102,7 @@ cloche {
     }
 
     neoforge("neoforge:1.21.1") {
+        sourceSet.java.srcDir("src/loaderShared/java")
         minecraftVersion = "1.21.1"
         loaderVersion = libs.versions.neoforge.loader
         runs {

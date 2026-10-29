@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Fixed IDE injection inspections by compiling unchanged mixin and client sources against each loader's full game classes. Added focused release notes, explicit publication channels and tested artifact/version/hash preflight checks. No version bump or publication.
+
 - Verified real structure-origin load/unload behavior on both loaders and real server team/invisibility, wall line-of-sight and distance inputs on NeoForge. Existing mob levels remain stable and lookups do not load missing origins. Client visuals and connected-player streaming remain pending.
 
 - Verified scripted-player difficulty, equipment/enchantment combat, XP pickup and Mending on NeoForge. Documented PlayerEx chunk XP suppression, which can reduce collectible rewards after scaling. Human and multiplayer acceptance remain pending.

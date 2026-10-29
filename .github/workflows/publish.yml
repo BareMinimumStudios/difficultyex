@@ -3,6 +3,15 @@ name: publish
 # Never publish as a side effect of a normal build or push.
 on:
   workflow_dispatch:
+    inputs:
+      release_type:
+        description: Release channel after acceptance review
+        type: choice
+        default: alpha
+        options:
+          - alpha
+          - beta
+          - release
 
 concurrency:
   group: difficultyex-publish-1.21.1
@@ -38,24 +47,13 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew clean build --stacktrace
-      - name: Check release artifacts
-        shell: bash
-        run: |
-          set -euo pipefail
-          shopt -s nullglob
-          for loader in fabric neoforge; do
-            files=(build/libs/*-"$loader"-1.21.1.jar)
-            test "${#files[@]}" -eq 1 || { echo "::error::Expected one $loader release JAR"; exit 1; }
-            test -s "${files[0]}"
-          done
-      - name: Extract release version
+      - name: Check release tooling
+        run: python3 .github/scripts/test_prepare_release.py
+      - name: Prepare release manifest
         id: version
-        shell: bash
-        run: |
-          set -euo pipefail
-          v="$(sed -n 's/^mod_version=//p' gradle.properties | head -1 | tr -d '\r')"
-          test -n "$v"
-          echo "number=$v+1.21.1" >> "$GITHUB_OUTPUT"
+        env:
+          RELEASE_TYPE: ${{ inputs.release_type }}
+        run: python3 .github/scripts/prepare_release.py --release-type "$RELEASE_TYPE" --github-output "$GITHUB_OUTPUT"
       - name: Publish Fabric
         uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3.1
         with:
@@ -66,8 +64,8 @@ jobs:
           files: build/libs/*-fabric-1.21.1.jar
           name: ${{ steps.version.outputs.number }}-fabric
           version: ${{ steps.version.outputs.number }}-fabric
-          version-type: release
-          changelog-file: CHANGELOG.md
+          version-type: ${{ inputs.release_type }}
+          changelog-file: RELEASE_NOTES.md
           loaders: fabric
           game-versions: 1.21.1
           java: 21
@@ -90,8 +88,8 @@ jobs:
           files: build/libs/*-neoforge-1.21.1.jar
           name: ${{ steps.version.outputs.number }}-neoforge
           version: ${{ steps.version.outputs.number }}-neoforge
-          version-type: release
-          changelog-file: CHANGELOG.md
+          version-type: ${{ inputs.release_type }}
+          changelog-file: RELEASE_NOTES.md
           loaders: neoforge
           game-versions: 1.21.1
           java: 21

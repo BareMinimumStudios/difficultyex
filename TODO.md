@@ -13,8 +13,9 @@
 ## Development and release
 
 - [x] Resolve the Fabric named development-launch dependency injector mismatch using Loader 0.20.1.
-- [ ] Resolve IntelliJ common-stub injection inspection false positives.
-- [ ] Review release version, changelog, credentials and platform upload acceptance.
+- [x] Resolve IntelliJ common-stub injection inspection false positives using loader shared sources.
+- [x] Prepare focused release notes, selectable release channel and tested artifact/hash preflight.
+- [ ] Approve release version/notes, verify credentials and complete platform upload acceptance.
 
 ## Optional parity
 

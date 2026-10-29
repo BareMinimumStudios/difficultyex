@@ -99,3 +99,7 @@ Both loaders passed actual dispatcher checks for permission denial, invalid leve
 ## Current packaged servers and file-restart behavior
 
 The current distributable JARs passed standalone startup, commands, save and full restart on Fabric Loader 0.20.1 and NeoForge 21.1.256. A further offline config edit/restart preserved the existing mob's assigned level and saved HP while applying new health scaling, starting levels, blacklist and command cap. This closes the current Fabric packaged-loader gap. See [results, artifact hashes and limits](CURRENT_PACKAGED_QA_2026-10-29.md).
+
+## IDE inspections and release preparation
+
+Moving unchanged mixin/client Java sources into both loader source sets cleared injection and symbol-resolution errors in all five files. The clean build passed 69 tests, rebuilt packaged servers passed startup and commands, ten release-helper tests passed and workflow syntax passed. Focused notes, selectable alpha/beta/release channels and an artifact hash manifest are prepared. No version bump or publication occurred; credentials and remaining acceptance are open. See [verification](IDE_RELEASE_PREP_2026-10-29.md) and [release steps](RELEASING.md).
