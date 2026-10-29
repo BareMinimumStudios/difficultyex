@@ -19,6 +19,7 @@
 - [Fabric development launch and runtime](FABRIC_DEV_QA_2026-10-25.md)
 - [Extended Fabric packets, persistence and ticking](FABRIC_EXTENDED_QA_2026-10-26.md)
 - [Equipment, enchantments and XP pickup](EQUIPMENT_XP_QA_2026-10-26.md)
+- [Command boundaries and diagnostic output](COMMAND_BOUNDARIES_QA_2026-10-29.md)
 - [Mob persistence and configuration changes](ENTITY_LIFECYCLE_QA_2026-10-29.md)
 - [Configuration serialization and permissions](CONFIG_SYNC_QA_2026-10-29.md)
 - [Structure lifecycle and visibility inputs](STRUCTURE_VISIBILITY_QA_2026-10-26.md)

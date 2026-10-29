@@ -159,3 +159,7 @@ Six additional filesystem regression tests passed for filename precedence, safe 
 ## Broader mob persistence and configuration changes
 
 Fourteen real mob types passed ten injured-health NBT cycles and a zero-health cycle on both loaders. Live snapshot changes, blacklist behavior, non-stacking modifiers and preservation of an unrelated health modifier also passed. The fixture explicitly initialized untracked mob instances; natural spawn events, AI and client behavior are outside this check. See [results and limits](ENTITY_LIFECYCLE_QA_2026-10-29.md).
+
+## Command boundaries and diagnostic output
+
+Both loaders passed actual dispatcher checks for permission denial, invalid levels and targets, configured caps and health preservation. The validator displayed 20 details and logged all 25 fixture findings without mutation. No authenticated clients participated. See [results and limits](COMMAND_BOUNDARIES_QA_2026-10-29.md).
