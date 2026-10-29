@@ -15,6 +15,7 @@
 ## Development and verification
 
 - [Build and develop](../DEVELOPMENT.md)
+- [GitHub build and downloaded artifact acceptance](CI_ARTIFACT_QA_2026-10-29.md)
 - [IDE inspection fix and release tooling](IDE_RELEASE_PREP_2026-10-29.md)
 - [Port status and remaining work](PORT_STATUS.md) · [QA checklist](QA_CHECKLIST.md) · [Feature parity audit](PARITY_AUDIT_1.20.1.md)
 - [Fabric development launch and runtime](FABRIC_DEV_QA_2026-10-25.md)

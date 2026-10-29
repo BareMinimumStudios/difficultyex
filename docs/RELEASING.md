@@ -10,7 +10,8 @@
 - Artifact checks require exactly one nonempty, correctly versioned JAR for each loader.
 - A manifest records version, channel, Minecraft, Java, file sizes, JAR SHA256 hashes and the release-notes hash.
 - CI verifies the manifest after preparation, and publication verifies it again immediately before each loader upload.
-- Normal CI tests the release helper and archives the manifest and notes beside both JARs.
+- Release-helper tests run before the Gradle build. Normal CI archives the manifest and notes beside both JARs.
+- Build and publish workflows retain generated JVM XML/HTML test reports for 14 days, including failed runs. A failure before tests produce reports leaves only a missing-report warning.
 
 The configured mod version remains 1.1.0. No version decision, credential permission, upload or release approval is implied by these preparation checks.
 
@@ -38,6 +39,8 @@ Verification needs only RELEASE_NOTES.md, build/release/manifest.json and the tw
 
 These hashes detect changes relative to the manifest. They are not a signed publisher identity or a replacement for obtaining the bundle from the intended CI run.
 
+The downloaded GitHub artifact and both actual CI JARs passed integrity, startup, commands and full-restart checks on October 29, 2026. See [artifact acceptance](CI_ARTIFACT_QA_2026-10-29.md). This does not replace the remaining release review.
+
 ## Before publication
 
 1. Review remaining multiplayer, client visual, human-gameplay and performance acceptance. Record which limitations the selected channel permits.
@@ -48,3 +51,7 @@ These hashes detect changes relative to the manifest. They are not a signed publ
 6. Check both loaders on both platforms before announcing availability. Uploads are sequential; inspect what succeeded before retrying a partial failure.
 
 Version identifiers are `<mod_version>+1.21.1-fabric` and `<mod_version>+1.21.1-neoforge`. Normal builds and pushes do not publish. Actual upload acceptance remains pending.
+
+## Public version check
+
+On October 29, 2026, the Modrinth project API listed neither proposed identifier, 1.1.0+1.21.1-fabric nor 1.1.0+1.21.1-neoforge, and no published version targeting Minecraft 1.21.1. The GitHub repository release list was empty. This check does not reserve identifiers or verify CurseForge state, credentials or upload permissions; recheck before publication.

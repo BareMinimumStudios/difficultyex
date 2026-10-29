@@ -175,3 +175,7 @@ Moving unchanged mixin/client Java sources into both loader source sets cleared 
 ## Release bundle integrity
 
 The release helper now verifies prepared or downloaded JARs and notes against their manifest, including sizes, hashes, versions and fixed paths. CI verifies preparation and publishing checks again before each upload. All 20 helper tests passed, as did verification of a separate real-artifact bundle without Gradle properties. No JVM or game source changed in this pass. See [verification instructions](RELEASING.md#verify-a-downloaded-ci-bundle).
+
+## GitHub-built artifact acceptance
+
+The pushed 3d968ea build passed on GitHub, including all 20 release-helper tests and manifest verification. The actual downloaded artifact matched GitHub's ZIP digest and passed both-loader packaged startup, commands and full restart with retained level 20 and 26/52 HP. No compile/test failure required a production fix. Earlier release checks and retained failure reports improve future CI feedback. See [run, artifact hashes and limits](CI_ARTIFACT_QA_2026-10-29.md).
