@@ -26,6 +26,6 @@ Fabric development uses Loader 0.20.1, resolving the former named-environment Pl
 
 ## Publishing
 
-The [manual publish workflow](.github/workflows/publish.yml) is gated to `1.21.1` and builds both loaders before uploading. Review version, changelog, remaining acceptance and credentials before dispatch. See [release steps and preflight](docs/RELEASING.md). The release helper has ten additional Python regression tests.
+The [manual publish workflow](.github/workflows/publish.yml) is gated to `1.21.1` and builds both loaders before uploading. Review version, changelog, remaining acceptance and credentials before dispatch. See [release steps and preflight](docs/RELEASING.md). The release helper has 20 additional Python regression tests.
 
 [CurseForge copy](docs/CURSEFORGE.md), [Modrinth copy](docs/MODRINTH.md), [short summaries](docs/SUMMARIES.md) and [brand assets](docs/BRANDING.md) are maintained separately. Their branch URLs resolve after these files are pushed. No upload or publication is implied by editing them.

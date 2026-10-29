@@ -43,17 +43,67 @@ def prepare(root: Path, release_type: str) -> dict:
         "minecraft": MINECRAFT,
         "java": 21,
         "notes": notes.relative_to(root).as_posix(),
+        "notesSha256": hashlib.sha256(notes.read_bytes()).hexdigest(),
         "artifacts": artifacts,
     }
 
 
+def verify(root: Path) -> dict:
+    manifest = json.loads((root / "build/release/manifest.json").read_text(encoding="utf-8"))
+    if not isinstance(manifest, dict):
+        raise ValueError("Release manifest must be an object")
+    version = manifest.get("version")
+    match = re.fullmatch(r"(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)\+1\.21\.1", version) if isinstance(version, str) else None
+    if not match or manifest.get("minecraft") != MINECRAFT or manifest.get("java") != 21:
+        raise ValueError("Invalid manifest version or runtime target")
+    if manifest.get("releaseType") not in ("alpha", "beta", "release"):
+        raise ValueError("Invalid manifest release type")
+    if manifest.get("notes") != "RELEASE_NOTES.md":
+        raise ValueError("Invalid manifest notes path")
+    notes = root / "RELEASE_NOTES.md"
+    if hashlib.sha256(notes.read_bytes()).hexdigest() != manifest.get("notesSha256"):
+        raise ValueError("Release notes hash does not match the manifest")
+    if not notes.read_text(encoding="utf-8").startswith(f"# DifficultyEx {match[1]} for Minecraft {MINECRAFT}\n"):
+        raise ValueError("Release notes version does not match the manifest")
+    artifacts = manifest.get("artifacts")
+    if not isinstance(artifacts, list) or len(artifacts) != len(LOADERS):
+        raise ValueError("Manifest must contain exactly two loader artifacts")
+    remaining = set(LOADERS)
+    for artifact in artifacts:
+        if not isinstance(artifact, dict) or not isinstance(artifact.get("loader"), str) or artifact.get("loader") not in remaining:
+            raise ValueError("Unknown or duplicate loader in manifest")
+        loader = artifact["loader"]
+        remaining.remove(loader)
+        expected = f"build/libs/DifficultyEx-{match[1]}-{loader}-{MINECRAFT}.jar"
+        if artifact.get("path") != expected:
+            raise ValueError(f"Invalid manifest artifact path for {loader}")
+        if type(artifact.get("bytes")) is not int or artifact["bytes"] <= 0:
+            raise ValueError(f"Invalid manifest artifact size for {loader}")
+        matches = list((root / "build/libs").glob(f"*-{loader}-{MINECRAFT}.jar"))
+        if len(matches) != 1 or matches[0].name != Path(expected).name:
+            raise ValueError(f"Unexpected release artifact selection for {loader}")
+        path = root / expected
+        with path.open("rb") as stream:
+            digest = hashlib.file_digest(stream, "sha256").hexdigest()
+        if path.stat().st_size != artifact.get("bytes") or digest != artifact.get("sha256"):
+            raise ValueError(f"Release artifact size/hash does not match for {loader}")
+    return manifest
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2])
-    parser.add_argument("--release-type", choices=("alpha", "beta", "release"), default="alpha")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--release-type", choices=("alpha", "beta", "release"), default="alpha")
+    mode.add_argument("--verify", action="store_true")
     parser.add_argument("--github-output", type=Path)
     args = parser.parse_args()
+    if args.verify and args.github_output:
+        parser.error("--verify does not write GitHub output")
     try:
+        if args.verify:
+            manifest = verify(args.root)
+            print(f"Release bundle verified: {manifest['version']}")
+            return
         manifest = prepare(args.root, args.release_type)
     except (ValueError, OSError) as error:
         parser.exit(1, f"Release preflight failed: {error}\n")

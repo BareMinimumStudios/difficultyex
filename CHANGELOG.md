@@ -2,6 +2,8 @@
 
 ## [Unreleased] - Minecraft 1.21.1 port
 
+- Added release-bundle verification for both JARs and focused notes, with hash/size/path checks and 20 passing release-helper tests. CI and publication recheck prepared files before upload.
+
 - Fixed IDE injection inspections by compiling unchanged mixin and client sources against each loader's full game classes. Added focused release notes, explicit publication channels and tested artifact/version/hash preflight checks. No version bump or publication.
 
 - Verified real structure-origin load/unload behavior on both loaders and real server team/invisibility, wall line-of-sight and distance inputs on NeoForge. Existing mob levels remain stable and lookups do not load missing origins. Client visuals and connected-player streaming remain pending.

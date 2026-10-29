@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 
-from prepare_release import prepare
+from prepare_release import prepare, verify
 
 
 class ReleasePreflightTest(unittest.TestCase):
@@ -88,6 +88,85 @@ class ReleasePreflightTest(unittest.TestCase):
         self.assertEqual("number=1.1.0+1.21.1\n", output.read_text())
         manifest = json.loads((self.root / "build/release/manifest.json").read_text())
         self.assertEqual("beta", manifest["releaseType"])
+
+    def write_manifest(self):
+        manifest = prepare(self.root, "beta")
+        destination = self.root / "build/release/manifest.json"
+        destination.parent.mkdir(parents=True)
+        destination.write_text(json.dumps(manifest))
+        return destination, manifest
+
+    def test_verify_downloaded_bundle_without_gradle_properties(self):
+        _, expected = self.write_manifest()
+        (self.root / "gradle.properties").unlink()
+        self.assertEqual(expected, verify(self.root))
+
+    def test_verify_rejects_same_size_jar_changes(self):
+        self.write_manifest()
+        (self.libs / "DifficultyEx-1.1.0-fabric-1.21.1.jar").write_bytes(b"FABRIC")
+        with self.assertRaises(ValueError):
+            verify(self.root)
+
+    def test_verify_rejects_note_changes(self):
+        self.write_manifest()
+        with (self.root / "RELEASE_NOTES.md").open("a") as notes:
+            notes.write("Changed after preparation.\n")
+        with self.assertRaises(ValueError):
+            verify(self.root)
+
+    def test_verify_rejects_missing_jar(self):
+        self.write_manifest()
+        (self.libs / "DifficultyEx-1.1.0-neoforge-1.21.1.jar").unlink()
+        with self.assertRaises((OSError, ValueError)):
+            verify(self.root)
+
+    def test_verify_rejects_invalid_manifest(self):
+        destination, _ = self.write_manifest()
+        for data in ("{", "[]", "{}"):
+            with self.subTest(data=data):
+                destination.write_text(data)
+                with self.assertRaises(ValueError):
+                    verify(self.root)
+
+    def test_verify_rejects_unsafe_paths(self):
+        destination, manifest = self.write_manifest()
+        manifest["artifacts"][0]["path"] = "../outside.jar"
+        destination.write_text(json.dumps(manifest))
+        with self.assertRaises(ValueError):
+            verify(self.root)
+
+    def test_verify_rejects_duplicate_loader(self):
+        destination, manifest = self.write_manifest()
+        manifest["artifacts"][1] = manifest["artifacts"][0]
+        destination.write_text(json.dumps(manifest))
+        with self.assertRaises(ValueError):
+            verify(self.root)
+
+    def test_verify_cli_detects_tampering_without_rewriting_manifest(self):
+        destination, _ = self.write_manifest()
+        before = destination.read_bytes()
+        arguments = [sys.executable, str(Path(__file__).with_name("prepare_release.py")),
+                     "--root", str(self.root), "--verify"]
+        self.assertEqual(0, subprocess.run(arguments, capture_output=True).returncode)
+        (self.libs / "DifficultyEx-1.1.0-fabric-1.21.1.jar").write_bytes(b"changed")
+        self.assertNotEqual(0, subprocess.run(arguments, capture_output=True).returncode)
+        self.assertEqual(before, destination.read_bytes())
+
+    def test_verify_rejects_invalid_loader_and_sizes(self):
+        destination, manifest = self.write_manifest()
+        for field, invalid in (("loader", []), ("bytes", 0), ("bytes", True), ("bytes", "6")):
+            with self.subTest(field=field, invalid=invalid):
+                changed = json.loads(json.dumps(manifest))
+                changed["artifacts"][0][field] = invalid
+                destination.write_text(json.dumps(changed))
+                with self.assertRaises(ValueError):
+                    verify(self.root)
+
+    def test_verify_rejects_artifact_added_after_preparation(self):
+        self.write_manifest()
+        (self.libs / "stale-fabric-1.21.1.jar").write_bytes(b"unexpected upload candidate")
+        with self.assertRaises(ValueError):
+            verify(self.root)
 
     def test_invalid_channel(self):
         with self.assertRaises(ValueError):

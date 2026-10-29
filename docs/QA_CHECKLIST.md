@@ -171,3 +171,7 @@ The current distributable JARs passed standalone startup, commands, save and ful
 ## IDE inspections and release preparation
 
 Moving unchanged mixin/client Java sources into both loader source sets cleared injection and symbol-resolution errors in all five files. The clean build passed 69 tests, rebuilt packaged servers passed startup and commands, ten release-helper tests passed and workflow syntax passed. Focused notes, selectable alpha/beta/release channels and an artifact hash manifest are prepared. No version bump or publication occurred; credentials and remaining acceptance are open. See [verification](IDE_RELEASE_PREP_2026-10-29.md) and [release steps](RELEASING.md).
+
+## Release bundle integrity
+
+The release helper now verifies prepared or downloaded JARs and notes against their manifest, including sizes, hashes, versions and fixed paths. CI verifies preparation and publishing checks again before each upload. All 20 helper tests passed, as did verification of a separate real-artifact bundle without Gradle properties. No JVM or game source changed in this pass. See [verification instructions](RELEASING.md#verify-a-downloaded-ci-bundle).
