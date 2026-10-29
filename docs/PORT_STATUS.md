@@ -87,3 +87,7 @@ Both loaders passed ten real-library synchronization serialization rounds, indep
 ## Migration recovery
 
 Six additional filesystem regression tests passed for filename precedence, safe retries, blocked destinations and existing-file preservation. The clean IDE build now passes 69 tests across 14 suites. See [migration behavior and recovery](MIGRATION.md#migration-recovery-regression-checks).
+
+## Broader mob persistence and configuration changes
+
+Fourteen real mob types passed ten injured-health NBT cycles and a zero-health cycle on both loaders. Live snapshot changes, blacklist behavior, non-stacking modifiers and preservation of an unrelated health modifier also passed. The fixture explicitly initialized untracked mob instances; natural spawn events, AI and client behavior are outside this check. See [results and limits](ENTITY_LIFECYCLE_QA_2026-10-29.md).

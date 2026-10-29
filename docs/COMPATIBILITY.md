@@ -15,6 +15,7 @@ GeckoLib-specific nameplate renderers and Traveler's Titles zone labels from the
 | Area | Current evidence |
 | --- | --- |
 | Both packaged dedicated servers | Startup, operator commands and saved health/level persistence passed |
+| Mob persistence | Fourteen real mob types passed repeated NBT cycles on both loaders; [scope and configuration changes](ENTITY_LIFECYCLE_QA_2026-10-29.md) |
 | Config migration | Synthetic and tested production fields passed; original files preserved |
 | NeoForge nameplates | Singleplayer level, HP, bar and live enabled toggle passed |
 | Config preferences | Serialization checks passed; authenticated two-client independence pending |
@@ -22,7 +23,7 @@ GeckoLib-specific nameplate renderers and Traveler's Titles zone labels from the
 | Structures | Both-loader origin load/unload lifecycle, no implicit origin loading, geometry and generated variants passed; connected-player streaming and broader performance remain pending |
 | Fabric development launch | Resolved with Loader 0.20.1; normal named server startup and expanded runtime checks passed |
 
-The clean suite passes 63 tests. [Fabric runtime acceptance](FABRIC_DEV_QA_2026-10-25.md) also covers real combat, commands, legacy saves and a short 300-mob active-world sample. Full [QA results](QA_CHECKLIST.md) and [port status](PORT_STATUS.md) track the remaining work.
+The clean suite passes 69 tests. [Fabric runtime acceptance](FABRIC_DEV_QA_2026-10-25.md) also covers real combat, commands, legacy saves and a short 300-mob active-world sample. Full [QA results](QA_CHECKLIST.md) and [port status](PORT_STATUS.md) track the remaining work.
 
 ## Report a problem
 
