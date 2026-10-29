@@ -34,3 +34,8 @@ Disposable launch libraries, mods, worlds, configs and extracted artifact copies
 Release-helper tests now run before the Gradle build. Both build and publish workflows retain generated XML/HTML JVM test reports for 14 days with an always-run upload step, including failed runs. Missing reports before tests execute produce a warning. Workflow syntax, local release-tool tests and real-artifact integrity checks passed; these new workflow edits require the next user push to run on GitHub.
 
 No game code or mod version changed, and no publication was attempted. Multiplayer, visuals, human gameplay and release authorization remain pending.
+## Follow-up run for e009b14
+
+[Build run 40955966398](https://github.com/BareMinimumStudios/difficultyex/actions/runs/40955966398) completed successfully. Both uploaded ZIPs matched GitHub's recorded SHA256 digests. The downloaded JVM XML reports contained 69 tests across 14 suites, with zero failures, errors or skips. The downloaded release bundle passed manifest verification independently of the repository build directory.
+
+This confirms the earlier release-tool test step and retained test-report artifact work on a successful GitHub run. Failure-path report upload is configured with always(), but an intentionally failing remote build was not triggered. No new production defect was found. The remaining interactive scenarios are organized in the [final acceptance run sheet](FINAL_ACCEPTANCE.md); they are not marked passed.

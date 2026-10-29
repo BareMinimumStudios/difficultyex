@@ -1,6 +1,6 @@
 # Remaining port work
 
-[Port status](docs/PORT_STATUS.md) · [QA checklist](docs/QA_CHECKLIST.md) · [Feature parity](docs/PARITY_AUDIT_1.20.1.md)
+[Final interactive run sheet](docs/FINAL_ACCEPTANCE.md) · [Port status](docs/PORT_STATUS.md) · [QA checklist](docs/QA_CHECKLIST.md) · [Feature parity](docs/PARITY_AUDIT_1.20.1.md)
 
 ## Acceptance
 

@@ -43,7 +43,7 @@ The downloaded GitHub artifact and both actual CI JARs passed integrity, startup
 
 ## Before publication
 
-1. Review remaining multiplayer, client visual, human-gameplay and performance acceptance. Record which limitations the selected channel permits.
+1. Review the [interactive acceptance run sheet](FINAL_ACCEPTANCE.md) for remaining multiplayer, client visual, human-gameplay and performance acceptance. Record which limitations the selected channel permits.
 2. Approve mod_version, the focused release notes and the chosen channel. Do not present this development port as fully accepted.
 3. Confirm repository secrets MODRINTH_TOKEN and CURSEFORGE_TOKEN exist and can upload to the intended projects. These permissions have not been tested locally.
 4. Review CI results, both JARs and the manifest from branch 1.21.1.
