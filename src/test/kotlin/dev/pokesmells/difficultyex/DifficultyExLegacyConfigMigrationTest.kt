@@ -139,6 +139,85 @@ class DifficultyExLegacyConfigMigrationTest {
         assertTrue(parsed.get("nameplatesEnabled").asBoolean)
     }
 
+    @Test
+    fun importsJsonAlternativeWhenJson5IsAbsent() = inTempDirectory { root ->
+        val original = legacy.toByteArray()
+        val source = root.resolve("difficultyex-config.json")
+        Files.write(source, original)
+        assertTrue(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        assertEquals(7, JsonParser.parseString(Files.readString(root.resolve("difficultyex/config.json5")))
+            .asJsonObject.get("startingLevel").asInt)
+        assertTrue(original.contentEquals(Files.readAllBytes(source)))
+    }
+
+    @Test
+    fun json5TakesPriorityOverJsonAndMigrationRunsOnlyOnce() = inTempDirectory { root ->
+        val json5 = root.resolve("difficultyex-config.json5")
+        val json = root.resolve("difficultyex-config.json")
+        Files.writeString(json5, legacy)
+        Files.writeString(json, legacy.replace("startingLevel: 7", "startingLevel: 88"))
+        assertTrue(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        val target = root.resolve("difficultyex/config.json5")
+        val migrated = Files.readAllBytes(target)
+        assertEquals(7, JsonParser.parseString(String(migrated)).asJsonObject.get("startingLevel").asInt)
+        Files.writeString(json5, legacy.replace("startingLevel: 7", "startingLevel: 42"))
+        assertFalse(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        assertTrue(migrated.contentEquals(Files.readAllBytes(target)))
+        assertEquals(legacy.replace("startingLevel: 7", "startingLevel: 88"), Files.readString(json))
+    }
+
+    @Test
+    fun malformedPreferredFileIsPreservedUntilUserRepairsIt() = inTempDirectory { root ->
+        val preferred = root.resolve("difficultyex-config.json5")
+        val alternative = root.resolve("difficultyex-config.json")
+        val invalid = "{ broken: [ }"
+        Files.writeString(preferred, invalid)
+        Files.writeString(alternative, legacy)
+        assertFalse(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        assertFalse(Files.exists(root.resolve("difficultyex/config.json5")))
+        assertEquals(invalid, Files.readString(preferred))
+        assertEquals(legacy, Files.readString(alternative))
+        Files.writeString(preferred, legacy)
+        assertTrue(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        Files.list(root.resolve("difficultyex")).use { files ->
+            assertEquals(listOf("config.json5"), files.map { it.fileName.toString() }.toList())
+        }
+    }
+
+    @Test
+    fun blockedDestinationPreservesOriginalAndCanBeRetried() = inTempDirectory { root ->
+        val source = root.resolve("difficultyex-config.json5")
+        val destination = root.resolve("difficultyex")
+        Files.writeString(source, legacy)
+        Files.writeString(destination, "unrelated existing file")
+        assertFalse(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        assertEquals(legacy, Files.readString(source))
+        assertEquals("unrelated existing file", Files.readString(destination))
+        Files.delete(destination)
+        assertTrue(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        Files.list(destination).use { files ->
+            assertEquals(listOf("config.json5"), files.map { it.fileName.toString() }.toList())
+        }
+    }
+
+    @Test
+    fun evenMalformedModernConfigPreventsLegacyOverwrite() = inTempDirectory { root ->
+        val target = root.resolve("difficultyex/config.json5")
+        Files.createDirectories(target.parent)
+        val existing = "{ incomplete: [".toByteArray()
+        Files.write(target, existing)
+        Files.writeString(root.resolve("difficultyex-config.json5"), legacy)
+        assertFalse(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        assertTrue(existing.contentEquals(Files.readAllBytes(target)))
+        assertEquals(legacy, Files.readString(root.resolve("difficultyex-config.json5")))
+    }
+
+    @Test
+    fun absentLegacyFilesCreateNothing() = inTempDirectory { root ->
+        assertFalse(DifficultyExLegacyConfigMigration.migrateIfNeeded(root))
+        Files.list(root).use { assertEquals(0, it.count()) }
+    }
+
     private inline fun inTempDirectory(block: (Path) -> Unit) {
         val root = Files.createTempDirectory("difficultyex-legacy-test-")
         try {
