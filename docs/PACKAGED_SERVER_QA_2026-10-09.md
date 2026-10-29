@@ -1,5 +1,7 @@
 # Packaged server acceptance, October 9, 2026
 
+Historical report. Current JAR acceptance with Fabric Loader 0.20.1, NeoForge 21.1.256 and file-edit restarts is recorded in [the October 29 results](CURRENT_PACKAGED_QA_2026-10-29.md). The Fabric development-launch issue described below was subsequently resolved.
+
 The actual distributable DifficultyEx JARs were tested in fresh copies of the user's reference server launch libraries. No development class directories, temporary QA mod, or patched dependency was loaded. Reference worlds, configs, mods, and launch files were not modified.
 
 | Environment | Startup | Commands | Protected mob after full restart |

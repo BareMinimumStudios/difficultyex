@@ -21,7 +21,7 @@ Run `/difficultyex validate` after changing rules. It reports mistakes without r
 | `averageDecrement` | `3` | Maximum random reduction after averaging |
 | `averageIncrement` | `3` | Maximum random increase after averaging |
 
-PlayerEx progression levels are separate from vanilla XP levels. Spectators do not contribute. Players exactly on the radius are included. Formula results are averaged before random variation and area restrictions. Set both variation settings to zero for deterministic area levels. New mobs receive a level once; saved mobs retain theirs. Applying a settings snapshot does not eagerly rescale existing mobs. Stat rates are reapplied when an existing mob initializes or an operator sets its level. Blacklisting prevents initial assignment; it does not clear an existing saved level. See [cross-loader lifecycle checks](ENTITY_LIFECYCLE_QA_2026-10-29.md).
+PlayerEx progression levels are separate from vanilla XP levels. Spectators do not contribute. Players exactly on the radius are included. Formula results are averaged before random variation and area restrictions. Set both variation settings to zero for deterministic area levels. New mobs receive a level once; saved mobs retain theirs. Applying a settings snapshot does not eagerly rescale existing mobs. Stat rates are reapplied when an existing mob initializes or an operator sets its level. On world reload, saved absolute HP is restored against the new maximum; the operator set command instead preserves health percentage. Both behaviors passed [packaged restart checks](CURRENT_PACKAGED_QA_2026-10-29.md). Blacklisting prevents initial assignment; it does not clear an existing saved level. See [cross-loader lifecycle checks](ENTITY_LIFECYCLE_QA_2026-10-29.md).
 
 ## Mob stats
 

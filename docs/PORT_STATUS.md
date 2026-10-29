@@ -95,3 +95,7 @@ Fourteen real mob types passed ten injured-health NBT cycles and a zero-health c
 ## Command boundaries and diagnostic output
 
 Both loaders passed actual dispatcher checks for permission denial, invalid levels and targets, configured caps and health preservation. The validator displayed 20 details and logged all 25 fixture findings without mutation. No authenticated clients participated. See [results and limits](COMMAND_BOUNDARIES_QA_2026-10-29.md).
+
+## Current packaged servers and file-restart behavior
+
+The current distributable JARs passed standalone startup, commands, save and full restart on Fabric Loader 0.20.1 and NeoForge 21.1.256. A further offline config edit/restart preserved the existing mob's assigned level and saved HP while applying new health scaling, starting levels, blacklist and command cap. This closes the current Fabric packaged-loader gap. See [results, artifact hashes and limits](CURRENT_PACKAGED_QA_2026-10-29.md).
