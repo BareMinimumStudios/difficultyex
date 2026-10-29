@@ -19,6 +19,7 @@
 - [Fabric development launch and runtime](FABRIC_DEV_QA_2026-10-25.md)
 - [Extended Fabric packets, persistence and ticking](FABRIC_EXTENDED_QA_2026-10-26.md)
 - [Equipment, enchantments and XP pickup](EQUIPMENT_XP_QA_2026-10-26.md)
+- [Configuration serialization and permissions](CONFIG_SYNC_QA_2026-10-29.md)
 - [Structure lifecycle and visibility inputs](STRUCTURE_VISIBILITY_QA_2026-10-26.md)
 - [Runtime scenarios](RUNTIME_QA_2026-10-09.md) · [Packaged servers](PACKAGED_SERVER_QA_2026-10-09.md)
 - [Production config and structures](BACKGROUND_QA_2026-10-09.md) · [Commands and legacy saves](COMMAND_AND_LEGACY_QA_2026-10-09.md)

@@ -147,3 +147,7 @@ NeoForge scripted-player attacks passed difficulty, Sharpness, armor and Protect
 ## Structure lifecycle and visibility inputs
 
 Both loaders passed real origin unload/load/unload checks with a loaded reference, no implicit origin load, maximum priority and stable existing mob levels. NeoForge passed 12 real team combinations, viewer-relative invisibility, wall line of sight and distance inputs. Client rendering and connected-player chunk streaming remain pending. See [results and limits](STRUCTURE_VISIBILITY_QA_2026-10-26.md).
+
+## Configuration serialization and permissions
+
+Both loaders passed ten real-library synchronization serialization rounds, independent preferences and full JSON5 reloads. NeoForge's actual server update handler rejected unauthorized, forged and malformed updates and accepted operator changes. No clients connected; authenticated transport and reconnect remain pending. See [results and limits](CONFIG_SYNC_QA_2026-10-29.md).
