@@ -93,7 +93,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2])
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--release-type", choices=("alpha", "beta", "release"), default="alpha")
+    mode.add_argument("--release-type", choices=("alpha", "beta", "release"), default="release")
     mode.add_argument("--verify", action="store_true")
     parser.add_argument("--github-output", type=Path)
     args = parser.parse_args()

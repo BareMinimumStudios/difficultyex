@@ -18,7 +18,7 @@ DifficultyEx adds configurable MMORPG-style mob levels built around PlayerEx. Se
 
 Nearby players' progression helps determine new mob levels. Health, armor, attack damage and XP rewards scale with those levels. Optional nameplates show what players are facing.
 
-**The 1.21.1 port is in development.** Packaged server startup, commands and save/restart checks pass on both loaders. Multiplayer, visual edge cases and broader gameplay acceptance remain pending. Download pages also contain older releases; choose the correct Minecraft version and loader.
+Available for Minecraft **1.21.1** on **Fabric and NeoForge**. Install matching builds on the server and clients.
 
 ## What you can configure
 
@@ -71,9 +71,8 @@ See [commands and selectors](docs/COMMANDS.md).
 
 - [Documentation hub](docs/README.md)
 - [Installation](docs/INSTALLATION.md) · [Configuration](docs/CONFIGURATION.md) · [Commands](docs/COMMANDS.md)
-- [Upgrading from 1.20.1](docs/MIGRATION.md) · [Compatibility and limitations](docs/COMPATIBILITY.md)
-- [Development](DEVELOPMENT.md) · [Testing and port status](docs/VERIFICATION.md) · [Changelog](CHANGELOG.md)
-- [CurseForge page copy](docs/CURSEFORGE.md) · [Modrinth page copy](docs/MODRINTH.md) · [Brand assets](docs/BRANDING.md)
+- [Development](DEVELOPMENT.md) · [Changelog](CHANGELOG.md)
+- [CurseForge page copy](docs/CURSEFORGE.md) · [Modrinth page copy](docs/MODRINTH.md)
 - [Report an issue](https://github.com/BareMinimumStudios/difficultyex/issues) · [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Discord](https://discord.gg/pcRw79hwey)
 
 Code and artwork use [The Bare Minimum License v1.0](LICENSE). The [inherited MIT notice](docs/ORIGINAL_MIT_LICENSE.txt) is retained for historical portions.

@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: Release channel after acceptance review
+        description: Release channel
         type: choice
-        default: alpha
+        default: release
         options:
           - alpha
           - beta

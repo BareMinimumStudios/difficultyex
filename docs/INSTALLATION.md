@@ -1,8 +1,8 @@
 # Installation
 
-[Documentation](README.md) · [Configuration](CONFIGURATION.md) · [Compatibility](COMPATIBILITY.md)
+[Documentation](README.md) · [Configuration](CONFIGURATION.md)
 
-Use Minecraft **1.21.1**, **Java 21**, and matching loader builds of DifficultyEx and its dependencies. Install on the server and clients. This is a development port; use a backed-up test world for evaluation.
+Use Minecraft **1.21.1**, **Java 21**, and matching loader builds of DifficultyEx and its dependencies. Install on the server and clients.
 
 ## Dependencies
 
@@ -20,7 +20,7 @@ These are the dependency versions pinned by this branch, not a promise that ever
 
 Remnant must be present at runtime; the pinned PlayerEx download supplies it as a nested JAR. Development dependencies also declare it explicitly. Crunch is bundled. owo-lib is no longer required by DifficultyEx.
 
-The current Fabric build requires Loader **0.20 or newer**. Both standalone packaged-server and development checks passed with **0.20.1**. Current NeoForge packaged checks passed with **21.1.256**; development remains pinned separately. Both packaged servers passed commands, full save/restart and offline configuration changes. See [current packaged acceptance](VERIFICATION.md) and [development notes](../DEVELOPMENT.md).
+Fabric requires Loader **0.20 or newer**; **0.20.1** is tested. NeoForge **21.1.256** is tested. Use matching loader files.
 
 ## Set up
 
@@ -32,4 +32,6 @@ The current Fabric build requires Loader **0.20 or newer**. Both standalone pack
 
 [Modrinth downloads](https://modrinth.com/mod/qdJ4GLvL/versions) · [CurseForge files](https://www.curseforge.com/minecraft/mc-mods/difficultyex/files/all)
 
-Older files on these pages target 1.20.1. Check the actual version and loader before downloading.
+Choose the file for Minecraft 1.21.1 and your loader.
+
+This release uses vanilla nameplates. GeckoLib renderer hooks, Traveler's Titles labels and old nameplate color/scale/offset controls are not included.

@@ -1,6 +1,6 @@
 # Configuration
 
-[Documentation](README.md) · [Installation](INSTALLATION.md) · [Commands](COMMANDS.md) · [Migration](MIGRATION.md)
+[Documentation](README.md) · [Installation](INSTALLATION.md) · [Commands](COMMANDS.md)
 
 DifficultyEx stores a flat JSON5 file at `config/difficultyex/config.json5`. Gameplay settings belong to the server. The seven nameplate options are client-local preferences.
 
@@ -21,7 +21,7 @@ Run `/difficultyex validate` after changing rules. It reports mistakes without r
 | `averageDecrement` | `3` | Maximum random reduction after averaging |
 | `averageIncrement` | `3` | Maximum random increase after averaging |
 
-PlayerEx progression levels are separate from vanilla XP levels. Spectators do not contribute. Players exactly on the radius are included. Formula results are averaged before random variation and area restrictions. Set both variation settings to zero for deterministic area levels. New mobs receive a level once; saved mobs retain theirs. Applying a settings snapshot does not eagerly rescale existing mobs. Stat rates are reapplied when an existing mob initializes or an operator sets its level. On world reload, saved absolute HP is restored against the new maximum; the operator set command instead preserves health percentage. Both behaviors passed [packaged restart checks](VERIFICATION.md). Blacklisting prevents initial assignment; it does not clear an existing saved level. See [cross-loader lifecycle checks](VERIFICATION.md).
+PlayerEx progression levels are separate from vanilla XP levels. Spectators do not contribute. Players exactly on the radius are included. Formula results are averaged before random variation and area restrictions. Set both variation settings to zero for deterministic area levels. New mobs receive a level once; saved mobs retain theirs. Applying a settings snapshot does not eagerly rescale existing mobs. Stat rates are reapplied when an existing mob initializes or an operator sets its level. On world reload, saved absolute HP is restored against the new maximum; the operator set command instead preserves health percentage. Blacklisting prevents initial assignment; it does not clear an existing saved level.
 
 ## Mob stats
 
@@ -33,7 +33,7 @@ PlayerEx progression levels are separate from vanilla XP levels. Spectators do n
 | `experiencePerLevel` | `0.1` | Base XP reward increase per level |
 | `mobBlacklist` | `[]` | Entity IDs or patterns excluded from initial level assignment |
 
-Positive rates scale from the base attribute using the mob level: level 20 with health rate 0.08 has a nominal health multiplier of `1 + 20 × 0.08 = 2.6`. Vanilla and other mods' attribute limits still apply. Non-positive health, armor and damage rates disable that boost. Non-finite rates are guarded. XP still follows vanilla kill eligibility and enchantment adjustments. PlayerEx can additionally discard orbs through its chunk XP reduction; collectible XP may therefore be lower than DifficultyEx's computed base reward. Mending can consume surviving XP for repairs before leftover XP reaches the player. See [runtime checks](VERIFICATION.md).
+Positive rates scale from the base attribute using the mob level: level 20 with health rate 0.08 has a nominal health multiplier of `1 + 20 × 0.08 = 2.6`. Vanilla and other mods' attribute limits still apply. Non-positive health, armor and damage rates disable that boost. Non-finite rates are guarded. XP still follows vanilla kill eligibility and enchantment adjustments. PlayerEx can additionally discard orbs through its chunk XP reduction; collectible XP may therefore be lower than DifficultyEx's computed base reward. Mending can consume surviving XP for repairs before leftover XP reaches the player.
 
 ## Area and entity rules
 
@@ -56,7 +56,7 @@ structureStartingLevels: { "minecraft:ancient_city": 40 },
 entityMaximumLevels: { "minecraft:cow": 5 },
 ```
 
-These IDs illustrate configuration, not acceptance testing of every listed structure. Modded registry IDs work when the corresponding content is installed. An exact-match regex must escape literal dots where relevant; JSON strings also require backslashes to be escaped.
+Modded registry IDs work when the corresponding content is installed. An exact-match regex must escape literal dots where relevant; JSON strings also require backslashes to be escaped.
 
 ### Structures and loading
 
@@ -76,4 +76,4 @@ Only loaded reference chunks and loaded structure-origin chunks are checked. Dif
 | `nameplateShowHealth` | `true` | Ten-segment health bar |
 | `nameplateShowHealthText` | `true` | Current and maximum HP text |
 
-Disabling every label element does not force a nameplate. Vanilla team visibility, viewer-relative invisibility and the global render-names setting are respected. Singleplayer rendering and live master-toggle behavior passed on NeoForge; other visual edge cases and actual two-client independence remain in the [QA checklist](FINAL_ACCEPTANCE.md).
+Disabling every label element does not force a nameplate. Vanilla team visibility, viewer-relative invisibility and the global render-names setting are respected.

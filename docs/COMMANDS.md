@@ -33,7 +33,3 @@ Check the active configuration:
 The validator shows up to 20 findings in chat and logs all findings. Unmatched entity patterns and rules for absent mods may be intentional; review their messages before removing rules. A passive mob without an attack attribute reports `n/a`.
 
 The optional Fzzy editor uses `/configure difficultyex`. Select **Changes > Apply Changes** to save; closing with **Done** alone does not apply pending edits.
-
-## Runtime boundary checks
-
-Both loaders passed permission denial, invalid numeric input, configured cap endpoints, non-mob and invalid-selector rejection, injured/dead health preservation and the validator's 20-detail output limit. All 25 fixture findings reached the server log. See [results and limits](VERIFICATION.md).

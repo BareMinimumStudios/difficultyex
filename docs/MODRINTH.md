@@ -8,8 +8,6 @@ Give your world MMORPG-style difficulty that grows with player progression. Diff
 
 Create a gentler starting biome, a dangerous Nether or dungeons with their own level ranges. Optional nameplates show mob levels, a health bar and current HP.
 
-**1.21.1 development preview:** packaged server startup, commands and save/restart checks pass on both loaders. Authenticated multiplayer, visual edge cases and broader gameplay acceptance remain pending. Older 1.20.1 files use different configuration and integrations. Choose the correct loader and Minecraft version.
-
 ## Make it your world
 
 - Set minimum and maximum levels by dimension, biome, structure or entity type.
@@ -47,17 +45,11 @@ Validate active rules, inspect a mob's stats, or change its level while preservi
 
 [Commands and examples](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/COMMANDS.md)
 
-## Updating from 1.20.1
-
-Supported legacy config fields import when the modern config is absent; the original file remains untouched. Supported saved mob-level compounds also import. Back up first. GeckoLib-specific nameplates, Traveler's Titles and old visual styling controls are not part of the current port.
-
-[Migration guide](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/MIGRATION.md) · [Compatibility](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/COMPATIBILITY.md)
-
 ## Find everything
 
 - [Documentation hub](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/README.md)
 - [Source](https://github.com/BareMinimumStudios/difficultyex/tree/1.21.1) · [Issues](https://github.com/BareMinimumStudios/difficultyex/issues)
-- [Port status](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/VERIFICATION.md) · [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md)
+- [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md)
 - [Modrinth](https://modrinth.com/mod/qdJ4GLvL) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex)
 - [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Community Discord](https://discord.gg/pcRw79hwey)
 - [License](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/LICENSE) · [Inherited MIT notice](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/ORIGINAL_MIT_LICENSE.txt)
