@@ -20,7 +20,7 @@ These are the dependency versions pinned by this branch, not a promise that ever
 
 Remnant must be present at runtime; the pinned PlayerEx download supplies it as a nested JAR. Development dependencies also declare it explicitly. Crunch is bundled. owo-lib is no longer required by DifficultyEx.
 
-The current Fabric build requires Loader **0.20 or newer**. Both standalone packaged-server and development checks passed with **0.20.1**. Current NeoForge packaged checks passed with **21.1.256**; development remains pinned separately. Both packaged servers passed commands, full save/restart and offline configuration changes. See [current packaged acceptance](CURRENT_PACKAGED_QA_2026-10-29.md) and [development notes](../DEVELOPMENT.md).
+The current Fabric build requires Loader **0.20 or newer**. Both standalone packaged-server and development checks passed with **0.20.1**. Current NeoForge packaged checks passed with **21.1.256**; development remains pinned separately. Both packaged servers passed commands, full save/restart and offline configuration changes. See [current packaged acceptance](VERIFICATION.md) and [development notes](../DEVELOPMENT.md).
 
 ## Set up
 

@@ -39,19 +39,15 @@ Verification needs only RELEASE_NOTES.md, build/release/manifest.json and the tw
 
 These hashes detect changes relative to the manifest. They are not a signed publisher identity or a replacement for obtaining the bundle from the intended CI run.
 
-The downloaded GitHub artifact and both actual CI JARs passed integrity, startup, commands and full-restart checks on October 29, 2026. See [artifact acceptance](CI_ARTIFACT_QA_2026-10-29.md). This does not replace the remaining release review.
+The downloaded GitHub artifact and both actual CI JARs passed integrity, startup, commands and full-restart checks on October 29, 2026. See [artifact acceptance](VERIFICATION.md). This does not replace the remaining release review.
 
 ## Before publication
 
 1. Review the [interactive acceptance run sheet](FINAL_ACCEPTANCE.md) for remaining multiplayer, client visual, human-gameplay and performance acceptance. Record which limitations the selected channel permits.
-2. Approve mod_version, the focused release notes and the chosen channel. Do not present this development port as fully accepted.
+2. Approve mod_version, the focused release notes and the chosen channel; confirm the version identifiers are available on both publishing platforms. Do not present this development port as fully accepted.
 3. Confirm repository secrets MODRINTH_TOKEN and CURSEFORGE_TOKEN exist and can upload to the intended projects. These permissions have not been tested locally.
 4. Review CI results, both JARs and the manifest from branch 1.21.1.
 5. Explicitly dispatch the publish workflow on 1.21.1 with the approved channel.
 6. Check both loaders on both platforms before announcing availability. Uploads are sequential; inspect what succeeded before retrying a partial failure.
 
 Version identifiers are `<mod_version>+1.21.1-fabric` and `<mod_version>+1.21.1-neoforge`. Normal builds and pushes do not publish. Actual upload acceptance remains pending.
-
-## Public version check
-
-On October 29, 2026, the Modrinth project API listed neither proposed identifier, 1.1.0+1.21.1-fabric nor 1.1.0+1.21.1-neoforge, and no published version targeting Minecraft 1.21.1. The GitHub repository release list was empty. This check does not reserve identifiers or verify CurseForge state, credentials or upload permissions; recheck before publication.

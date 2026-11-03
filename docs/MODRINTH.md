@@ -57,7 +57,7 @@ Supported legacy config fields import when the modern config is absent; the orig
 
 - [Documentation hub](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/README.md)
 - [Source](https://github.com/BareMinimumStudios/difficultyex/tree/1.21.1) · [Issues](https://github.com/BareMinimumStudios/difficultyex/issues)
-- [Port status](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/PORT_STATUS.md) · [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md)
+- [Port status](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/VERIFICATION.md) · [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md)
 - [Modrinth](https://modrinth.com/mod/qdJ4GLvL) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex)
 - [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Community Discord](https://discord.gg/pcRw79hwey)
 - [License](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/LICENSE) · [Inherited MIT notice](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/ORIGINAL_MIT_LICENSE.txt)

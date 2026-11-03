@@ -20,8 +20,6 @@ Supported prior Cardinal Components compound data is read for a saved mob level 
 
 ## Verified scope
 
-A production 1.20.1 config copy preserved the tested dimension, biome and blacklist entries without changing the original. Both modern persistence and supported legacy mob-level save/restart checks passed. See [production config results](BACKGROUND_QA_2026-10-09.md), [saved-mob results](COMMAND_AND_LEGACY_QA_2026-10-09.md) and [the parity audit](PARITY_AUDIT_1.20.1.md).
+A production 1.20.1 config copy preserved the tested dimension, biome and blacklist entries without changing the original. Modern persistence, supported legacy mob saves and migration recovery checks passed. See the [verification summary](VERIFICATION.md#configuration-and-migration).
 
-## Migration recovery regression checks
-
-Six additional filesystem regressions passed on October 29, 2026: the legacy JSON alternative, JSON5 precedence and one-time import, malformed preferred-file repair, blocked destination recovery, preservation of malformed modern configs, and no-input behavior. Successful recovery left only the final config file in the destination directory. The clean IDE build passed 69 tests across 14 suites with no failures, errors or skips. These checks verify importer recovery; downstream handling of a malformed modern config remains Fzzy Config behavior.
+Malformed preferred files and blocked destinations can be repaired and retried. Existing modern files are never overwritten; handling of malformed modern JSON5 belongs to Fzzy Config.

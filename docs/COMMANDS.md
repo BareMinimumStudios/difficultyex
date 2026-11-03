@@ -36,4 +36,4 @@ The optional Fzzy editor uses `/configure difficultyex`. Select **Changes > Appl
 
 ## Runtime boundary checks
 
-Both loaders passed permission denial, invalid numeric input, configured cap endpoints, non-mob and invalid-selector rejection, injured/dead health preservation and the validator's 20-detail output limit. All 25 fixture findings reached the server log. See [results and limits](COMMAND_BOUNDARIES_QA_2026-10-29.md).
+Both loaders passed permission denial, invalid numeric input, configured cap endpoints, non-mob and invalid-selector rejection, injured/dead health preservation and the validator's 20-detail output limit. All 25 fixture findings reached the server log. See [results and limits](VERIFICATION.md).

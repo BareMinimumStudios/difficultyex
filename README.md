@@ -72,7 +72,7 @@ See [commands and selectors](docs/COMMANDS.md).
 - [Documentation hub](docs/README.md)
 - [Installation](docs/INSTALLATION.md) · [Configuration](docs/CONFIGURATION.md) · [Commands](docs/COMMANDS.md)
 - [Upgrading from 1.20.1](docs/MIGRATION.md) · [Compatibility and limitations](docs/COMPATIBILITY.md)
-- [Development](DEVELOPMENT.md) · [Testing and port status](docs/PORT_STATUS.md) · [Changelog](CHANGELOG.md)
+- [Development](DEVELOPMENT.md) · [Testing and port status](docs/VERIFICATION.md) · [Changelog](CHANGELOG.md)
 - [CurseForge page copy](docs/CURSEFORGE.md) · [Modrinth page copy](docs/MODRINTH.md) · [Brand assets](docs/BRANDING.md)
 - [Report an issue](https://github.com/BareMinimumStudios/difficultyex/issues) · [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Discord](https://discord.gg/pcRw79hwey)
 
