@@ -37,7 +37,7 @@ cloche {
         modId = "difficultyex"
         name = "DifficultyEx"
         description = "Scales mob levels and combat stats with PlayerEx progression and world rules."
-        license = "BML-1.0"
+        license = "BML-1.1"
         author("pokesmells")
         url = "https://github.com/BareMinimumStudios/difficultyex"
         sources = "https://github.com/BareMinimumStudios/difficultyex"

@@ -6,6 +6,10 @@ All notable changes to DifficultyEx are documented here. This project follows
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the project license to The Bare Minimum License v1.1.
+
 ## [1.1.1] - 2026-11-27
 
 ### Added

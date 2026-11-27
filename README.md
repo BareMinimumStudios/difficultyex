@@ -2,7 +2,7 @@
 
 <img src="docs/assets/difficultyex-banner.png" alt="Difficulty EX" width="100%">
 
-[![License: BML 1.0](https://img.shields.io/badge/LICENSE-BML--1.0-FFFFFF?style=for-the-badge&labelColor=1A1A1A)](LICENSE)
+[![License: BML 1.1](https://img.shields.io/badge/LICENSE-BML--1.1-FFFFFF?style=for-the-badge&labelColor=1A1A1A)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/BareMinimumStudios/difficultyex/build.yml?branch=1.21.1&style=for-the-badge&label=BUILD&labelColor=1A1A1A)](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml)
 [![Issues](https://img.shields.io/github/issues/BareMinimumStudios/difficultyex?style=for-the-badge&labelColor=1A1A1A)](https://github.com/BareMinimumStudios/difficultyex/issues)
 
@@ -75,4 +75,4 @@ See [commands and selectors](docs/COMMANDS.md).
 - [CurseForge page copy](docs/CURSEFORGE.md) · [Modrinth page copy](docs/MODRINTH.md)
 - [Report an issue](https://github.com/BareMinimumStudios/difficultyex/issues) · [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Discord](https://discord.gg/pcRw79hwey)
 
-Code and artwork use [The Bare Minimum License v1.0](LICENSE). The [inherited MIT notice](docs/ORIGINAL_MIT_LICENSE.txt) is retained for historical portions.
+Code and artwork use [The Bare Minimum License v1.1](LICENSE). The [inherited MIT notice](docs/ORIGINAL_MIT_LICENSE.txt) is retained for historical portions.
