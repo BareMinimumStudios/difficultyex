@@ -71,7 +71,7 @@ jobs:
           name: ${{ steps.version.outputs.number }}-fabric
           version: ${{ steps.version.outputs.number }}-fabric
           version-type: ${{ inputs.release_type }}
-          changelog-file: RELEASE_NOTES.md
+          changelog-file: build/release/notes.md
           loaders: fabric
           game-versions: 1.21.1
           java: 21
@@ -97,7 +97,7 @@ jobs:
           name: ${{ steps.version.outputs.number }}-neoforge
           version: ${{ steps.version.outputs.number }}-neoforge
           version-type: ${{ inputs.release_type }}
-          changelog-file: RELEASE_NOTES.md
+          changelog-file: build/release/notes.md
           loaders: neoforge
           game-versions: 1.21.1
           java: 21
@@ -124,7 +124,7 @@ jobs:
           fi
           gh release create "$RELEASE_VERSION" \
             --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-            --title "$RELEASE_VERSION" --notes-file RELEASE_NOTES.md \
+            --title "$RELEASE_VERSION" --notes-file build/release/notes.md \
             "${release_flags[@]}" \
             build/libs/*-fabric-1.21.1.jar build/libs/*-neoforge-1.21.1.jar
       - name: Upload test reports

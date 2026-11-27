@@ -6,5 +6,5 @@
 - [Configuration](CONFIGURATION.md)
 - [Operator commands](COMMANDS.md)
 - [Development](../DEVELOPMENT.md) · [Publishing](RELEASING.md)
-- [Release notes](../RELEASE_NOTES.md) · [Changelog](../CHANGELOG.md)
+- [Changelog](../CHANGELOG.md)
 - [CurseForge page copy](CURSEFORGE.md) · [Modrinth page copy](MODRINTH.md)

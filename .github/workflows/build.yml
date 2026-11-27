@@ -46,7 +46,8 @@ jobs:
             build/libs/*-fabric-1.21.1.jar
             build/libs/*-neoforge-1.21.1.jar
             build/release/manifest.json
-            RELEASE_NOTES.md
+            build/release/notes.md
+            CHANGELOG.md
           if-no-files-found: error
           retention-days: 14
       - name: Upload test reports

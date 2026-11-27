@@ -18,7 +18,7 @@ DifficultyEx adds configurable MMORPG-style mob levels built around PlayerEx. Se
 
 Nearby players' PlayerEx levels determine new mob levels. DifficultyEx scales maximum health, armor, melee attack damage, and base XP rewards. Optional nameplates show a mob's level, a health bar, and current/max HP.
 
-Download **DifficultyEx 1.1.0** for Minecraft **1.21.1** on [Modrinth](https://modrinth.com/mod/qdJ4GLvL/versions) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex/files/all). Choose the build for **Fabric** or **NeoForge**.
+Download **DifficultyEx** for Minecraft **1.21.1** on [Modrinth](https://modrinth.com/mod/qdJ4GLvL/versions) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex/files/all). Choose the build for **Fabric** or **NeoForge**.
 
 ## What you can configure
 

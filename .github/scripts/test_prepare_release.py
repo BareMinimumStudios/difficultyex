@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 
-from prepare_release import prepare, verify
+from prepare_release import NOTES_PATH, prepare, verify
 
 
 class ReleasePreflightTest(unittest.TestCase):
@@ -15,7 +15,12 @@ class ReleasePreflightTest(unittest.TestCase):
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
         (self.root / "gradle.properties").write_bytes(b"mod_version=1.1.0\r\n")
-        (self.root / "RELEASE_NOTES.md").write_text("# DifficultyEx 1.1.0 for Minecraft 1.21.1\n\nPort notes.\n")
+        self.changelog = self.root / "CHANGELOG.md"
+        self.changelog.write_text(
+            "# Changelog\n\n## [Unreleased]\n\n### Added\n\n- Future notes.\n\n"
+            "## [1.1.0] - 2026-11-03\n\n### Changed\n\n- Port notes.\n\n"
+            "## [1.0.0] - 2025-01-01\n\n### Added\n\n- Old notes.\n"
+        )
         self.libs = self.root / "build/libs"
         self.libs.mkdir(parents=True)
         for loader in ("fabric", "neoforge"):
@@ -61,14 +66,21 @@ class ReleasePreflightTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             prepare(self.root, "alpha")
 
-    def test_missing_or_mismatched_notes(self):
-        notes = self.root / "RELEASE_NOTES.md"
-        notes.unlink()
-        with self.assertRaises(ValueError):
-            prepare(self.root, "alpha")
-        notes.write_text("# DifficultyEx 0.9.0 for Minecraft 1.20.1\n")
-        with self.assertRaises(ValueError):
-            prepare(self.root, "alpha")
+    def test_notes_only_include_the_current_version_entry(self):
+        manifest = prepare(self.root, "release")
+        self.assertEqual(NOTES_PATH.as_posix(), manifest["notes"])
+        self.assertEqual(
+            "# DifficultyEx 1.1.0 for Minecraft 1.21.1\n\n### Changed\n\n- Port notes.\n",
+            (self.root / NOTES_PATH).read_text(encoding="utf-8"),
+        )
+
+    def test_rejects_stale_or_invalid_current_entry(self):
+        valid = self.changelog.read_text()
+        for entry in ("[1.2.0] - 2026-11-03", "[1.1.0]", "[1.1.0] - 2026-02-30"):
+            with self.subTest(entry=entry):
+                self.changelog.write_text(valid.replace("[1.1.0] - 2026-11-03", entry))
+                with self.assertRaises(ValueError):
+                    prepare(self.root, "release")
 
     def test_invalid_or_duplicate_versions(self):
         for text in ("", "mod_version=\n", "mod_version=1.1.0\nmod_version=2.0.0\n", "mod_version=1.1.0 bad\n"):
@@ -92,14 +104,22 @@ class ReleasePreflightTest(unittest.TestCase):
     def write_manifest(self):
         manifest = prepare(self.root, "beta")
         destination = self.root / "build/release/manifest.json"
-        destination.parent.mkdir(parents=True)
         destination.write_text(json.dumps(manifest))
         return destination, manifest
 
     def test_verify_downloaded_bundle_without_gradle_properties(self):
         _, expected = self.write_manifest()
         (self.root / "gradle.properties").unlink()
+        self.changelog.unlink()
         self.assertEqual(expected, verify(self.root))
+
+    def test_verify_accepts_legacy_notes_location(self):
+        destination, manifest = self.write_manifest()
+        legacy_notes = self.root / "RELEASE_NOTES.md"
+        (self.root / NOTES_PATH).rename(legacy_notes)
+        manifest["notes"] = legacy_notes.name
+        destination.write_text(json.dumps(manifest))
+        self.assertEqual(manifest, verify(self.root))
 
     def test_verify_rejects_same_size_jar_changes(self):
         self.write_manifest()
@@ -109,7 +129,7 @@ class ReleasePreflightTest(unittest.TestCase):
 
     def test_verify_rejects_note_changes(self):
         self.write_manifest()
-        with (self.root / "RELEASE_NOTES.md").open("a") as notes:
+        with (self.root / NOTES_PATH).open("a") as notes:
             notes.write("Changed after preparation.\n")
         with self.assertRaises(ValueError):
             verify(self.root)

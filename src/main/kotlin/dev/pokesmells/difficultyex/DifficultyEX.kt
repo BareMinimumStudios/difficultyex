@@ -50,15 +50,15 @@ object DifficultyEx {
         val cfg = settings
         val mobId = BuiltInRegistries.ENTITY_TYPE.getKey(mob.type).toString()
         if (cfg.mobBlacklist.any { match(it, mobId) }) return
-        val nearby = world.players().filter {
-            DifficultyPlayerLevelMath.eligible(it.isSpectator, it.distanceToSqr(mob), cfg.playerRadius)
-        }
         val expr = expressions.computeIfAbsent(cfg.playerLevelFormula) {
             runCatching { Crunch.compileExpression(it, ExpressionEnv().setVariableNames("x")) }
                 .onFailure { error -> logger.warn("Invalid difficulty formula: {}", it, error) }
                 .getOrElse { Crunch.compileExpression("x", ExpressionEnv().setVariableNames("x")) }
         }
-        val transformedLevels = nearby.map { expr.evaluate(PlayerStateService.get(it).level.toDouble()) }
+        val transformedLevels = world.players().asSequence()
+            .filter { DifficultyPlayerLevelMath.eligible(it.isSpectator, it.distanceToSqr(mob), cfg.playerRadius) }
+            .map { expr.evaluate(PlayerStateService.get(it).level.toDouble()) }
+            .asIterable()
         val mean = DifficultyPlayerLevelMath.averageTransformedLevels(transformedLevels, cfg.startingLevel)
         val lower = cfg.averageDecrement.coerceIn(0, 1000000)
         val upper = cfg.averageIncrement.coerceIn(0, 1000000)

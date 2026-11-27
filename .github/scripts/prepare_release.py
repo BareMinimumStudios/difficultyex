@@ -1,4 +1,5 @@
 import argparse
+from datetime import date
 import hashlib
 import json
 from pathlib import Path
@@ -6,6 +7,26 @@ import re
 
 MINECRAFT = "1.21.1"
 LOADERS = ("fabric", "neoforge")
+NOTES_PATH = Path("build/release/notes.md")
+CATEGORIES = {"Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"}
+
+
+def release_notes(root: Path, version: str) -> bytes:
+    changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
+    headings = list(re.finditer(r"^## (.+)$", changelog, re.MULTILINE))
+    if len(headings) < 2 or headings[0][1] != "[Unreleased]":
+        raise ValueError("CHANGELOG.md must begin with an Unreleased section followed by a versioned entry")
+    heading = re.fullmatch(rf"\[{re.escape(version)}\] - (\d{{4}}-\d{{2}}-\d{{2}})", headings[1][1])
+    if not heading:
+        raise ValueError(f"Latest changelog entry must be [{version}] with a YYYY-MM-DD date")
+    date.fromisoformat(heading[1])
+    end = headings[2].start() if len(headings) > 2 else len(changelog)
+    body = changelog[headings[1].end():end]
+    body = re.split(r"^\[[^\n]+\]: ", body, maxsplit=1, flags=re.MULTILINE)[0].strip()
+    categories = set(re.findall(r"^### (.+)$", body, re.MULTILINE))
+    if not categories or categories - CATEGORIES or not re.search(r"^- \S", body, re.MULTILINE):
+        raise ValueError("Latest changelog entry must contain categorized changes")
+    return f"# DifficultyEx {version} for Minecraft {MINECRAFT}\n\n{body}\n".encode("utf-8")
 
 
 def prepare(root: Path, release_type: str) -> dict:
@@ -15,11 +36,7 @@ def prepare(root: Path, release_type: str) -> dict:
     if len(versions) != 1 or not re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?", versions[0]):
         raise ValueError("Expected exactly one valid mod_version in gradle.properties")
     version = versions[0]
-    notes = root / "RELEASE_NOTES.md"
-    if not notes.is_file() or not notes.read_text(encoding="utf-8").startswith(
-        f"# DifficultyEx {version} for Minecraft {MINECRAFT}\n"
-    ):
-        raise ValueError("RELEASE_NOTES.md must start with the current mod version and Minecraft version")
+    notes = release_notes(root, version)
     artifacts = []
     for loader in LOADERS:
         matches = list((root / "build/libs").glob(f"*-{loader}-{MINECRAFT}.jar"))
@@ -37,13 +54,16 @@ def prepare(root: Path, release_type: str) -> dict:
             "bytes": artifact.stat().st_size,
             "sha256": digest,
         })
+    destination = root / NOTES_PATH
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(notes)
     return {
         "version": f"{version}+{MINECRAFT}",
         "releaseType": release_type,
         "minecraft": MINECRAFT,
         "java": 21,
-        "notes": notes.relative_to(root).as_posix(),
-        "notesSha256": hashlib.sha256(notes.read_bytes()).hexdigest(),
+        "notes": NOTES_PATH.as_posix(),
+        "notesSha256": hashlib.sha256(notes).hexdigest(),
         "artifacts": artifacts,
     }
 
@@ -58,9 +78,10 @@ def verify(root: Path) -> dict:
         raise ValueError("Invalid manifest version or runtime target")
     if manifest.get("releaseType") not in ("alpha", "beta", "release"):
         raise ValueError("Invalid manifest release type")
-    if manifest.get("notes") != "RELEASE_NOTES.md":
+    notes_path = manifest.get("notes")
+    if notes_path not in (NOTES_PATH.as_posix(), "RELEASE_NOTES.md"):
         raise ValueError("Invalid manifest notes path")
-    notes = root / "RELEASE_NOTES.md"
+    notes = root / notes_path
     if hashlib.sha256(notes.read_bytes()).hexdigest() != manifest.get("notesSha256"):
         raise ValueError("Release notes hash does not match the manifest")
     if not notes.read_text(encoding="utf-8").startswith(f"# DifficultyEx {match[1]} for Minecraft {MINECRAFT}\n"):

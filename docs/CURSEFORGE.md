@@ -11,7 +11,7 @@ DifficultyEx brings configurable RPG-style mob levels to Minecraft. New mobs are
 
 ## Install
 
-**DifficultyEx 1.1.0** supports **Minecraft 1.21.1** on **Fabric and NeoForge** with **Java 21**. Install matching builds and dependencies on the server and clients.
+**DifficultyEx** supports **Minecraft 1.21.1** on **Fabric and NeoForge** with **Java 21**. Install matching builds and dependencies on the server and clients.
 
 Both builds use PlayerEx, Data Attributes, and Fzzy Config. The tested PlayerEx build includes Remnant. Fabric also needs Fabric Loader 0.20+, Fabric API, and Fabric Language Kotlin. NeoForge needs the complete Kotlin for Forge distribution.
 
