@@ -6,7 +6,7 @@
 2. Build both loaders and run the preflight below with Python 3.11 or newer.
 3. Set MODRINTH_TOKEN and CURSEFORGE_TOKEN in repository secrets.
 4. Dispatch the publish workflow on branch 1.21.1. The default channel is release; alpha and beta remain available.
-5. Check both loader files on both platforms after upload.
+5. Check both loader files on Modrinth and CurseForge, and both JAR attachments on the GitHub Release.
 
 ```powershell
 python .github/scripts/test_prepare_release.py
@@ -16,4 +16,4 @@ python .github/scripts/prepare_release.py --verify
 
 The manifest in build/release/manifest.json records JAR sizes/hashes and the release-notes hash. To verify an extracted CI artifact, add `--root "C:/path/to/artifact"` to the verification command.
 
-Version identifiers are `<mod_version>+1.21.1-fabric` and `<mod_version>+1.21.1-neoforge`. Uploads are sequential; inspect completed uploads before retrying a partial failure. Normal pushes do not publish.
+Modrinth and CurseForge version identifiers are `<mod_version>+1.21.1-fabric` and `<mod_version>+1.21.1-neoforge`. GitHub uses one release and tag named `<mod_version>+1.21.1` for both JARs, with `RELEASE_NOTES.md` as the release body. Alpha and beta dispatches create GitHub prereleases. Uploads are sequential; inspect completed uploads before retrying a partial failure. Normal pushes do not publish.
