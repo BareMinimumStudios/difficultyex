@@ -50,8 +50,11 @@ public final class DifficultyExNameplates {
         if (viewer.distanceToSqr(mob) > (double) distance * distance) return false;
         if (!viewer.hasLineOfSight(mob)) return false;
 
+        var blacklist = settings.getNameplateBlacklist();
+        if (blacklist.isEmpty()) return true;
+
         String entityId = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString();
-        for (String pattern : settings.getNameplateBlacklist()) {
+        for (String pattern : blacklist) {
             if (DifficultyEx.match(pattern, entityId)) return false;
         }
         return true;

@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.Attributes
+import org.slf4j.LoggerFactory
 
 /**
  * Server-only inspection and testing tools. Never changes player progression.
@@ -82,7 +83,7 @@ object DifficultyExCommands {
         source.sendFailure(Component.literal("Active DifficultyEx config: ${issues.size} issue(s). No settings changed."))
         issues.take(20).forEach { source.sendFailure(Component.literal(it)) }
         if (issues.size > 20) source.sendFailure(Component.literal("${issues.size - 20} more issue(s); all issues were written to the server log."))
-        val logger = org.slf4j.LoggerFactory.getLogger("difficultyex/config-check")
+        val logger = LoggerFactory.getLogger("difficultyex/config-check")
         issues.forEach { logger.warn("{}", it) }
         return 0
     }

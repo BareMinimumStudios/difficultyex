@@ -1,5 +1,6 @@
 package dev.pokesmells.difficultyex
 
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 /** Client-label formatting calculations, independent of Minecraft rendering. */
@@ -22,6 +23,6 @@ object DifficultyNameplateHealth {
     @JvmStatic
     fun displayedHealth(health: Float): Int {
         if (!health.isFinite() || health <= 0f) return 0
-        return kotlin.math.ceil(health.toDouble()).toInt().coerceAtLeast(1)
+        return ceil(health.toDouble()).toInt().coerceAtLeast(1)
     }
 }

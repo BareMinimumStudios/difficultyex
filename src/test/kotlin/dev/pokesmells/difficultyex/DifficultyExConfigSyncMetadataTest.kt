@@ -1,5 +1,6 @@
 package dev.pokesmells.difficultyex
 
+import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.FieldVisitor
@@ -51,7 +52,7 @@ class DifficultyExConfigSyncMetadataTest {
                 return object : FieldVisitor(Opcodes.ASM9) {
                     override fun visitAnnotation(
                         descriptor: String, visible: Boolean
-                    ): org.objectweb.asm.AnnotationVisitor? {
+                    ): AnnotationVisitor? {
                         if (visible) annotations.getOrPut(name) { mutableSetOf() }.add(descriptor)
                         return null
                     }
@@ -76,7 +77,7 @@ class DifficultyExConfigSyncMetadataTest {
                     val property = name.removePrefix("get").removeSuffix("\$annotations")
                         .replaceFirstChar { it.lowercase() }
                     return object : MethodVisitor(Opcodes.ASM9) {
-                        override fun visitAnnotation(descriptor: String, visible: Boolean): org.objectweb.asm.AnnotationVisitor? {
+                        override fun visitAnnotation(descriptor: String, visible: Boolean): AnnotationVisitor? {
                             if (visible && descriptor == nonSyncDescriptor) properties.add(property)
                             return null
                         }
