@@ -16,9 +16,9 @@
 
 DifficultyEx adds configurable MMORPG-style mob levels built around PlayerEx. Set gentler limits for a starting biome, raise the stakes in the Nether, or give a dungeon its own level range.
 
-Nearby players' progression helps determine new mob levels. Health, armor, attack damage and XP rewards scale with those levels. Optional nameplates show what players are facing.
+Nearby players' PlayerEx levels determine new mob levels. DifficultyEx scales maximum health, armor, melee attack damage, and base XP rewards. Optional nameplates show a mob's level, a health bar, and current/max HP.
 
-Available for Minecraft **1.21.1** on **Fabric and NeoForge**. Install matching builds on the server and clients.
+Download **DifficultyEx 1.1.0** for Minecraft **1.21.1** on [Modrinth](https://modrinth.com/mod/qdJ4GLvL/versions) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex/files/all). Choose the build for **Fabric** or **NeoForge**.
 
 ## What you can configure
 
@@ -26,11 +26,11 @@ Available for Minecraft **1.21.1** on **Fabric and NeoForge**. Install matching 
 | --- | --- |
 | Player progression | PlayerEx level formula, nearby-player radius and random variation |
 | Areas | Minimum and maximum levels by dimension, biome and loaded structure |
-| Individual mobs | Entity IDs, regular expressions and a scaling blacklist |
+| Individual mobs | Minimum and maximum levels by entity ID or regular expression, plus a blacklist for initial scaling |
 | Combat and rewards | Health, armor, attack damage and XP rates |
 | Nameplates | Level, health bar, HP text, range, hostile-only display and blacklist |
 
-Mobs keep their assigned level when saved and reloaded. Server gameplay settings and client nameplate preferences are separate.
+Mobs keep their assigned level when saved and reloaded. The server controls mob scaling, and each client controls its nameplate preferences.
 
 ## Install
 

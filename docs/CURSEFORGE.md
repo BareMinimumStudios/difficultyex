@@ -1,55 +1,36 @@
 ![Difficulty EX](https://raw.githubusercontent.com/BareMinimumStudios/difficultyex/1.21.1/docs/assets/difficultyex-banner.png)
 
-# Difficulty EX
+DifficultyEx brings configurable RPG-style mob levels to Minecraft. New mobs are assigned a level based on nearby players' **PlayerEx levels**. Set a gentler starting biome, a tougher Nether, or a dungeon with its own level range.
 
-**Minecraft 1.21.1 · Fabric + NeoForge · Java 21**
+## Features
 
-Give your world MMORPG-style difficulty that grows with player progression. DifficultyEx uses nearby players' PlayerEx levels to assign mob levels, then scales health, armor, attack damage and XP rewards.
+- **Progression**: Set the player radius, level formula, and random variation. Mobs keep their assigned levels through saves and restarts.
+- **Area and mob rules**: Set minimum and maximum levels by dimension, biome, loaded structure, or mob type. Exclude selected mobs from initial scaling.
+- **Combat and rewards**: Tune maximum health, armor, melee attack damage, and base XP rewards independently.
+- **Optional nameplates**: Show mob level, a health bar, and current/max HP. Each player can adjust range, show only hostile mobs, or hide specific mob types.
 
-Create a gentler starting biome, a dangerous Nether or dungeons with their own level ranges. Optional nameplates show mob levels, a health bar and current HP.
+## Install
 
-## Make it your world
+**DifficultyEx 1.1.0** supports **Minecraft 1.21.1** on **Fabric and NeoForge** with **Java 21**. Install matching builds and dependencies on the server and clients.
 
-- Set minimum and maximum levels by dimension, biome, structure or entity type.
-- Tune the nearby-player formula, radius and random level variation.
-- Adjust health, armor, attack damage and XP rates.
-- Exclude mobs from scaling or hide selected nameplates.
-- Choose level text, health bar, HP text, range and hostile-only display.
-- Keep assigned mob levels through save and restart.
+Both builds use PlayerEx, Data Attributes, and Fzzy Config. The tested PlayerEx build includes Remnant. Fabric also needs Fabric Loader 0.20+, Fabric API, and Fabric Language Kotlin. NeoForge needs the complete Kotlin for Forge distribution.
 
-Structure rules inspect loaded chunks and loaded origins only. They do not force-load terrain, and later origin loading does not reroll existing mobs.
+[CurseForge files](https://www.curseforge.com/minecraft/mc-mods/difficultyex/files/all) · [Installation and tested dependency versions](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/INSTALLATION.md)
 
-## Installation
+## Configure
 
-Install matching builds on the server and clients. Fabric requires Loader 0.20 or newer; this branch is tested with 0.20.1. Both loaders need PlayerEx 5.0.1, Data Attributes 3.0.0 and Fzzy Config 0.7.7 for the loader. The pinned PlayerEx supplies Remnant 3.0.0. Fabric also needs Fabric API and Fabric Language Kotlin; NeoForge needs the complete Kotlin for Forge distribution. Java 21 is required.
-
-[Installation guide and tested versions](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/INSTALLATION.md)
-
-## Configuration
-
-Settings are stored in `config/difficultyex/config.json5`. Edit while stopped, then restart, or use the optional `/configure difficultyex` editor. Choose **Changes > Apply Changes** to save. Server gameplay rules and client nameplate choices are separate. owo-lib is no longer required by this port.
+Edit `config/difficultyex/config.json5` while the game or server is stopped, then restart. You can also use Fzzy Config's in-game editor with `/configure difficultyex`. Select **Changes > Apply Changes** to save. The server controls mob scaling, and each client controls its nameplate preferences.
 
 [Configuration reference and examples](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/CONFIGURATION.md)
 
-## Operator tools
+## Operator commands
 
-All administration commands require permission level 2.
+- `/difficultyex validate` checks the active configuration.
+- `/difficultyex inspect <target>` shows a mob's level and stats.
+- `/difficultyex set <target> <level>` changes a mob's level and preserves its health percentage.
 
-```text
-/difficultyex validate
-/difficultyex inspect <target>
-/difficultyex set <target> <level>
-```
+[Permissions and command examples](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/COMMANDS.md)
 
-Validate active rules, inspect a mob's stats, or change its level while preserving its health percentage. These commands do not change player progression.
+[Documentation](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/README.md) · [Source](https://github.com/BareMinimumStudios/difficultyex/tree/1.21.1) · [Issues](https://github.com/BareMinimumStudios/difficultyex/issues) · [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md) · [Modrinth](https://modrinth.com/mod/qdJ4GLvL) · [Discord](https://discord.gg/pcRw79hwey)
 
-[Commands and examples](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/COMMANDS.md)
-
-## Find everything
-
-- [Documentation hub](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/README.md)
-- [Source](https://github.com/BareMinimumStudios/difficultyex/tree/1.21.1) · [Issues](https://github.com/BareMinimumStudios/difficultyex/issues)
-- [Changelog](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/CHANGELOG.md)
-- [Modrinth](https://modrinth.com/mod/qdJ4GLvL) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/difficultyex)
-- [Bare Minimum Studios](https://github.com/BareMinimumStudios) · [Community Discord](https://discord.gg/pcRw79hwey)
-- [License](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/LICENSE) · [Inherited MIT notice](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/ORIGINAL_MIT_LICENSE.txt)
+[License](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/LICENSE) · [Inherited MIT notice](https://github.com/BareMinimumStudios/difficultyex/blob/1.21.1/docs/ORIGINAL_MIT_LICENSE.txt)
