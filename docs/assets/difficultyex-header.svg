@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1620" height="540" viewBox="0 0 1620 540">
+<rect width="1620" height="540" fill="#191815"/>
+<path d="M116 88h1388l36 36v292l-36 36H116l-36-36V124z" stroke="#37332A" stroke-width="2" fill="none"/>
+<g transform="translate(151 139)"><path fill="#F6F0E4" d="M76 12h139a29 29 0 0 1 29 29v174a29 29 0 0 1-29 29H41a29 29 0 0 1-29-29V76z"/>
+<path fill="#191815" fill-rule="evenodd" d="M41 104h44c34 0 55 21 55 50s-21 50-55 50H41zm25 24v52h18c18 0 30-10 30-26s-12-26-30-26z"/>
+<path fill="#191815" d="M135 104h30l17 28 17-28h30l-32 49 33 51h-30l-18-30-18 30h-30l33-51z"/>
+<rect x="147" y="43" width="14" height="36" rx="3" fill="#21834F"/>
+<rect x="173" y="43" width="14" height="36" rx="3" fill="#F5B331"/>
+<rect x="199" y="43" width="14" height="36" rx="3" fill="#E8492C"/></g>
+<text x="465" y="310" fill="#F6F0E4" font-family="Arial, sans-serif" font-size="151" font-weight="700" letter-spacing="-5">Difficulty EX</text>
+<path d="M473 353h88v9h-88z" fill="#21834F"/>
+<path d="M569 353h88v9h-88z" fill="#F5B331"/>
+<path d="M665 353h88v9h-88z" fill="#E8492C"/>
+</svg>

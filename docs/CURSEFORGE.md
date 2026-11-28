@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-<img src="https://raw.githubusercontent.com/BareMinimumStudios/difficultyex/1.21.1/docs/assets/difficultyex-banner.png" alt="Difficulty EX" width="1080">
+<img src="https://raw.githubusercontent.com/BareMinimumStudios/difficultyex/1.21.1/docs/assets/difficultyex-header.png" alt="Difficulty EX" width="1080">
 </p>
 
 <p align="center" style="text-align: center;">

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/difficultyex-banner.png" alt="Difficulty EX" width="100%">
+<img src="docs/assets/difficultyex-header.png" alt="Difficulty EX" width="100%">
 
 [![License: BML 1.1](https://img.shields.io/badge/LICENSE-BML--1.1-FFFFFF?style=for-the-badge&labelColor=1A1A1A)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/BareMinimumStudios/difficultyex/build.yml?branch=1.21.1&style=for-the-badge&label=BUILD&labelColor=1A1A1A)](https://github.com/BareMinimumStudios/difficultyex/actions/workflows/build.yml)
