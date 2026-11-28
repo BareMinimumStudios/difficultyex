@@ -3,12 +3,12 @@
 </p>
 
 <p align="center" style="text-align: center;">
-<a href="https://modrinth.com/mod/qdJ4GLvL"><img src="https://img.shields.io/badge/Modrinth-133329?logo=modrinth&amp;logoColor=8CFFCF&amp;style=for-the-badge" alt="Modrinth" height="28"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/difficultyex"><img src="https://img.shields.io/badge/CurseForge-39232B?logo=curseforge&amp;logoColor=FFA880&amp;style=for-the-badge" alt="CurseForge" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/difficultyex"><img src="https://img.shields.io/badge/Source-242B49?logo=github&amp;logoColor=EAF0FF&amp;style=for-the-badge" alt="GitHub source" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/difficultyex/issues"><img src="https://img.shields.io/github/issues/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Report an issue" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/difficultyex/forks"><img src="https://img.shields.io/github/forks/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Forks" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/difficultyex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Stars" height="28"></a>
+<a href="https://modrinth.com/mod/qdJ4GLvL"><img src="https://img.shields.io/badge/Modrinth-163326?logo=modrinth&amp;logoColor=42C783&amp;style=for-the-badge" alt="Modrinth" height="28"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/difficultyex"><img src="https://img.shields.io/badge/CurseForge-3E211B?logo=curseforge&amp;logoColor=FF775F&amp;style=for-the-badge" alt="CurseForge" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/difficultyex"><img src="https://img.shields.io/badge/Source-191815?logo=github&amp;logoColor=F5F1E8&amp;style=for-the-badge" alt="GitHub source" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/difficultyex/issues"><img src="https://img.shields.io/github/issues/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=191815&amp;color=9B3526" alt="Report an issue" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/difficultyex/forks"><img src="https://img.shields.io/github/forks/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=191815&amp;color=1D714B" alt="Forks" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/difficultyex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/difficultyex?style=for-the-badge&amp;labelColor=191815&amp;color=795006" alt="Stars" height="28"></a>
 </p>
 
 <p align="center" style="text-align: center;"><strong>Minecraft 1.21.1 · Fabric + NeoForge · Java 21</strong></p>
